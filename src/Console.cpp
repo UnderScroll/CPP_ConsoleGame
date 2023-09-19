@@ -1,8 +1,7 @@
 #include "Console.h"
 
-LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
+LONG_PTR Console::setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 {
-	/*The function does not clear the last error information. if last value was zero.*/
 	SetLastError(NO_ERROR);
 
 	HWND hwnd_console = GetConsoleWindow();
@@ -12,30 +11,32 @@ LONG_PTR setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 	//show window after updating
 	ShowWindow(hwnd_console, SW_SHOW);
 
+	CONSOLE_CURSOR_INFO  cursorInfo;
+
+	GetConsoleCursorInfo(handle, &cursorInfo);
+	cursorInfo.bVisible = false; // set the cursor visibility
+	SetConsoleCursorInfo(handle, &cursorInfo);
+
 	return style_ptr;
 }
 
 void Console::setup() {
 	LONG_PTR new_style = WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL;
 	setConsoleWindowStyle(GWL_STYLE, new_style);
+
+	readConsoleOutput();
 }
 
-
-void Console::displayBuffer() {
-	ReadConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
-		dwBufferCoord, &rcRegion);
-
+void Console::writeConsoleOutput() {
 	WriteConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
 }
 
-void Console::draw() {
-	buffer[5][10].Char.AsciiChar = 'H';
-	buffer[5][10].Attributes = 0x0E;
-	buffer[5][11].Char.AsciiChar = 'i';
-	buffer[5][11].Attributes = 0x0B;
-	buffer[5][12].Char.AsciiChar = '!';
-	buffer[5][12].Attributes = 0x0A;
+void Console::readConsoleOutput() {
+	ReadConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
+		dwBufferCoord, &rcRegion);
+}
 
-	displayBuffer();
+void Console::display() {
+	writeConsoleOutput();
 }

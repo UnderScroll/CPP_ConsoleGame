@@ -12,5 +12,5 @@ private:
 
 	static bool isOpen;
 
-	static Console cons;
+	static Console console;
 };

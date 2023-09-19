@@ -1,35 +1,34 @@
 #include "Application.h"
+
 #include <iostream>
 
+#include "Character.h"
+
 bool Application::isOpen = true; //Init isOpen state
-Console Application::cons = Console();
+Console Application::console = Console();
 
 void Application::run() {
-	std::cout << "[INFO] Starting application" << std::endl;
-	
 	setup();
 	while (isOpen) {
 		input();
 		update();
 		draw();
 	}
-
-	std::cout << "[INFO] Ending application" << std::endl;
 }
 
 void Application::setup() {
-	std::cout << "[INFO] Setting up..." << std::endl;
-	cons.setup();
+	console.setup();
 }
 
 void Application::input() {
-
 }
 
 void Application::update() {
-
+	
 }
 
 void Application::draw() {
-	cons.draw();
+	Character character = Character();
+	character.draw(console);
+	console.display();
 }
