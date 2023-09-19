@@ -3,5 +3,5 @@
 
 class Character : public Drawable {
 public:
-	void draw(Console& console);
+	void Draw(Console& console);
 };

@@ -29,6 +29,6 @@ void Application::update() {
 
 void Application::draw() {
 	Character character = Character();
-	character.draw(console);
+	character.Draw(console);
 	console.display();
 }

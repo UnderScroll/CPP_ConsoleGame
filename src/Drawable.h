@@ -4,5 +4,6 @@ class Console;
 
 class Drawable {
 public:
-	void draw(Console& console);
+	virtual void Draw(Console& console)=0;
+	void ProcessLine(Console& console, Vector2 start, Vector2 end);
 };
