@@ -153,6 +153,7 @@
     <ClInclude Include="src\Character.h" />
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Drawable.h" />
+    <ClInclude Include="src\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

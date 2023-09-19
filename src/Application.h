@@ -1,16 +1,27 @@
 #pragma once
 #include "Console.h"
+#include "Character.h"
+#include <chrono>
 
 class Application {
 public:
-	static void run();
+	static void Run() { instance.InstanceRun(); };
+
+	static Application& GetInstance() { return instance; }
 private:
-	static void setup();
-	static void input();
-	static void update();
-	static void draw();
+	Application() {};
 
-	static bool isOpen;
+	void InstanceRun();
 
-	static Console console;
+	void Setup();
+	void Input();
+	void Update();
+	void Draw();
+
+	bool isOpen;
+	Console console;
+	Character character;
+
+	static Application instance;
+	std::chrono::steady_clock clock;
 };

@@ -2,33 +2,35 @@
 
 #include <iostream>
 
-#include "Character.h"
+Application Application::instance = Application();
 
-bool Application::isOpen = true; //Init isOpen state
-Console Application::console = Console();
-
-void Application::run() {
-	setup();
+void Application::InstanceRun() {
+	Setup();
 	while (isOpen) {
-		input();
-		update();
-		draw();
+		Input();
+		Update();
+		Draw();
 	}
 }
 
-void Application::setup() {
-	console.setup();
+void Application::Setup() {
+	console.Setup();
+	isOpen = true;
+
+	character = Character();
 }
 
-void Application::input() {
+void Application::Input() {
 }
 
-void Application::update() {
-	
+void Application::Update() {
+	character.pos.x = ++character.pos.x % console.WIDTH;
 }
 
-void Application::draw() {
-	Character character = Character();
-	character.draw(console);
-	console.display();
+void Application::Draw() {
+	console.Clear();
+
+	character.Draw(console);
+
+	console.Display();
 }

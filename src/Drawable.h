@@ -4,5 +4,5 @@ class Console;
 
 class Drawable {
 public:
-	void draw(Console& console);
+	void Draw(Console& console);
 };
