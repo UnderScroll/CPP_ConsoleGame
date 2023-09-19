@@ -1,15 +1,20 @@
 #include "Application.h"
 
 #include <iostream>
+#include <thread>
 
 Application Application::instance = Application();
 
 void Application::InstanceRun() {
 	Setup();
 	while (isOpen) {
+		auto end = std::chrono::steady_clock::now() + std::chrono::milliseconds(1);
+		
 		Input();
 		Update();
 		Draw();
+
+		std::this_thread::sleep_until(end);
 	}
 }
 
