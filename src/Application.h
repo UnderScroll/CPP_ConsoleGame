@@ -1,4 +1,6 @@
 #pragma once
+#include "Console.h"
+
 class Application {
 public:
 	static void run();
@@ -9,4 +11,6 @@ private:
 	static void draw();
 
 	static bool isOpen;
+
+	static Console cons;
 };
