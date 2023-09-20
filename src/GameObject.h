@@ -6,10 +6,10 @@ class GameObject :
     public Drawable,
     public Collider 
 {
-    // Hérité via Drawable
+    // Hï¿½ritï¿½ via Drawable
 public:
     virtual void Draw()=0;
-    Vector2 _position = {0,0};
+    Vector2 _position = { 0, 0 };
     float _rotation = 0;
 };
 

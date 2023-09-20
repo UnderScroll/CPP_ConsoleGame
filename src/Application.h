@@ -2,6 +2,7 @@
 #include "Console.h"
 
 #include <chrono>
+#include <fstream>
 
 #include "PolygonObject.h"
 
@@ -25,5 +26,7 @@ private:
 	PolygonObject polygon;
 
 	static Application instance;
-	std::chrono::steady_clock clock;
+
+	unsigned long long frameCount = 0;
+	std::ofstream ofstream = std::ofstream("res/runtime.log");
 };
