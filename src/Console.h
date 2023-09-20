@@ -16,8 +16,8 @@ public:
 	void Display();
 	void Clear();
 
-	static const unsigned int WIDTH = 10 * 2;
-	static const unsigned int HEIGHT = 10;
+	static const unsigned int WIDTH = 100 * 2;
+	static const unsigned int HEIGHT = 100;
 
 	CHAR_INFO buffer[HEIGHT][WIDTH];
 };

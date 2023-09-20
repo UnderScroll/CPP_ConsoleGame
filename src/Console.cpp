@@ -1,5 +1,15 @@
 ﻿#include "Console.h"
 
+#include <iostream>
+
+BOOL SetConsoleFontSize(const HANDLE& handle, COORD dwFontSize) {
+	CONSOLE_FONT_INFOEX info{ sizeof(CONSOLE_FONT_INFOEX) };
+	if (!GetCurrentConsoleFontEx(handle, false, &info))
+		return false;
+	info.dwFontSize = dwFontSize;
+	return SetCurrentConsoleFontEx(handle, false, &info);
+}
+
 LONG_PTR Console::SetConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 {
 	SetLastError(NO_ERROR);
@@ -16,6 +26,8 @@ LONG_PTR Console::SetConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 	GetConsoleCursorInfo(handle, &cursorInfo);
 	cursorInfo.bVisible = false; // set the cursor visibility
 	SetConsoleCursorInfo(handle, &cursorInfo);
+
+	SetConsoleFontSize(handle, { 10, 10 });
 
 	return style_ptr;
 }

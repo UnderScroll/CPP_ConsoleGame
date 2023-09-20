@@ -3,12 +3,14 @@
 #include <iostream>
 #include <thread>
 
+#define MIN_FRAMETIME_MS 1000
+
 Application Application::instance = Application();
 
 void Application::InstanceRun() {
 	Setup();
 	while (isOpen) {
-		auto end = std::chrono::steady_clock::now() + std::chrono::milliseconds(10);
+		auto end = std::chrono::steady_clock::now() + std::chrono::milliseconds(MIN_FRAMETIME_MS);
 		
 		Input();
 		Update();
@@ -32,11 +34,10 @@ void Application::Input() {
 }
 
 void Application::Update() {
-	character._pos._x = ++character._pos._x;
-	if (character._pos._x >= console.WIDTH / 2) {
-		character._pos._x = console.WIDTH - character._pos._x;
-		character._pos._y = character._pos._y >= console.HEIGHT ? console.HEIGHT - character._pos._y : character._pos._y + 1;
-	}
+	character._pos._x++;
+	character._pos._x = (int)character._pos._x % (Console::WIDTH / 2);
+	character._pos._y++;
+	character._pos._y = (int)character._pos._y % Console::HEIGHT;
 }
 
 void Application::Draw() {
