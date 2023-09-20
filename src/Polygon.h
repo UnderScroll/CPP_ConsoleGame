@@ -1,6 +1,7 @@
 #pragma once
-#include "GameObject.h"
 #include <vector>
+
+#include "GameObject.h"
 #include "Vector2.h"
 
 class Polygon :

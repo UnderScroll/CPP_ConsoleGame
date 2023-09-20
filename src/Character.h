@@ -1,10 +1,10 @@
 #pragma once
 #include "Drawable.h"
-#include "Vec2.h"
+#include "Vector2.h"
 
 class Character : public Drawable {
 public:
 	void Draw(Console& console);
 
-	Vec2 pos;
+	Vector2 _pos;
 };

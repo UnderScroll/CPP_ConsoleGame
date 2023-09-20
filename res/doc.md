@@ -9,3 +9,10 @@ ref => type r_name;
 function => PascaleCase
 class => PascaleCase
 const => ALL_CAPS
+
+Include order :
+\#include <sharedlib>
+
+\#include "main.h"
+
+\#include "other.h"

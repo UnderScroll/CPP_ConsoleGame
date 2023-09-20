@@ -18,7 +18,7 @@ private:
 	void Update();
 	void Draw();
 
-	bool isOpen;
+	bool isOpen = true;
 	Console console;
 	Character character;
 

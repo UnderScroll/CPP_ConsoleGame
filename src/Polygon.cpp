@@ -3,6 +3,7 @@
 #define INF <
 #define SUP >
 
+/*
 void Polygon::Draw(Console& r_cons)
 {
 	for (int i = 0;i < _points.size() - 1;++i) {
@@ -10,12 +11,12 @@ void Polygon::Draw(Console& r_cons)
 		Vector2 nextPoint = _position + _points[i + 1];
 		Vector2 direction = nextPoint-currentPoint;
 
-		
+
 		std::vector<int> segmentsToCheckY[];
 		if(std::abs(direction._x)>std::abs(direction._y))
 		{
 			std::vector<int> segmentsToCheckY[];
-			
+
 			int bornMinX=currentPoint._x;
 			int bornMaxX=nextPoint._x;
 
@@ -27,7 +28,7 @@ void Polygon::Draw(Console& r_cons)
 				bornMinY=floor(currentPoint._y);
 				bornMaxY=ceil(nextPoint._y);
 			}
-			
+
 		}else
 		{
 			//The vector is going up or down, we must determine which segments to check on the x axis, we'll only check those that are going to cross the vector
@@ -42,3 +43,4 @@ void Polygon::Draw(Console& r_cons)
 
 	}
 }
+*/
