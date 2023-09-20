@@ -34,10 +34,10 @@ void Application::Setup() {
 	console.Setup();
 	isOpen = true;
 	std::vector<Vector2> points;
-	points.push_back(Vector2(+5.5, 5));
+	points.push_back(Vector2(+7.5, 12));
 	points.push_back(Vector2(-25.7, -10));
-	//points.push_back(Vector2(5.5, -5));
-	polygon = PolygonObject(points, 0x0007);
+	// points.push_back(Vector2(5.5, -5));
+	polygon = PolygonObject(points, 0x0007,false);
 	polygon._position = Vector2(30, 20);
 }
 
@@ -60,11 +60,9 @@ void Application::Update() {
 }
 
 void Application::Draw() {
-	ofstream << "[INFO] - Clear : "<< std::endl;
 	console.Clear();
 
 	polygon.Draw();
 	
-	ofstream << "[INFO] - Display : " << std::endl;
 	console.Display();
 }

@@ -8,16 +8,16 @@ class PolygonObject :
     public GameObject
 {
 public:
-    std::vector<Vector2> _points; //Exprimée relativement au centre de gravité du polygon
+    std::vector<Vector2> _points; //Exprimï¿½e relativement au centre de gravitï¿½ du polygon
     int _color;
+    bool _isClosed;
 
     PolygonObject(){}
 
-    PolygonObject(std::vector<Vector2> points,int color):_points(points),_color(color) {
-
+    PolygonObject(std::vector<Vector2> points,int color, bool isClosed=true):_points(points),_color(color),_isClosed(isClosed) {
     }
-
-    // Hérité via GameObject
+    
+    // Hï¿½ritï¿½ via GameObject
     virtual void Draw() override;
 
 };
