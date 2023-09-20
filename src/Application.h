@@ -1,7 +1,9 @@
 #pragma once
 #include "Console.h"
-#include "Character.h"
+
 #include <chrono>
+
+#include "PolygonObject.h"
 
 class Application {
 public:
@@ -20,7 +22,7 @@ private:
 
 	bool isOpen;
 	Console& console = Console::GetInstance();
-	Character character;
+	PolygonObject polygon;
 
 	static Application instance;
 	std::chrono::steady_clock clock;

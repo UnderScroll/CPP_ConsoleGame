@@ -3,6 +3,9 @@
 #include <iostream>
 #include <thread>
 
+#include "Vector2.h"
+#include "PolygonObject.h"
+
 Application Application::instance = Application();
 
 void Application::InstanceRun() {
@@ -21,21 +24,25 @@ void Application::InstanceRun() {
 void Application::Setup() {
 	console.Setup();
 	isOpen = true;
-
-	character = Character();
+	std::vector<Vector2> points;
+	points.push_back(Vector2(+5.5, 5));
+	points.push_back(Vector2(-25.7, -10));
+	//points.push_back(Vector2(5.5, -5));
+	polygon = PolygonObject(points, 0x0007);
+	polygon._position = Vector2(30, 20);
 }
 
 void Application::Input() {
 }
 
 void Application::Update() {
-	character.pos.x = ++character.pos.x % console.WIDTH;
+
 }
 
 void Application::Draw() {
 	console.Clear();
 
-	character.Draw(console);
+	polygon.Draw();
 
 	console.Display();
 }

@@ -3,14 +3,16 @@
 #include <vector>
 #include "Vector2.h"
 
-class Polygon :
+class PolygonObject :
     public GameObject
 {
 public:
     std::vector<Vector2> _points; //Exprimée relativement au centre de gravité du polygon
     int _color;
 
-    Polygon(std::vector<Vector2> points,int color):_points(points),_color(color) {
+    PolygonObject(){}
+
+    PolygonObject(std::vector<Vector2> points,int color):_points(points),_color(color) {
 
     }
 
