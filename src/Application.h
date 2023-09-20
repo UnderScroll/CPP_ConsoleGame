@@ -2,6 +2,7 @@
 #include "Console.h"
 #include "Character.h"
 #include <chrono>
+#include <fstream>
 
 class Application {
 public:
@@ -23,5 +24,7 @@ private:
 	Character character;
 
 	static Application instance;
-	std::chrono::steady_clock clock;
+
+	unsigned long long frameCount = 0;
+	std::ofstream ofstream = std::ofstream("res/runtime.log");
 };
