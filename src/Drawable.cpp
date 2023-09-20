@@ -6,6 +6,7 @@
 
 #include "Vector2.h"
 #include "Console.h"
+#include "Application.h"
 
 void Drawable::ProcessLine(const Vector2& r_start, const Vector2& r_end, const int color)
 {
@@ -50,6 +51,7 @@ void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_en
 	for(int x = startX;x < endX;x++) {
 		//We find on which y the collision with the next vertical line will happen
 		int nextY = startY + floor(float((float)x - (float)startX) * yMovement);
+		//Application::GetInstance().ofstream << "x " << x << " yMovement " << yMovement << "float((float)x - (float)startX) * yMovement: )" << (float((float)x - (float)startX) * yMovement)<< " Next Y " <<nextY<< std::endl;
 		ColorPixel(x, nextY, color);
 	}
 }
@@ -61,6 +63,12 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 
 void Drawable::ColorPixel(const int x,const int y,const int color,const float proportion,const float alpha) {
 	Console& r_console = Console::GetInstance();
-	r_console._virtual_buffer[x, y]->Char.UnicodeChar = 0x2588;
-	r_console._virtual_buffer[x, y]->Attributes = color;
+	r_console._virtual_buffer[x+1, y]->Char.UnicodeChar = 0x2588;
+	r_console._virtual_buffer[x+1,y]->Attributes = 0x0002;
+	r_console._virtual_buffer[x + 1, y]->Char.UnicodeChar = 0x2588;
+	r_console._virtual_buffer[x + 1, y]->Attributes = 0x0002;
+	r_console._virtual_buffer[x + 1, y]->Char.UnicodeChar = 0x2588;
+	r_console._virtual_buffer[x + 1, y]->Attributes = 0x0002;
+	Application::GetInstance().ofstream << "_virtual_buffer[" << x << "][" << y << "].Char.UnicodeChar = 0x2588;"<< std::endl;
+	Application::GetInstance().ofstream << "_virtual_buffer[" << x << "][" << y << "].Attributes = 0x0001;" << std::endl;
 }

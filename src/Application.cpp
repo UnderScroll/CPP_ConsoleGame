@@ -9,8 +9,6 @@
 
 Application Application::instance = Application();
 
-Character chars[200];
-
 void Application::InstanceRun() {
 	Setup();
 	while (isOpen) {
@@ -62,9 +60,11 @@ void Application::Update() {
 }
 
 void Application::Draw() {
+	ofstream << "[INFO] - Clear : "<< std::endl;
 	console.Clear();
 
 	polygon.Draw();
-
+	
+	ofstream << "[INFO] - Display : " << std::endl;
 	console.Display();
 }

@@ -11,6 +11,8 @@ public:
 	static void Run() { instance.InstanceRun(); };
 
 	static Application& GetInstance() { return instance; }
+
+	std::ofstream ofstream = std::ofstream("res/runtime.log");
 private:
 	Application() {};
 
@@ -27,6 +29,5 @@ private:
 
 	static Application instance;
 
-	unsigned long long frameCount = 0;
-	std::ofstream ofstream = std::ofstream("res/runtime.log");
+	unsigned long long frameCount = 0;	
 };
