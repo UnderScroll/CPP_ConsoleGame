@@ -19,7 +19,7 @@ private:
 	void Draw();
 
 	bool isOpen;
-	Console console;
+	Console& console = Console::GetInstance();
 	Character character;
 
 	static Application instance;

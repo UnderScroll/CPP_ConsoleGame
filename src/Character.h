@@ -4,7 +4,7 @@
 
 class Character : public Drawable {
 public:
-	void Draw(Console& console);
+	void Draw();
 
 	Vec2 pos;
 };

@@ -5,9 +5,11 @@ class Console;
 
 class Drawable {
 public:
-	virtual void Draw(Console& console)=0;
-	void ProcessLine(Console& console, Vector2 start, Vector2 end);
+	virtual void Draw()=0;
+	void ProcessLine(const Vector2& r_start, const Vector2& r_end, const int color);
+
+	static void ColorPixel(const int x,const int y, const int color, const float proportion=1, const float alpha=1);
 private:
-	void ProcessHorizontalLine(Console& console, Vector2 start, Vector2 end);
-	void ProcessVerticalLine(Console& console, Vector2 start, Vector2 end);
+	void ProcessHorizontalLine( const Vector2& r_start, const Vector2& r_end, const int color);
+	void ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end, const int color);
 };

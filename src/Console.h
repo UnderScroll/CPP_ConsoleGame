@@ -3,6 +3,16 @@
 #include "Drawable.h"
 
 class Console {
+public:
+
+	static const unsigned int WIDTH = 80*2;
+	static const unsigned int HEIGHT = 40;
+
+	static Console& GetInstance() {
+		static Console S;
+		return S;
+	}
+
 private:
 	const HANDLE handle = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 	
@@ -11,14 +21,12 @@ private:
 	COORD dwBufferCoord = { 0, 0 };
 	SMALL_RECT rcRegion = { 0, 0, WIDTH - 1, HEIGHT - 1 };
 	COORD dwBufferSize = { WIDTH, HEIGHT };
+	CHAR_INFO buffer[HEIGHT][WIDTH];
 
 public:
 	void Setup();
 	void Display();
-	void Clear();
-
-	static const unsigned int WIDTH = 20;
-	static const unsigned int HEIGHT = 10;
-
-	CHAR_INFO buffer[WIDTH][HEIGHT];
+	void Clear();	
+	
+	CHAR_INFO _virtual_buffer[WIDTH / 2][HEIGHT];
 };
