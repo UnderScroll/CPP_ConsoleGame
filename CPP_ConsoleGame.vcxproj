@@ -143,21 +143,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\Drawable.cpp" />
-    <ClCompile Include="src\Polygon.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Polygon.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Character.h" />
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Drawable.h" />
-    <ClInclude Include="src\Vector2.h" />
+    <ClInclude Include="src\Vec2.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

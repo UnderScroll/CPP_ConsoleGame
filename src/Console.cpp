@@ -1,6 +1,6 @@
-#include "Console.h"
+﻿#include "Console.h"
 
-LONG_PTR Console::setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
+LONG_PTR Console::SetConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 {
 	SetLastError(NO_ERROR);
 
@@ -20,23 +20,23 @@ LONG_PTR Console::setConsoleWindowStyle(INT n_index, LONG_PTR new_style)
 	return style_ptr;
 }
 
-void Console::setup() {
+void Console::Setup() {
 	LONG_PTR new_style = WS_OVERLAPPEDWINDOW | WS_HSCROLL | WS_VSCROLL;
-	setConsoleWindowStyle(GWL_STYLE, new_style);
+	SetConsoleWindowStyle(GWL_STYLE, new_style);
 
-	readConsoleOutput();
-}
-
-void Console::writeConsoleOutput() {
-	WriteConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
-		dwBufferCoord, &rcRegion);
-}
-
-void Console::readConsoleOutput() {
 	ReadConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
 }
 
-void Console::display() {
-	writeConsoleOutput();
+void Console::Display() {
+	WriteConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
+		dwBufferCoord, &rcRegion);
+}
+
+void Console::Clear() {
+	for (size_t x = 0; x < WIDTH; ++x) {
+		for (size_t y = 0; y < HEIGHT; ++y) {
+			buffer[y][x].Char.UnicodeChar = ' ';
+		}
+	}
 }

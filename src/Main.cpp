@@ -1,7 +1,7 @@
 #include "Application.h"
 
 int main() {
-	Application::run();
+	Application::Run();
 
 	return 0;
 }
