@@ -3,45 +3,45 @@
 #include <iostream>
 #include "Application.h"
 
-BOOL SetConsoleFontSize(const HANDLE& handle, COORD dwFontSize) {
-	CONSOLE_FONT_INFOEX info{
-		sizeof(CONSOLE_FONT_INFOEX)
-	};
-	
-	if (!GetCurrentConsoleFontEx(handle, false, &info))
-		return false;
-	info.dwFontSize = dwFontSize;
+Console Console::instance = Console();
 
-	return SetCurrentConsoleFontEx(handle, false, &info);
-}
-
-LONG_PTR Console::SetConsoleWindowStyle(INT n_index, LONG_PTR new_style)
-{
+void InitConsoleStyle(const HANDLE& handle) {
 	SetLastError(NO_ERROR);
 
+	CONSOLE_FONT_INFOEX cfi = { sizeof(cfi), 0, {8, 16} };
+	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
+
+	SMALL_RECT rect = { 0, 0, TRUE_WIDTH - 1, TRUE_HEIGHT - 1 };
+
+	//Get console window handle
 	HWND hwnd_console = GetConsoleWindow();
-	LONG_PTR style_ptr = SetWindowLongPtr(hwnd_console, n_index, new_style);
-	SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_NOZORDER | SWP_NOMOVE | SWP_NOSIZE | SWP_NOACTIVATE | SWP_DRAWFRAME);
-	
-	SetConsoleFontSize(handle, { 1, 5 });
 
-	//show window after updating
-	ShowWindow(hwnd_console, SW_SHOW);
-
+	//Get cursor info
 	CONSOLE_CURSOR_INFO  cursorInfo;
-
 	GetConsoleCursorInfo(handle, &cursorInfo);
-	cursorInfo.bVisible = false; // set the cursor visibility
+
+	//Set cursor visibility
+	cursorInfo.bVisible = false;
 	SetConsoleCursorInfo(handle, &cursorInfo);
 
+	//Set window Style
+	SetWindowLongPtrA(hwnd_console, GWL_STYLE, WS_CAPTION | WS_SYSMENU);
 
-	return style_ptr;
+	SetConsoleScreenBufferSize(handle, { TRUE_WIDTH, TRUE_HEIGHT });
+
+	//Set window position
+	SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_HIDEWINDOW | SWP_NOSIZE);
+
+	//Set window size
+	SetConsoleWindowInfo(handle, TRUE, &rect);
+
+	ShowWindow(hwnd_console, SW_SHOW);
 }
 
 void Console::Setup() {
-	LONG_PTR new_style = WS_OVERLAPPEDWINDOW;
-	SetConsoleWindowStyle(GWL_STYLE, new_style);
+	InitConsoleStyle(handle);
 
+	//Init buffer
 	ReadConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
 }
@@ -59,8 +59,8 @@ void Console::Display() {
 }
 
 void Console::Clear() {
-	for (size_t x = 0; x < WIDTH; ++x) {
-		for (size_t y = 0; y < HEIGHT; ++y) {
+	for (size_t x = 0; x < TRUE_WIDTH; ++x) {
+		for (size_t y = 0; y < TRUE_HEIGHT; ++y) {
 			buffer[y][x].Char.UnicodeChar = ' ';
 		}
 	}

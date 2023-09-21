@@ -4,9 +4,7 @@
 
 #include "Drawable.h"
 
-#include "Vector2.h"
 #include "Console.h"
-#include "Application.h"
 
 void Drawable::ProcessLine(const Vector2& r_start, const Vector2& r_end, const int color)
 {
@@ -43,11 +41,9 @@ void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_en
 		startY = floor(r_start._y);
 	}
 	
-	//ColorPixel(startX, startY, color);
-	for(int x = startX;x < endX;x++) {
+	for(int x = startX; x < endX; x++) {
 		//We find on which y the collision with the next vertical line will happen
-		int nextY = startY + floor(float((float)x - (float)startX) * yMovement);
-		//Application::GetInstance().ofstream << "x " << x << " yMovement " << yMovement << "float((float)x - (float)startX) * yMovement: )" << (float((float)x - (float)startX) * yMovement)<< " Next Y " <<nextY<< std::endl;
+		int nextY = startY + floor((float)(x - startX) * yMovement);
 		ColorPixel(x, nextY, color);
 	}
 }
@@ -67,7 +63,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 	}
 	
 	//ColorPixel(startX, startY, color);
-	for(int y = startY;y < endY;y++) {
+	for(int y = startY; y < endY; y++) {
 		//We find on which y the collision with the next vertical line will happen
 		int nextX = startX + floor(float((float)y - (float)startY) * xMovement);
 		ColorPixel(nextX, y, color);
@@ -75,7 +71,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 }
 
 void Drawable::ColorPixel(const int x,const int y,const int color,const float proportion,const float alpha) {
-	if(x<0 || y<0) return;
+	if(x < 0 || y < 0) return;
 	Console& r_console = Console::GetInstance();
 	r_console._virtual_buffer[x][y].Char.UnicodeChar = 0x2588;
 	r_console._virtual_buffer[x][y].Attributes = color;

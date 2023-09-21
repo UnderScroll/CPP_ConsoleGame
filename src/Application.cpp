@@ -5,28 +5,30 @@
 
 #include "Vector2.h"
 #include "PolygonObject.h"
-#define MIN_FRAMETIME_MS 10
+#define MIN_FRAMETIME_MS 1
 
 Application Application::instance = Application();
+
+Application::~Application() {
+	ofstream.close();
+}
 
 void Application::InstanceRun() {
 	Setup();
 	while (isOpen) {
 		auto waitTime = std::chrono::steady_clock::now() + std::chrono::milliseconds(MIN_FRAMETIME_MS);
-		auto framestart = std::chrono::steady_clock::now();
+		auto frameStart = std::chrono::steady_clock::now();
 		
 		Input();
 		Update();
 		Draw();
-		
+
 		std::this_thread::sleep_until(waitTime);
 		frameCount++;
 
 		auto frameEnd = std::chrono::steady_clock::now();
-		ofstream << "[INFO] Frame : " << frameCount << " - " << "frameTime : " << std::chrono::duration_cast<std::chrono::milliseconds>(frameEnd - framestart).count() << "ms" << std::endl;
+		ofstream << "[INFO] Frame : " << frameCount << " - " << "frameTime : " << std::chrono::duration_cast<std::chrono::milliseconds>(frameEnd - frameStart).count() << "ms" << std::endl;
 	}
-
-	ofstream.close();
 }
 
 void Application::Setup() {
@@ -41,17 +43,19 @@ void Application::Setup() {
 }
 
 void Application::Input() {
-	/*if (GetKeyState(VK_RETURN) & 0x8000) {
+	if (GetKeyState(VK_RETURN) & 0x8000) {
 		ofstream << "[INFO] - " << frameCount << " - VK_RETURN" << std::endl;
 	}
 	if (GetKeyState(VK_ESCAPE) & 0x8000) {
 		ofstream << "[INFO] - " << frameCount << " - VK_ESCAPE" << std::endl;
-		isOpen = false;
-	}*/
+		//isOpen = false;
+	}
+	/*
 	BYTE keyboardState[256];
 	if (!GetKeyboardState(keyboardState)) {
 		ofstream << "[INFO] - " << frameCount << " - Keyboard : " << keyboardState << std::endl;
 	};
+	*/
 	
 }
 
