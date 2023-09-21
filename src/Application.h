@@ -8,13 +8,15 @@
 
 class Application {
 public:
-	static void Run() { instance.InstanceRun(); };
+	static void Run() { GetInstance().InstanceRun(); };
 
 	static Application& GetInstance() { return instance; }
 
 	std::ofstream ofstream = std::ofstream("res/runtime.log");
 private:
 	Application() {};
+	Application(const Application& other);
+	~Application();
 
 	void InstanceRun();
 

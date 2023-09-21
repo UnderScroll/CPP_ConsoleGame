@@ -4,9 +4,7 @@
 
 #include "Drawable.h"
 
-#include "Vector2.h"
 #include "Console.h"
-#include "Application.h"
 
 void Drawable::ProcessLine(const Vector2& r_start, const Vector2& r_end, const int color)
 {
@@ -95,7 +93,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 	}
 	
 	//ColorPixel(startX, startY, color);
-	for(int y = startY;y < endY;y++) {
+	for(int y = startY; y < endY; y++) {
 		//We find on which y the collision with the next vertical line will happen
 		int nextX = startX + floor(float((float)y - (float)startY) * xMovement);
 		ColorPixel(nextX, y, color);
@@ -105,6 +103,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 const std::string Drawable::SORTED_BY_LUMINANCE_STRING="`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@";
 
 void Drawable::ColorPixel(const int x,const int y,const int color,const float proportion,const float alpha) {
+	if(x < 0 || y < 0) return;
 	Console& r_console = Console::GetInstance();
 
 	int charToUseIndex=std::floor(proportion*(SORTED_BY_LUMINANCE_STRING.length()-1));

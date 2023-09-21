@@ -19,6 +19,8 @@ public:
     
     // H�rit� via GameObject
     virtual void Draw() override;
-
+    virtual void RotateToRadians(float targetAngle) override;
+private:
+    std::vector<Vector2> _rotated_points;
 };
 
