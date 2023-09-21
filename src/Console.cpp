@@ -8,7 +8,7 @@ Console Console::instance = Console();
 void InitConsoleStyle(const HANDLE& handle) {
 	SetLastError(NO_ERROR);
 
-	CONSOLE_FONT_INFOEX cfi = { sizeof(cfi), 0, {8, 16} };
+	CONSOLE_FONT_INFOEX cfi = { sizeof(cfi), 0, {0, 6} };
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 
 	SMALL_RECT rect = { 0, 0, TRUE_WIDTH - 1, TRUE_HEIGHT - 1 };

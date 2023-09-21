@@ -8,6 +8,7 @@
 #define MIN_FRAMETIME_MS 10
 
 Application Application::instance = Application();
+std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 
 Application::~Application() {
 	ofstream.close();
@@ -38,25 +39,29 @@ void Application::Setup() {
 	points.push_back(Vector2(+7.5, 12));
 	points.push_back(Vector2(-25.7, -10));
 	points.push_back(Vector2(5.5, -5));
-	polygon = PolygonObject(points, 0x0007,true);
-	polygon.MoveTo(Vector2(30, 20));
+	polygon = PolygonObject(points, 0x0007);
+	polygon.MoveTo(Vector2(30, 30));
 }
 
 void Application::Input() {
+	/*
 	if (GetKeyState(VK_RETURN) & 0x8000) {
 		ofstream << "[INFO] - " << frameCount << " - VK_RETURN" << std::endl;
 	}
 	if (GetKeyState(VK_ESCAPE) & 0x8000) {
 		ofstream << "[INFO] - " << frameCount << " - VK_ESCAPE" << std::endl;
-		//isOpen = false;
+		isOpen = false;
 	}
-	/*
-	BYTE keyboardState[256];
-	if (!GetKeyboardState(keyboardState)) {
-		ofstream << "[INFO] - " << frameCount << " - Keyboard : " << keyboardState << std::endl;
-	};
 	*/
 	
+	
+	BYTE keyboardState[256];
+	if (GetKeyboardState(keyboardState)) {
+		ofstream << "[INFO] - " << frameCount << " - Keyboard : ";
+		for (BYTE b : keyboardState)
+			ofstream << (bool)b;
+		ofstream << std::endl;
+	};
 }
 
 void Application::Update() {
