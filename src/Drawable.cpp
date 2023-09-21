@@ -42,13 +42,24 @@ void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_en
 	{
 		startY = floor(r_start._y);
 	}
+
+	float luminancesCache[Console::WIDTH/2][Console::HEIGHT]={0};
 	
 	//ColorPixel(startX, startY, color);
 	for(int x = startX;x < endX;x++) {
 		//We find on which y the collision with the next vertical line will happen
-		int nextY = startY + floor(float((float)x - (float)startX) * yMovement);
+		float nextY = startY + (float)(x - startX) * yMovement;
+
+		//We apply the principles of Xiaolin Wu's algorithm to calculate the luminance of the two pixels to place
+		float decimalPartOfY=nextY-floor(nextY);
+
+		int inextY=floor(nextY);
+		luminancesCache[x][inextY]+=1-decimalPartOfY;
+		luminancesCache[x][inextY-1]+=decimalPartOfY;
 		//Application::GetInstance().ofstream << "x " << x << " yMovement " << yMovement << "float((float)x - (float)startX) * yMovement: )" << (float((float)x - (float)startX) * yMovement)<< " Next Y " <<nextY<< std::endl;
-		ColorPixel(x, nextY, color);
+
+		ColorPixel(x, inextY, color,luminancesCache[x][inextY]);
+		ColorPixel(x, inextY-1, color,luminancesCache[x][inextY-1]);
 	}
 }
 

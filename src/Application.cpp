@@ -57,6 +57,7 @@ void Application::Input() {
 }
 
 void Application::Update() {
+
 }
 
 void Application::Draw() {
