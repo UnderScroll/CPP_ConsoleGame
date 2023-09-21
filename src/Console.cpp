@@ -1,20 +1,18 @@
 ﻿#include "Console.h"
 
 #include <iostream>
-#include "Application.h"
 
 Console Console::instance = Console();
+const HANDLE Console::stdOutHandle = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
+const HWND Console::windowHandle = GetConsoleWindow();
 
-void InitConsoleStyle(const HANDLE& handle) {
+void Console::InitConsoleStyle(const HANDLE& handle) {
 	SetLastError(NO_ERROR);
 
 	CONSOLE_FONT_INFOEX cfi = { sizeof(cfi), 0, {0, 6} };
 	SetCurrentConsoleFontEx(GetStdHandle(STD_OUTPUT_HANDLE), FALSE, &cfi);
 
-	SMALL_RECT rect = { 0, 0, TRUE_WIDTH - 1, TRUE_HEIGHT - 1 };
-
-	//Get console window handle
-	HWND hwnd_console = GetConsoleWindow();
+	SMALL_RECT rect = { 0, 0, WIDTH - 1, HEIGHT- 1 };
 
 	//Get cursor info
 	CONSOLE_CURSOR_INFO  cursorInfo;
@@ -25,24 +23,30 @@ void InitConsoleStyle(const HANDLE& handle) {
 	SetConsoleCursorInfo(handle, &cursorInfo);
 
 	//Set window Style
-	SetWindowLongPtrA(hwnd_console, GWL_STYLE, WS_CAPTION | WS_SYSMENU);
-
-	SetConsoleScreenBufferSize(handle, { TRUE_WIDTH, TRUE_HEIGHT });
+	SetWindowLongPtrA(windowHandle, GWL_STYLE, WS_CAPTION | WS_SYSMENU);
+	
+	SetConsoleScreenBufferSize(handle, { WIDTH, HEIGHT });
 
 	//Set window position
-	SetWindowPos(hwnd_console, 0, 0, 0, 0, 0, SWP_HIDEWINDOW | SWP_NOSIZE);
+	SetWindowPos(windowHandle, 0, 0, 0, 0, 0, SWP_HIDEWINDOW | SWP_NOSIZE);
+
+	//Remove Quick Edit Mode
+	HANDLE hInput = GetStdHandle(STD_INPUT_HANDLE);
+	DWORD prev_mode;
+	GetConsoleMode(hInput, &prev_mode);
+	SetConsoleMode(hInput, ENABLE_EXTENDED_FLAGS | (prev_mode & ~ENABLE_QUICK_EDIT_MODE));
 
 	//Set window size
 	SetConsoleWindowInfo(handle, TRUE, &rect);
 
-	ShowWindow(hwnd_console, SW_SHOW);
+	ShowWindow(windowHandle, SW_SHOW);
 }
 
 void Console::Setup() {
-	InitConsoleStyle(handle);
+	InitConsoleStyle(stdOutHandle);
 
 	//Init buffer
-	ReadConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
+	ReadConsoleOutput(stdOutHandle, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
 }
 
@@ -54,7 +58,7 @@ void Console::Display() {
 		}
 	}
 
-	WriteConsoleOutput(handle, (CHAR_INFO*)buffer, dwBufferSize,
+	WriteConsoleOutput(stdOutHandle, (CHAR_INFO*)buffer, dwBufferSize,
 		dwBufferCoord, &rcRegion);
 }
 

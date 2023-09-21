@@ -8,7 +8,7 @@
 #define MIN_FRAMETIME_MS 10
 
 Application Application::instance = Application();
-std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
+std::ofstream Application::ofstream = std::ofstream("runtime.log");
 
 Application::~Application() {
 	ofstream.close();
@@ -43,25 +43,24 @@ void Application::Setup() {
 	polygon.MoveTo(Vector2(30, 30));
 }
 
+POINT Application::GetCursorPosition() {
+	POINT cursorPosition;
+
+	GetCursorPos(&cursorPosition);
+
+	RECT rect;
+	GetWindowRect(Console::windowHandle, &rect);
+
+	int posX = (cursorPosition.x - rect.left - 9) / 6;
+	int posY = (cursorPosition.y - rect.top - 32) / 6;
+
+	return { posX , posY };
+}
+
 void Application::Input() {
-	/*
-	if (GetKeyState(VK_RETURN) & 0x8000) {
-		ofstream << "[INFO] - " << frameCount << " - VK_RETURN" << std::endl;
-	}
-	if (GetKeyState(VK_ESCAPE) & 0x8000) {
-		ofstream << "[INFO] - " << frameCount << " - VK_ESCAPE" << std::endl;
+	if ((GetKeyState(VK_RETURN) & 0x8000))
 		isOpen = false;
-	}
-	*/
-	
-	
-	BYTE keyboardState[256];
-	if (GetKeyboardState(keyboardState)) {
-		ofstream << "[INFO] - " << frameCount << " - Keyboard : ";
-		for (BYTE b : keyboardState)
-			ofstream << (bool)b;
-		ofstream << std::endl;
-	};
+
 }
 
 void Application::Update() {
@@ -72,6 +71,8 @@ void Application::Draw() {
 	console.Clear();
 
 	polygon.Draw();
+	POINT cursor = GetCursorPosition();
+	Drawable::ColorPixel(cursor.x, cursor.y, 7);
 	
 	console.Display();
 }

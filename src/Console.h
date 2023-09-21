@@ -17,12 +17,16 @@ public:
 	static Console& GetInstance() { return instance; }
 
 	CHAR_INFO _virtual_buffer[WIDTH][HEIGHT];
+
+	static const HANDLE stdOutHandle;
+	static const HWND windowHandle;
 private:
-	const HANDLE handle = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 
 	COORD dwBufferCoord = { 0, 0 };
 	SMALL_RECT rcRegion = { 0, 0, TRUE_WIDTH - 1, TRUE_HEIGHT - 1 };
 	COORD dwBufferSize = { TRUE_WIDTH, TRUE_HEIGHT };
+
+	void InitConsoleStyle(const HANDLE& handle);
 
 	static Console instance;
 };

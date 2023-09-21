@@ -14,10 +14,13 @@ public:
 
 	static std::ofstream ofstream;
 
-
-
+	enum Keys {
+		ENTER_KEY_PRESSED = 0b0001,
+		ESCAPE_KEY_PRESSED = 0b0010,
+		LEFT_MOUSE_BUTTON_PRESSED = 0b0100 
+	};
 private:
-	Application() {};
+	Application(): isOpen(true) {};
 	Application(const Application& other);
 	~Application();
 
@@ -32,7 +35,11 @@ private:
 	Console& console = Console::GetInstance();
 	PolygonObject polygon;
 
+	POINT GetCursorPosition();
+
 	static Application instance;
+
+	unsigned int inputs;
 
 	unsigned long long frameCount = 0;	
 };
