@@ -41,7 +41,7 @@ void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_en
 		startY = floor(r_start._y);
 	}
 
-	float luminancesCache[Console::WIDTH/2][Console::HEIGHT]={0};
+	float luminancesCache[WIDTH][HEIGHT]={0};
 	
 	for(int x = startX;x < endX;x++) {
 		//We find on which y the collision with the next vertical line will happen
@@ -74,7 +74,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 		startX = floor(r_start._x);
 	}
 
-	float luminancesCache[Console::WIDTH/2][Console::HEIGHT]={0};
+	float luminancesCache[WIDTH][HEIGHT]={0};
 	
 	for(int y = startY;y < endY;y++) {
 		//We find on which y the collision with the next vertical line will happen
