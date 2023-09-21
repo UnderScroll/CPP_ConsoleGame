@@ -74,8 +74,22 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 	}
 }
 
+const std::string Drawable::SORTED_BY_LUMINANCE_STRING="`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@█";
+
 void Drawable::ColorPixel(const int x,const int y,const int color,const float proportion,const float alpha) {
 	Console& r_console = Console::GetInstance();
-	r_console._virtual_buffer[x][y].Char.UnicodeChar = 0x2588;
+
+	int charToUseIndex=std::floor(proportion*(SORTED_BY_LUMINANCE_STRING.length()-1));
+	//We can't use char because the white square █ doesn't fit in a char
+	int charToUse=SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
+
+	//Picking the white square from the string doesnt work, I don't know why
+	if(proportion==1)
+	{
+		charToUse=0x2588;
+	}
+	
+	r_console._virtual_buffer[x][y].Char.UnicodeChar = charToUse;
 	r_console._virtual_buffer[x][y].Attributes = color;
 }
+

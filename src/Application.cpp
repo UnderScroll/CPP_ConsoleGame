@@ -36,8 +36,8 @@ void Application::Setup() {
 	std::vector<Vector2> points;
 	points.push_back(Vector2(+7.5, 12));
 	points.push_back(Vector2(-25.7, -10));
-	// points.push_back(Vector2(5.5, -5));
-	polygon = PolygonObject(points, 0x0007,false);
+	points.push_back(Vector2(5.5, -5));
+	polygon = PolygonObject(points, 0x0007,true);
 	polygon._position = Vector2(30, 20);
 }
 

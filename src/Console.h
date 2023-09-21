@@ -3,9 +3,8 @@
 
 class Console {
 public:
-
-	static const unsigned int WIDTH = 80*2;
-	static const unsigned int HEIGHT = 40;
+	static const unsigned int WIDTH = 2000*2;
+	static const unsigned int HEIGHT = 80;
 
 	static Console& GetInstance() {
 		static Console S;
