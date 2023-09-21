@@ -12,7 +12,10 @@ public:
 
 	static Application& GetInstance() { return instance; }
 
-	std::ofstream ofstream = std::ofstream("res/runtime.log");
+	static std::ofstream ofstream;
+
+
+
 private:
 	Application() {};
 	Application(const Application& other);
