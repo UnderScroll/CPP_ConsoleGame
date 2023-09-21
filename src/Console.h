@@ -1,8 +1,8 @@
 #pragma once
 #include <windows.h>
 
-#define WIDTH 120
-#define HEIGHT 80
+#define WIDTH 328
+#define HEIGHT 124
 #define TRUE_WIDTH WIDTH * 2
 #define TRUE_HEIGHT HEIGHT
 
