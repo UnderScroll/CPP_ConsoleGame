@@ -45,19 +45,18 @@ void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_en
 
 	float luminancesCache[Console::WIDTH/2][Console::HEIGHT]={0};
 	
-	//ColorPixel(startX, startY, color);
 	for(int x = startX;x < endX;x++) {
 		//We find on which y the collision with the next vertical line will happen
 		float nextY = startY + (float)(x - startX) * yMovement;
 
 		//We apply the principles of Xiaolin Wu's algorithm to calculate the luminance of the two pixels to place
+		//https://www.geeksforgeeks.org/anti-aliased-line-xiaolin-wus-algorithm/
 		float decimalPartOfY=nextY-floor(nextY);
 
 		int inextY=floor(nextY);
 		luminancesCache[x][inextY]+=1-decimalPartOfY;
 		luminancesCache[x][inextY-1]+=decimalPartOfY;
-		//Application::GetInstance().ofstream << "x " << x << " yMovement " << yMovement << "float((float)x - (float)startX) * yMovement: )" << (float((float)x - (float)startX) * yMovement)<< " Next Y " <<nextY<< std::endl;
-
+		
 		ColorPixel(x, inextY, color,luminancesCache[x][inextY]);
 		ColorPixel(x, inextY-1, color,luminancesCache[x][inextY-1]);
 	}
@@ -76,6 +75,24 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 	{
 		startX = floor(r_start._x);
 	}
+
+	float luminancesCache[Console::WIDTH/2][Console::HEIGHT]={0};
+	
+	for(int y = startY;y < endY;y++) {
+		//We find on which y the collision with the next vertical line will happen
+		float nextX = startX + (float)(y - startY) * xMovement;
+
+		//We apply the principles of Xiaolin Wu's algorithm to calculate the luminance of the two pixels to place
+		//https://www.geeksforgeeks.org/anti-aliased-line-xiaolin-wus-algorithm/
+		float decimalPartOfX=nextX-floor(nextX);
+
+		int inextX=floor(nextX);
+		luminancesCache[inextX][y]+=1-decimalPartOfX;
+		luminancesCache[inextX+1][y]+=decimalPartOfX;
+		
+		ColorPixel(inextX, y, color,luminancesCache[inextX][y]);
+		ColorPixel(inextX+1, y, color,luminancesCache[inextX+1][y]);
+	}
 	
 	//ColorPixel(startX, startY, color);
 	for(int y = startY;y < endY;y++) {
@@ -85,20 +102,13 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 	}
 }
 
-const std::string Drawable::SORTED_BY_LUMINANCE_STRING="`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@█";
+const std::string Drawable::SORTED_BY_LUMINANCE_STRING="`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@";
 
 void Drawable::ColorPixel(const int x,const int y,const int color,const float proportion,const float alpha) {
 	Console& r_console = Console::GetInstance();
 
 	int charToUseIndex=std::floor(proportion*(SORTED_BY_LUMINANCE_STRING.length()-1));
-	//We can't use char because the white square █ doesn't fit in a char
 	int charToUse=SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
-
-	//Picking the white square from the string doesnt work, I don't know why
-	if(proportion==1)
-	{
-		charToUse=0x2588;
-	}
 	
 	r_console._virtual_buffer[x][y].Char.UnicodeChar = charToUse;
 	r_console._virtual_buffer[x][y].Attributes = color;
