@@ -14,8 +14,11 @@ public:
 
 	static std::ofstream ofstream;
 
-
-
+	static void AddGameObject(std::unique_ptr<GameObject> unique)
+	{
+		GetInstance()._game_objects.push_back(unique);
+	}
+	
 private:
 	Application() {};
 	Application(const Application& other);
@@ -30,7 +33,8 @@ private:
 
 	bool isOpen;
 	Console& console = Console::GetInstance();
-	PolygonObject polygon;
+
+	std::vector<std::unique_ptr<GameObject>> _game_objects;
 
 	static Application instance;
 

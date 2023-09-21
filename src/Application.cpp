@@ -10,6 +10,11 @@
 Application Application::instance = Application();
 std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 
+void Application::AddGameObject(const GameObject& game_object)
+{
+	GetInstance()._game_objects.push_back(std::make_unique<GameObject>(game_object));
+}
+
 Application::~Application() {
 	ofstream.close();
 }
