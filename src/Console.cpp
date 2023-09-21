@@ -47,7 +47,7 @@ void Console::Setup() {
 }
 
 void Console::Display() {
-	for (int x = 0;x < WIDTH/2;x++) {
+	for (int x = 0;x < WIDTH;x++) {
 		for (int y = 0;y < HEIGHT;y++) {
 			buffer[y][x * 2] = _virtual_buffer[x][y];
 			buffer[y][x * 2+1] = _virtual_buffer[x][y];

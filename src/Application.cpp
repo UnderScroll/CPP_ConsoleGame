@@ -5,7 +5,7 @@
 
 #include "Vector2.h"
 #include "PolygonObject.h"
-#define MIN_FRAMETIME_MS 1
+#define MIN_FRAMETIME_MS 10
 
 Application Application::instance = Application();
 
