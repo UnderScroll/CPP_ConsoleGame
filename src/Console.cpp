@@ -51,8 +51,6 @@ void Console::Display() {
 		for (int y = 0;y < HEIGHT;y++) {
 			buffer[y][x * 2] = _virtual_buffer[x][y];
 			buffer[y][x * 2+1] = _virtual_buffer[x][y];
-			/*if (Console::GetInstance()._virtual_buffer[x][y].Char.UnicodeChar == ' ') continue;
-			Application::GetInstance().ofstream << "BUFFER HAS NON NULL CHARACTER AT x " << x << " y" << y << " " << Console::GetInstance()._virtual_buffer[x][y].Char.UnicodeChar << std::endl;*/
 		}
 	}
 

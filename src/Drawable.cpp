@@ -75,6 +75,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 }
 
 void Drawable::ColorPixel(const int x,const int y,const int color,const float proportion,const float alpha) {
+	if(x<0 || y<0) return;
 	Console& r_console = Console::GetInstance();
 	r_console._virtual_buffer[x][y].Char.UnicodeChar = 0x2588;
 	r_console._virtual_buffer[x][y].Attributes = color;

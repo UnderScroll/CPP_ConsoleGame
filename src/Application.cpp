@@ -18,7 +18,6 @@ void Application::InstanceRun() {
 		Input();
 		Update();
 		Draw();
-
 		
 		std::this_thread::sleep_until(waitTime);
 		frameCount++;
@@ -38,7 +37,7 @@ void Application::Setup() {
 	points.push_back(Vector2(-25.7, -10));
 	points.push_back(Vector2(5.5, -5));
 	polygon = PolygonObject(points, 0x0007,true);
-	polygon._position = Vector2(30, 20);
+	polygon.MoveTo(Vector2(30, 20));
 }
 
 void Application::Input() {
@@ -57,6 +56,7 @@ void Application::Input() {
 }
 
 void Application::Update() {
+	polygon.RotateByDegrees(1);
 }
 
 void Application::Draw() {
