@@ -39,7 +39,6 @@ void Application::Setup() {
 	points.push_back(Vector2(+7.5, 12));
 	points.push_back(Vector2(-25.7, -10));
 	points.push_back(Vector2(5.5, -5));
-	polygon = PolygonObject(points, 0x0007);
 	auto pol1 = PolygonObject::CreatePolygon(points, 0x0007);
 	pol1->MoveTo(Vector2(30, 30));
 }
@@ -66,7 +65,8 @@ void Application::Input() {
 }
 
 void Application::Update() {
-	polygon.RotateByDegrees(1);
+	for(auto itr=_game_objects.begin();itr!=_game_objects.end();++itr)
+	{
 		if(!(*itr)->_destroyed)
 		{
 			(*itr)->Update();
