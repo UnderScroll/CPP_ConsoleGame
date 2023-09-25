@@ -3,8 +3,9 @@
 
 #include <chrono>
 #include <fstream>
+#include <vector>
 
-#include "PolygonObject.h"
+#include "GameObject.h"
 
 class Application {
 public:
@@ -14,9 +15,9 @@ public:
 
 	static std::ofstream ofstream;
 
-	static void AddGameObject(std::unique_ptr<GameObject> unique)
+	static void AddGameObject(std::shared_ptr<GameObject> game_object_ptr)
 	{
-		GetInstance()._game_objects.push_back(unique);
+		GetInstance()._game_objects.push_back(game_object_ptr);
 	}
 	
 private:
@@ -34,7 +35,7 @@ private:
 	bool isOpen;
 	Console& console = Console::GetInstance();
 
-	std::vector<std::unique_ptr<GameObject>> _game_objects;
+	std::vector<std::shared_ptr<GameObject>> _game_objects;
 
 	static Application instance;
 

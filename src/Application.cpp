@@ -10,11 +10,6 @@
 Application Application::instance = Application();
 std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 
-void Application::AddGameObject(const GameObject& game_object)
-{
-	GetInstance()._game_objects.push_back(std::make_unique<GameObject>(game_object));
-}
-
 Application::~Application() {
 	ofstream.close();
 }
@@ -45,7 +40,8 @@ void Application::Setup() {
 	points.push_back(Vector2(-25.7, -10));
 	points.push_back(Vector2(5.5, -5));
 	polygon = PolygonObject(points, 0x0007);
-	polygon.MoveTo(Vector2(30, 30));
+	auto pol1 = PolygonObject::CreatePolygon(points, 0x0007);
+	pol1->MoveTo(Vector2(30, 30));
 }
 
 void Application::Input() {
@@ -71,12 +67,23 @@ void Application::Input() {
 
 void Application::Update() {
 	polygon.RotateByDegrees(1);
+		if(!(*itr)->_destroyed)
+		{
+			(*itr)->Update();
+		}
+		else {
+			_game_objects.erase(itr);
+		}	
+	}
 }
 
 void Application::Draw() {
 	console.Clear();
 
-	polygon.Draw();
+	for(auto game_object : _game_objects)
+	{
+		game_object->Draw();
+	}
 	
 	console.Display();
 }

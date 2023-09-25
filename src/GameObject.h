@@ -2,7 +2,6 @@
 #include <memory>
 #include <numbers>
 
-#include "Application.h"
 #include "Drawable.h"
 #include "Collider.h"
 
@@ -12,18 +11,17 @@ class GameObject :
 {
     // H�rit� via Drawable
 public:
-    bool destroyed=false; //When true, the application will delete it from its vectors
+    bool _destroyed=false; //When true, the application will delete it from its vectors
 
-    static std::unique_ptr<GameObject> Factory()
-    {
-        Application::GetInstance().
-    }
+    //All children of GameObject must implement a static factory method ! Sadly, there's no way to define a static virtual function :(
+    //Don't forget to make all the constructor private or protected
+    virtual void Update(){}
     
     virtual void Draw()=0;
 
     virtual void Destroy()
     {
-        destroyed=true;
+        _destroyed=true;
     }
 
     //The function relative to position and rotation are virtual so that children can redefine them. This is useful for polygons that needs special code to run to rotate correctly
@@ -74,6 +72,6 @@ protected:
     Vector2 _position = { 0, 0 };
     //In radians
     float _rotation = 0;
-    GameObject();
+    GameObject() {}
 };
 
