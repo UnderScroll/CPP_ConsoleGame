@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "PolygonObject.h"
+#include "Laser.h"
 
 class Application {
 public:
@@ -14,11 +15,6 @@ public:
 
 	static std::ofstream ofstream;
 
-	enum Keys {
-		ENTER_KEY_PRESSED = 0b0001,
-		ESCAPE_KEY_PRESSED = 0b0010,
-		LEFT_MOUSE_BUTTON_PRESSED = 0b0100 
-	};
 private:
 	Application(): isOpen(true) {};
 	Application(const Application& other);
@@ -34,6 +30,7 @@ private:
 	bool isOpen;
 	Console& console = Console::GetInstance();
 	PolygonObject polygon;
+	Laser laser = Laser(10);
 
 	POINT GetCursorPosition();
 

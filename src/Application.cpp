@@ -41,6 +41,7 @@ void Application::Setup() {
 	points.push_back(Vector2(5.5, -5));
 	polygon = PolygonObject(points, 0x0007);
 	polygon.MoveTo(Vector2(30, 30));
+	laser.MoveTo({ 50, 50 });
 }
 
 POINT Application::GetCursorPosition() {
@@ -65,6 +66,8 @@ void Application::Input() {
 
 void Application::Update() {
 	polygon.RotateByDegrees(1);
+	laser.RotateByDegrees(1);
+	laser.Update();
 }
 
 void Application::Draw() {
@@ -73,6 +76,10 @@ void Application::Draw() {
 	polygon.Draw();
 	POINT cursor = GetCursorPosition();
 	Drawable::ColorPixel(cursor.x, cursor.y, 7);
+
+	Drawable::ProcessLine({ 0, 0 }, { 10, 100 }, 7);
+
+	laser.Draw();
 	
 	console.Display();
 }
