@@ -14,8 +14,7 @@ public:
 
     PolygonObject(){}
 
-    PolygonObject(std::vector<Vector2> points,int color, bool isClosed=true):_points(points),_color(color),_isClosed(isClosed) {
-    }
+    PolygonObject(std::vector<Vector2> points,int color, bool isClosed=true):_points(points),_color(color),_isClosed(isClosed) {}
     
     // H�rit� via GameObject
     virtual void Draw() override;

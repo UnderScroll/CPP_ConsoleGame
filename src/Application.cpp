@@ -41,6 +41,7 @@ void Application::Setup() {
 	points.push_back(Vector2(5.5, -5));
 	polygon = PolygonObject(points, 0x0007);
 	polygon.MoveTo(Vector2(30, 30));
+	laser.MoveTo({ 50, 50 });
 }
 
 void Application::Input() {
@@ -53,25 +54,22 @@ void Application::Input() {
 		isOpen = false;
 	}
 	*/
-	
-	
-	BYTE keyboardState[256];
-	if (GetKeyboardState(keyboardState)) {
-		ofstream << "[INFO] - " << frameCount << " - Keyboard : ";
-		for (BYTE b : keyboardState)
-			ofstream << (bool)b;
-		ofstream << std::endl;
-	};
 }
 
 void Application::Update() {
 	polygon.RotateByDegrees(1);
+	laser.RotateByDegrees(1);
+	laser.Update();
 }
 
 void Application::Draw() {
 	console.Clear();
 
 	polygon.Draw();
+
+	Drawable::ProcessLine({ 0, 0 }, { 10, 100 }, 7);
+
+	laser.Draw();
 	
 	console.Display();
 }

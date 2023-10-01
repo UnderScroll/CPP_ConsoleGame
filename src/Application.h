@@ -5,6 +5,7 @@
 #include <fstream>
 
 #include "PolygonObject.h"
+#include "Laser.h"
 
 class Application {
 public:
@@ -13,8 +14,6 @@ public:
 	static Application& GetInstance() { return instance; }
 
 	static std::ofstream ofstream;
-
-
 
 private:
 	Application() {};
@@ -31,6 +30,7 @@ private:
 	bool isOpen;
 	Console& console = Console::GetInstance();
 	PolygonObject polygon;
+	Laser laser = Laser(10);
 
 	static Application instance;
 

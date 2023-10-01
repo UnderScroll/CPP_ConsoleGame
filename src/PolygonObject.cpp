@@ -10,7 +10,7 @@ void PolygonObject::Draw()
 		Vector2 currentPoint = GetPosition() + _rotated_points[i];
 		Vector2 nextPoint = GetPosition() + _rotated_points[(i<_rotated_points.size()-1)?i + 1:0];
 		
-		Drawable::ProcessLine(currentPoint, nextPoint,_color);
+		Drawable::ProcessLine(currentPoint, nextPoint, _color);
 	}
 }
 
