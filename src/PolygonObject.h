@@ -17,7 +17,7 @@ public:
     static std::shared_ptr<PolygonObject> CreateLine(float x, float y,float length,int color=0x0007);
     static std::shared_ptr<PolygonObject> CreateLine(float x1, float y1,float x2,float y2,int color=0x0007);
     static std::shared_ptr<PolygonObject> CreatePolygon();
-    static std::shared_ptr<PolygonObject> CreatePolygon(std::vector<Vector2> points, bool isClosed=true,int color=0x0007, float alpha=0.0f);
+    static std::shared_ptr<PolygonObject> CreatePolygon(std::vector<Vector2> points, bool isClosed=true,int color=0x0007, float alpha=1.0f);
     static std::shared_ptr<PolygonObject> CreatePolygon(const PolygonObject polygon_object);
     
     // H�rit� via GameObject
