@@ -53,15 +53,6 @@ void Application::Input() {
 		isOpen = false;
 	}
 	*/
-	
-	
-	BYTE keyboardState[256];
-	if (GetKeyboardState(keyboardState)) {
-		ofstream << "[INFO] - " << frameCount << " - Keyboard : ";
-		for (BYTE b : keyboardState)
-			ofstream << (bool)b;
-		ofstream << std::endl;
-	};
 }
 
 void Application::Update() {

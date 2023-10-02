@@ -93,7 +93,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 	}
 }
 
-const std::string Drawable::SORTED_BY_LUMINANCE_STRING="`.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@";
+const std::string Drawable::SORTED_BY_LUMINANCE_STRING=".,:;i1tfcLCXO0W@";
 
 void Drawable::ColorPixel(const int x,const int y,const int color,const float alpha) {
 	if(x < 0 || y < 0) return;

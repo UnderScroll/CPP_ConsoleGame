@@ -9,7 +9,7 @@ class GameObject :
     public Drawable,
     public Collider 
 {
-    // H�rit� via Drawable
+    // inherited by via Drawable
 public:
     bool _destroyed=false; //When true, the application will delete it from its vectors
 
@@ -31,12 +31,12 @@ public:
     }
     virtual void MoveBy(Vector2 deltaPosition)
     {
-        _position+=deltaPosition;
+        _position += deltaPosition;
     }
 
     virtual void MoveTo(Vector2 targetPosition)
     {
-        _position=targetPosition;
+        _position = targetPosition;
     }
 
     virtual float GetRotationInRadians()
@@ -46,27 +46,27 @@ public:
 
     virtual  float GetRotationInDegrees()
     {
-        return GetRotationInRadians()*RAD_TO_DEG;
+        return GetRotationInRadians() * RAD_TO_DEG;
     }
 
     virtual  void RotateByRadians(float deltaAngle)
     {
-        RotateToRadians(_rotation+deltaAngle);
+        RotateToRadians(_rotation + deltaAngle);
     }
 
     virtual void RotateByDegrees(float deltaAngle)
     {
-        RotateByRadians(deltaAngle*DEG_TO_RAD);
+        RotateByRadians(deltaAngle * DEG_TO_RAD);
     }
 
     virtual  void RotateToRadians(float targetAngle)
     {
-        _rotation=targetAngle;
+        _rotation = targetAngle;
     }
 
     virtual void RotateToDegrees(float targetAngle)
     {
-        _rotation=DEG_TO_RAD*targetAngle;
+        _rotation= DEG_TO_RAD * targetAngle;
     }
 protected:
     Vector2 _position = { 0, 0 };

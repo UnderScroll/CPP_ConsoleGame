@@ -6,6 +6,8 @@
 #include <vector>
 
 #include "GameObject.h"
+#include "PolygonObject.h"
+#include "Laser.h"
 
 class Application {
 public:
