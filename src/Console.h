@@ -11,6 +11,8 @@ public:
 	void Setup();
 	void Display();
 	void Clear();
+	
+	static BOOL SetConsoleSize(int cols, int rows);
 
 	CHAR_INFO buffer[TRUE_HEIGHT][TRUE_WIDTH];
 
