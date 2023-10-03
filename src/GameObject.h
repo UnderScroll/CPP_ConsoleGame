@@ -1,6 +1,7 @@
 #pragma once
 #include <memory>
 #include <numbers>
+#include <vector>
 
 #include "Drawable.h"
 #include "Collider.h"
@@ -12,12 +13,15 @@ class GameObject :
     // inherited by via Drawable
 public:
     bool _destroyed=false; //When true, the application will delete it from its vectors
+    bool _detached=false; //When true, the parent game object will remove it from their child and add it to the main game objects list
 
     //All children of GameObject must implement a static factory method ! Sadly, there's no way to define a static virtual function :(
     //Don't forget to make all the constructor private or protected
-    virtual void Update(){}
+    virtual void Update();
     
-    virtual void Draw()=0;
+    void static UpdateGameObjectPointersList(std::vector<std::shared_ptr<GameObject>> &r_game_objects);
+    
+    virtual void Draw();
 
     virtual void Destroy()
     {
@@ -31,12 +35,17 @@ public:
     }
     virtual void MoveBy(Vector2 deltaPosition)
     {
-        _position += deltaPosition;
+        MoveTo(_position+deltaPosition);
     }
 
     virtual void MoveTo(Vector2 targetPosition)
     {
         _position = targetPosition;
+        for (auto child : _children)
+        {
+            Vector2 localPosition=child->_position-this->_position;
+            child->MoveTo(targetPosition+localPosition);
+        }
     }
 
     virtual float GetRotationInRadians()
@@ -49,25 +58,44 @@ public:
         return GetRotationInRadians() * RAD_TO_DEG;
     }
 
-    virtual  void RotateByRadians(float deltaAngle)
+    void RotateByRadians(float deltaAngle)
     {
         RotateToRadians(_rotation + deltaAngle);
     }
 
-    virtual void RotateByDegrees(float deltaAngle)
+    void RotateByDegrees(float deltaAngle)
     {
         RotateByRadians(deltaAngle * DEG_TO_RAD);
     }
 
-    virtual  void RotateToRadians(float targetAngle)
+    virtual void RotateToRadians(float targetAngle)
     {
+        for (auto child : _children)
+        {
+            float localRotation=child->_rotation-this->_rotation;
+            child->RotateToRadians(targetAngle+localRotation);
+        }
         _rotation = targetAngle;
     }
 
-    virtual void RotateToDegrees(float targetAngle)
+    void RotateToDegrees(float targetAngle)
     {
-        _rotation= DEG_TO_RAD * targetAngle;
+        RotateToRadians(DEG_TO_RAD * targetAngle);
     }
+
+    void DetachFromParent()
+    {
+        _detached=true;
+    }
+
+    /**
+     * \brief 
+     * \param newChildPtr 
+     * \param convertCoordinatesToLocalCoordinates If true, the current coordinates of the object will be interpreted as local coordinates. If the GameObject is at (0,0), he will be moved to be at the center of its parent
+     */
+    void AddChild(std::shared_ptr<GameObject> newChildPtr, bool convertCoordinatesToLocalCoordinates=true);
+
+    std::vector<std::shared_ptr<GameObject>> _children;
 protected:
     Vector2 _position = { 0, 0 };
     //In radians
