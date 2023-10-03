@@ -12,7 +12,7 @@ public:
 	void Display();
 	void Clear();
 	
-	static BOOL SetConsoleSize(int cols, int rows);
+	static BOOL SetConsoleSize(const HWND& windowHandle, const HANDLE& stdOutHandle, int cols, int rows);
 
 	CHAR_INFO buffer[TRUE_HEIGHT][TRUE_WIDTH];
 

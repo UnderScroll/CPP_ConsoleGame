@@ -85,14 +85,10 @@ void Application::Update()
 
 void Application::Draw() {
 	console.Clear();
-
-	polygon.Draw();
+	
 	POINT cursor = GetCursorPosition();
 	Drawable::ColorPixel(cursor.x, cursor.y, 7);
-
-	Drawable::ProcessLine({ 0, 0 }, { 10, 100 }, 7);
-
-	laser.Draw();
+	
 	for(auto game_object : _game_objects)
 	{
 		game_object->Draw();
