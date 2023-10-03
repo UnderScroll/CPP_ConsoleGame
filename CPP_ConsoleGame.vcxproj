@@ -147,7 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\RotatingPolygonObject.cpp" />
+    <ClCompile Include="src\RotatingObject.cpp" />
     <ClCompile Include="src\Laser.cpp" />
     <ClCompile Include="src\Application.cpp" />
     <ClCompile Include="src\Character.cpp" />
@@ -159,7 +159,7 @@
     <ClCompile Include="src\Vector2.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\RotatingPolygonObject.h" />
+    <ClInclude Include="src\RotatingObject.h" />
     <ClInclude Include="src\Laser.h" />
     <ClInclude Include="src\Application.h" />
     <ClInclude Include="src\Character.h" />

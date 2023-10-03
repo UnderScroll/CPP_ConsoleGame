@@ -23,9 +23,7 @@ public:
     // H�rit� via GameObject
     virtual void Draw() override;
     virtual void RotateToRadians(float targetAngle) override;
-    virtual void Update() override {
-        RotateByDegrees(0.5f);
-    }
+    virtual void Update() override {}
 protected:
     PolygonObject(std::vector<Vector2> points, bool isClosed,int color, float alpha):_points(points),_color(color),
         _alpha(alpha), _isClosed(isClosed)

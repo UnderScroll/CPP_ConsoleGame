@@ -22,6 +22,7 @@ public:
 		GetInstance()._game_objects.push_back(game_object_ptr);
 	}
 	
+	static void RemoveGameObject(std::shared_ptr<GameObject> game_object_ptr);
 private:
 	Application(): isOpen(true) {};
 	Application(const Application& other);

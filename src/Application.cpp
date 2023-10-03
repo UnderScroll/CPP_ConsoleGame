@@ -5,10 +5,23 @@
 
 #include "Vector2.h"
 #include "PolygonObject.h"
+#include "RotatingObject.h"
 #define MIN_FRAMETIME_MS 10
 
 Application Application::instance = Application();
 std::ofstream Application::ofstream = std::ofstream("runtime.log");
+
+void Application::RemoveGameObject(std::shared_ptr<GameObject> game_object_ptr)
+{
+	Application &instance=GetInstance();
+	for (auto itr = instance._game_objects.begin(); itr != instance._game_objects.end(); ++itr)
+	{
+		if((*itr)!=game_object_ptr) continue;
+		
+		instance._game_objects.erase(itr);
+		break;
+	}
+}
 
 Application::~Application() {
 	ofstream.close();
@@ -39,8 +52,10 @@ void Application::Setup() {
 	points.push_back(Vector2(+7.5, 12));
 	points.push_back(Vector2(-25.7, -10));
 	points.push_back(Vector2(5.5, -5));
-	auto pol1 = PolygonObject::CreatePolygon(points, 0x0007);
-	pol1->MoveTo(Vector2(30, 30));
+
+	//auto pol1=PolygonObject::CreatePolygon(points, 0x0007);
+	//pol1->MoveTo(Vector2(30,30));
+	auto pol1 = RotatingObject::CreateRotatingObject(30,30,1,PolygonObject::CreatePolygon(points, 0x0007));
 }
 
 POINT Application::GetCursorPosition() {
@@ -63,17 +78,9 @@ void Application::Input() {
 
 }
 
-void Application::Update() {
-	for(auto itr=_game_objects.begin();itr!=_game_objects.end();++itr)
-	{
-		if(!(*itr)->_destroyed)
-		{
-			(*itr)->Update();
-		}
-		else {
-			_game_objects.erase(itr);
-		}	
-	}
+void Application::Update()
+{
+	GameObject::UpdateGameObjectPointersList(_game_objects);
 }
 
 void Application::Draw() {

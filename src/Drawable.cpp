@@ -53,10 +53,10 @@ void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_en
 
 		int inextY=(int)floor(nextY);
 		luminancesCache[x][inextY]+=1-decimalPartOfY;
-		luminancesCache[x][inextY-1]+=decimalPartOfY;
+		luminancesCache[x][inextY+1]+=decimalPartOfY;
 		
 		ColorPixel(x, inextY, color,alpha*luminancesCache[x][inextY]);
-		ColorPixel(x, inextY-1, color,alpha*luminancesCache[x][inextY-1]);
+		ColorPixel(x, inextY+1, color,alpha*luminancesCache[x][inextY+1]);
 	}
 }
 
