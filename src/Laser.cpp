@@ -18,26 +18,26 @@ Laser::Laser(const float size)
 		basePoints.push_back(point);
 	}
 
-	laserBase = PolygonObject(basePoints, color);
-	laserLine = PolygonObject({}, 4);
+	laserBase = PolygonObject::CreatePolygon(basePoints,true,color);
+	laserLine = PolygonObject::CreatePolygon({},false, 4);
 }
 
 void Laser::Update() {
 	ComputeLaserLine();
-	laserBase.RotateToRadians(_rotation);
-	laserBase.MoveTo(_position);
-	laserLine.RotateToRadians(0);
+	laserBase->RotateToRadians(_rotation);
+	laserBase->MoveTo(_position);
+	laserLine->RotateToRadians(0);
 }
 
 //WIP
 void Laser::ComputeLaserLine() {
-	Vector2 originPoint = laserBase._points[0].RotateByRadians(_rotation);
-	laserLine._points = { _position, _position + originPoint };
+	Vector2 originPoint = laserBase->_points[0].RotateByRadians(_rotation);
+	laserLine->_points = { _position, _position + originPoint };
 }
 
 void Laser::Draw() {
 	
-	laserBase.Draw();
-	laserLine.Draw();
+	laserBase->Draw();
+	laserLine->Draw();
 	Drawable::ColorPixel(_position._x, _position._y, 4);
 }

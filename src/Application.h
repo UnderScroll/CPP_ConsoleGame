@@ -3,7 +3,9 @@
 
 #include <chrono>
 #include <fstream>
+#include <vector>
 
+#include "GameObject.h"
 #include "PolygonObject.h"
 #include "Laser.h"
 
@@ -15,6 +17,11 @@ public:
 
 	static std::ofstream ofstream;
 
+	static void AddGameObject(std::shared_ptr<GameObject> game_object_ptr)
+	{
+		GetInstance()._game_objects.push_back(game_object_ptr);
+	}
+	
 private:
 	Application(): isOpen(true) {};
 	Application(const Application& other);
@@ -29,8 +36,8 @@ private:
 
 	bool isOpen;
 	Console& console = Console::GetInstance();
-	PolygonObject polygon;
-	Laser laser = Laser(10);
+
+	std::vector<std::shared_ptr<GameObject>> _game_objects;
 
 	POINT GetCursorPosition();
 

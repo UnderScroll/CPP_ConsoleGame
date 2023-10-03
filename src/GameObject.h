@@ -1,4 +1,5 @@
 #pragma once
+#include <memory>
 #include <numbers>
 
 #include "Drawable.h"
@@ -10,7 +11,18 @@ class GameObject :
 {
     // inherited by via Drawable
 public:
-    virtual void Draw() = 0;
+    bool _destroyed=false; //When true, the application will delete it from its vectors
+
+    //All children of GameObject must implement a static factory method ! Sadly, there's no way to define a static virtual function :(
+    //Don't forget to make all the constructor private or protected
+    virtual void Update(){}
+    
+    virtual void Draw()=0;
+
+    virtual void Destroy()
+    {
+        _destroyed=true;
+    }
 
     //The function relative to position and rotation are virtual so that children can redefine them. This is useful for polygons that needs special code to run to rotate correctly
     virtual Vector2 GetPosition() const
@@ -60,5 +72,6 @@ protected:
     Vector2 _position = { 0, 0 };
     //In radians
     float _rotation = 0;
+    GameObject() {}
 };
 

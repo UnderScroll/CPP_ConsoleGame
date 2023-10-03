@@ -19,7 +19,7 @@ public:
 	void ComputeLaserLine();
 private:
 
-	PolygonObject laserBase;
-	PolygonObject laserLine;
+	std::shared_ptr<PolygonObject> laserBase;
+	std::shared_ptr<PolygonObject> laserLine;
 };
 

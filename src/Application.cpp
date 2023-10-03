@@ -39,9 +39,8 @@ void Application::Setup() {
 	points.push_back(Vector2(+7.5, 12));
 	points.push_back(Vector2(-25.7, -10));
 	points.push_back(Vector2(5.5, -5));
-	polygon = PolygonObject(points, 0x0007);
-	polygon.MoveTo(Vector2(30, 30));
-	laser.MoveTo({ 50, 50 });
+	auto pol1 = PolygonObject::CreatePolygon(points, 0x0007);
+	pol1->MoveTo(Vector2(30, 30));
 }
 
 POINT Application::GetCursorPosition() {
@@ -65,9 +64,16 @@ void Application::Input() {
 }
 
 void Application::Update() {
-	polygon.RotateByDegrees(1);
-	laser.RotateByDegrees(1);
-	laser.Update();
+	for(auto itr=_game_objects.begin();itr!=_game_objects.end();++itr)
+	{
+		if(!(*itr)->_destroyed)
+		{
+			(*itr)->Update();
+		}
+		else {
+			_game_objects.erase(itr);
+		}	
+	}
 }
 
 void Application::Draw() {
@@ -80,6 +86,10 @@ void Application::Draw() {
 	Drawable::ProcessLine({ 0, 0 }, { 10, 100 }, 7);
 
 	laser.Draw();
+	for(auto game_object : _game_objects)
+	{
+		game_object->Draw();
+	}
 	
 	console.Display();
 }

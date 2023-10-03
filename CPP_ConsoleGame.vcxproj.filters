@@ -39,6 +39,7 @@
     <ClCompile Include="src\PolygonObject.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\RotatingPolygonObject.cpp">
     <ClCompile Include="src\Laser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -80,6 +81,7 @@
     <ClInclude Include="src\PolygonObject.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\RotatingPolygonObject.h">
     <ClInclude Include="src\Vec2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
