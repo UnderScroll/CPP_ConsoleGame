@@ -7,7 +7,7 @@ std::shared_ptr<RotatingObject> RotatingObject::CreateRotatingObject(float x, fl
                                                                      std::shared_ptr<GameObject> r_child)
 {
     auto newObject=std::make_shared<RotatingObject>(RotatingObject(angularVelocity));
-    newObject->MoveTo(Vector2(x,y));
+    newObject->SetLocalPosition(Vector2(x,y));
     newObject->AddChild(r_child);
     Application::AddGameObject(newObject);
     return newObject;

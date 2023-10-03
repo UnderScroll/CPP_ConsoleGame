@@ -57,10 +57,10 @@ void Application::Setup() {
 	//pol1->MoveTo(Vector2(30,30));
 	auto rectangle = PolygonObject::CreateRectangle(0, 0, 20, 20);
 	auto triangle=PolygonObject::CreatePolygon(points,true);
-	triangle->MoveTo(Vector2(0,25));
+	triangle->SetLocalPosition(Vector2(0,25));
 	rectangle->AddChild(triangle);
 	
-	auto rotating = RotatingObject::CreateRotatingObject(30,30,10,rectangle);
+	auto rotating = RotatingObject::CreateRotatingObject(30,30,1,rectangle);
 }
 
 void Application::Input() {
