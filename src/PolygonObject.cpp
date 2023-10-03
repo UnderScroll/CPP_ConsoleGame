@@ -76,6 +76,7 @@ PolygonObject PolygonObject::LineConstructor(float x1, float y1, float x2, float
 
 void PolygonObject::Draw()
 {
+    GameObject::Draw();
     for (unsigned long long i = 0; i < _rotated_points.size() - ((_isClosed) ? 0 : 1); ++i)
     {
         Vector2 currentPoint = GetPosition() + _rotated_points[i];

@@ -52,6 +52,12 @@ void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_en
 		float decimalPartOfY=nextY-floor(nextY);
 
 		int inextY=(int)floor(nextY);
+
+		if (inextY < 0) continue;
+		if (inextY >= HEIGHT - 1) continue;
+		if (x >= WIDTH - 1) continue;
+		if (x < 0) continue;
+
 		luminancesCache[x][inextY]+=1-decimalPartOfY;
 		luminancesCache[x][inextY+1]+=decimalPartOfY;
 		
@@ -85,6 +91,10 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 		float decimalPartOfX=nextX-floor(nextX);
 
 		int inextX=(int)floor(nextX);
+		if(inextX<0) continue;
+		if (inextX >= WIDTH - 1) continue;
+		if (y >= HEIGHT - 1) continue;
+		if (y < 0) continue;
 		luminancesCache[inextX][y]+=1-decimalPartOfX;
 		luminancesCache[inextX+1][y]+=decimalPartOfX;
 		

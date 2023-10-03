@@ -68,15 +68,7 @@ public:
         RotateByRadians(deltaAngle * DEG_TO_RAD);
     }
 
-    virtual void RotateToRadians(float targetAngle)
-    {
-        for (auto child : _children)
-        {
-            float localRotation=child->_rotation-this->_rotation;
-            child->RotateToRadians(targetAngle+localRotation);
-        }
-        _rotation = targetAngle;
-    }
+    virtual void RotateToRadians(float targetAngle);
 
     void RotateToDegrees(float targetAngle)
     {
