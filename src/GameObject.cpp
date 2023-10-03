@@ -66,6 +66,7 @@ inline void GameObject::DetachFromParent()
 		break;
 	}
 
+	_localPosition = GetWorldPosition();
 	_parent = nullptr;
 }
 
@@ -73,9 +74,13 @@ void GameObject::AddChild(std::shared_ptr<GameObject> newChildPtr)
 {
 	if (newChildPtr->_parent != nullptr)
 	{
-		throw std::runtime_error("Tried to add a child that already had a parent to a game object");
+		throw std::runtime_error("Tried to add a child that already had a parent to a game object. If you want to change the parent of a game object your must call DetachFromParent first.");
 	}
+	//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
+	newChildPtr->SetLocalPosition(newChildPtr->GetWorldPosition() - GetWorldPosition());
+
 	newChildPtr->_parent = shared_from_this();
+
 	_children.push_back(newChildPtr);
 	Application::RemoveGameObject(newChildPtr);
 }
