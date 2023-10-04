@@ -61,6 +61,8 @@ void Application::Setup() {
 	rectangle->AddChild(triangle);
 	
 	auto rotating = RotatingObject::CreateRotatingObject(30,30,1,rectangle);
+
+	rectangle->SetLocalPosition(Vector2(0, 0));
 }
 
 void Application::Input() {
