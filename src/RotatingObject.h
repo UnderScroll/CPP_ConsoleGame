@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+namespace core {
+
 class RotatingObject :
     public GameObject
 {
@@ -15,4 +17,6 @@ public:
 protected:
 	RotatingObject(float angularVelocity): _angularVelocity(angularVelocity){}
 };
+
+}
 

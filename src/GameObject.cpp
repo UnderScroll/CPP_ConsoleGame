@@ -2,6 +2,22 @@
 
 #include "Application.h"
 
+namespace core {
+
+std::vector<GameObject*> GameObject::gameObjects = std::vector<GameObject*>();
+
+GameObject::GameObject() {
+	Application::ofstream << "[INFO] GameObject Constructor : " << this << std::endl;
+	gameObjects.push_back(this);
+}
+
+GameObject::~GameObject() {
+	Application::ofstream << "[INFO] GameObject Destructor : " << this << std::endl;
+	auto this_it = std::find(gameObjects.begin(), gameObjects.end(), this);
+	if (this_it != gameObjects.end())
+		gameObjects.erase(this_it);
+}
+
 void GameObject::Update()
 {
 	UpdateGameObjectPointersList(_children);
@@ -82,5 +98,7 @@ void GameObject::AddChild(std::shared_ptr<GameObject> newChildPtr)
 	newChildPtr->_parent = shared_from_this();
 
 	_children.push_back(newChildPtr);
-	Application::RemoveGameObject(newChildPtr);
 }
+
+}
+

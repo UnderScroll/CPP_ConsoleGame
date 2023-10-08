@@ -2,6 +2,8 @@
 
 #include <iostream>
 
+namespace core {
+
 Console Console::instance = Console();
 const HANDLE Console::stdOutHandle = (HANDLE)GetStdHandle(STD_OUTPUT_HANDLE);
 const HWND Console::windowHandle = GetConsoleWindow();
@@ -114,4 +116,6 @@ BOOL Console::SetConsoleSize(const HWND& windowHandle, const HANDLE& stdOutHandl
 	}
 
 	return SetWindowPos(windowHandle, NULL, rect.left, rect.top, cols * fi.dwFontSize.X + bw, rows * fi.dwFontSize.Y + bh, SWP_NOACTIVATE | SWP_NOMOVE | SWP_NOOWNERZORDER | SWP_NOZORDER);
+}
+
 }

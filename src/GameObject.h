@@ -6,6 +6,8 @@
 #include "Drawable.h"
 #include "Collider.h"
 
+namespace core {
+
 class GameObject :
 	public Drawable,
 	public Collider,
@@ -83,10 +85,15 @@ public:
 	void AddChild(std::shared_ptr<GameObject> newChildPtr);
 
 	std::vector<std::shared_ptr<GameObject>> _children;
+
+	static std::vector<GameObject*> gameObjects;
+
+	GameObject();
+	~GameObject();
 protected:
 	Vector2 _localPosition = { 0, 0 };
 	//In radians
 	float _localRotation = 0;
-	GameObject() {}
 };
 
+}

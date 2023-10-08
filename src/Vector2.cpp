@@ -1,5 +1,7 @@
 #include "Vector2.h"
 
+namespace core {
+
 Vector2 Vector2::RotateByRadians(float angle, Vector2 center) const
 {
     float newX = cos(angle) * (_x - center._x) - sin(angle) * (_y - center._y) + center._x;
@@ -31,3 +33,7 @@ Vector2 operator*(float const& number, Vector2 const& r_v2b)
 {
     return Vector2(number * -r_v2b._x, number * r_v2b._y);
 }
+
+
+}
+

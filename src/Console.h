@@ -6,6 +6,8 @@
 #define TRUE_WIDTH WIDTH * 2
 #define TRUE_HEIGHT HEIGHT
 
+namespace core {
+
 class Console {
 public:
 	void Setup();
@@ -32,3 +34,6 @@ private:
 
 	static Console instance;
 };
+
+}
+
