@@ -157,6 +157,7 @@
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\PolygonObject.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
+    <ClCompile Include="src\UIObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RotatingObject.h" />
@@ -169,6 +170,7 @@
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\PolygonObject.h" />
     <ClInclude Include="src\Vector2.h" />
+    <ClInclude Include="src\UIObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />
