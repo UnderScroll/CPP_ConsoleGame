@@ -25,7 +25,6 @@ std::shared_ptr<PolygonObject> PolygonObject::CreatePolygon()
     return PolygonObject::CreatePolygon(std::vector<Vector2>(),0x0007,true);
 }
 
-
 //TODO : Consider using a template defined in GameObject.h ?
 std::shared_ptr<PolygonObject> PolygonObject::CreatePolygon(std::vector<Vector2> points, bool isClosed, int color, float alpha)
 {
@@ -47,7 +46,7 @@ PolygonObject PolygonObject::RectangleConstructor(float x, float y, float width,
     points.push_back(Vector2(0.5f * width, 0.5f * height));
     points.push_back(Vector2(-0.5f * width, 0.5f * height));
     auto rectangle=PolygonObject(points,true,color,1);
-    rectangle.MoveTo(Vector2(x, y));
+    rectangle.SetLocalPosition(Vector2(x, y));
     return rectangle;
 }
 
@@ -57,7 +56,7 @@ PolygonObject  PolygonObject::LineConstructor(float x, float y, float length, in
     points.push_back(Vector2(-0.5f*length, 0));
     points.push_back(Vector2(0.5f*length, 0));
     auto line = PolygonObject(points, false,color,1);
-    line.MoveTo(Vector2(x, y));
+    line.SetLocalPosition(Vector2(x, y));
     return line;
 }
 
@@ -74,15 +73,21 @@ PolygonObject PolygonObject::LineConstructor(float x1, float y1, float x2, float
     return line;
 }
 
-void PolygonObject::Draw()
+
+// Herite via GameObject
+
+inline void PolygonObject::Draw()
 {
+    GameObject::Draw();
     for (unsigned long long i = 0; i < _rotated_points.size() - ((_isClosed) ? 0 : 1); ++i)
     {
-        Vector2 currentPoint = GetPosition() + _rotated_points[i];
-        Vector2 nextPoint = GetPosition() + _rotated_points[(i < _rotated_points.size() - 1) ? i + 1 : 0];
+        Vector2 currentPoint = GetWorldPosition() + _rotated_points[i];
+        Vector2 nextPoint = GetWorldPosition() + _rotated_points[(i < _rotated_points.size() - 1) ? i + 1 : 0];
 
         Drawable::ProcessLine(currentPoint, nextPoint, _color);
     }
+
+    auto position = GetWorldPosition();
 }
 
 void PolygonObject::RotateToRadians(float targetAngle)
@@ -91,6 +96,6 @@ void PolygonObject::RotateToRadians(float targetAngle)
     _rotated_points.clear();
     for (Vector2 point : _points)
     {
-        _rotated_points.push_back(point.RotateByRadians(GetRotationInRadians()));
+        _rotated_points.push_back(point.RotateByRadians(GetWorldRotationInRadians()));
     }
 }

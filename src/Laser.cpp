@@ -24,20 +24,20 @@ Laser::Laser(const float size)
 
 void Laser::Update() {
 	ComputeLaserLine();
-	laserBase->RotateToRadians(_rotation);
-	laserBase->MoveTo(_position);
+	laserBase->RotateToRadians(_localRotation);
+	laserBase->SetLocalPosition(_localPosition);
 	laserLine->RotateToRadians(0);
 }
 
 //WIP
 void Laser::ComputeLaserLine() {
-	Vector2 originPoint = laserBase->_points[0].RotateByRadians(_rotation);
-	laserLine->_points = { _position, _position + originPoint };
+	Vector2 originPoint = laserBase->_points[0].RotateByRadians(_localRotation);
+	laserLine->_points = { _localPosition, _localPosition + originPoint };
 }
 
 void Laser::Draw() {
 	
 	laserBase->Draw();
 	laserLine->Draw();
-	Drawable::ColorPixel(_position._x, _position._y, 4);
+	Drawable::ColorPixel(_localPosition._x, _localPosition._y, 4);
 }

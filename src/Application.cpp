@@ -49,13 +49,20 @@ void Application::Setup() {
 	console.Setup();
 	isOpen = true;
 	std::vector<Vector2> points;
-	points.push_back(Vector2(+7.5, 12));
-	points.push_back(Vector2(-25.7, -10));
-	points.push_back(Vector2(5.5, -5));
+	points.push_back(Vector2(-10, -10));
+	points.push_back(Vector2(10, -10));
+	points.push_back(Vector2(0, 10));
 
 	//auto pol1=PolygonObject::CreatePolygon(points, 0x0007);
 	//pol1->MoveTo(Vector2(30,30));
-	auto pol1 = RotatingObject::CreateRotatingObject(30,30,1,PolygonObject::CreatePolygon(points, 0x0007));
+	auto rectangle = PolygonObject::CreateRectangle(0, 0, 20, 20);
+	auto triangle=PolygonObject::CreatePolygon(points,true);
+	triangle->SetLocalPosition(Vector2(0,25));
+	rectangle->AddChild(triangle);
+	
+	auto rotating = RotatingObject::CreateRotatingObject(30,30,1,rectangle);
+
+	rectangle->SetLocalPosition(Vector2(0, 0));
 }
 
 POINT Application::GetCursorPosition() {
