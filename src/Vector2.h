@@ -62,3 +62,5 @@ Vector2 operator+=(Vector2 &r_v2a, Vector2 const& r_v2b);
 Vector2 operator-(Vector2 const& r_v2a, Vector2 const& r_v2b);
 
 Vector2 operator*(float const& number, Vector2 const& r_v2b);
+
+Vector2 operator*(Vector2 const& r_v2a, Vector2 const& r_v2b);

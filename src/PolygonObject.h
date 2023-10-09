@@ -23,18 +23,21 @@ public:
     // H�rit� via GameObject
     virtual void Draw() override;
     virtual void RotateToRadians(float targetAngle) override;
+    virtual void SetLocalScale(Vector2 targetScale) override;
+    
     virtual void Update() override {}
 protected:
     PolygonObject(std::vector<Vector2> points, bool isClosed,int color, float alpha):_points(points),_color(color),
         _alpha(alpha), _isClosed(isClosed)
     {
-        _rotated_points = _points;
+        _computedPoints = _points;
     }
     
     static PolygonObject RectangleConstructor(float x, float y, float width, float height, int color);
     static PolygonObject LineConstructor(float x, float y, float length, int color);
     static PolygonObject LineConstructor(float x1, float y1, float x2, float y2, int color);
 
-    std::vector<Vector2> _rotated_points;
+    std::vector<Vector2> _computedPoints;
+    void ComputePoints();
 };
 

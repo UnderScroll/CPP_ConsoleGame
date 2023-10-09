@@ -32,8 +32,23 @@ void GameObject::Draw()
 Vector2 GameObject::GetWorldPosition() const
 {
 	if (_parent == nullptr) return GetLocalPosition();
-	auto rotatedLocalPosition= GetLocalPosition().RotateByRadians(_parent->GetWorldRotationInRadians());
+	auto rotatedLocalPosition= (_parent->GetWorldScale() * GetLocalPosition()).RotateByRadians(_parent->GetWorldRotationInRadians());
 	return rotatedLocalPosition + _parent->GetWorldPosition();
+}
+
+Vector2 GameObject::GetWorldScale() const
+{
+	if(_parent == nullptr) return GetLocaleScale();
+	return GetLocaleScale() * _parent->GetWorldScale();
+}
+
+void GameObject::SetLocalScale(Vector2 targetScale)
+{
+	_localScale = targetScale;
+	for (auto child : _children) {
+		//Recalculate variables suposed to be recalculated when the piece is rotated
+		child->SetLocalScale(child->GetLocaleScale());
+	}
 }
 
 float GameObject::GetWorldRotationInRadians()
@@ -49,7 +64,6 @@ float GameObject::GetWorldRotationInDegrees()
 
 void GameObject::RotateToRadians(float targetAngle)
 {
-	//TO DO : Utiliser GetWorldPosition
 	_localRotation = targetAngle;
 	for (auto child : _children) {
 		//Recalculate variables suposed to be recalculated when the piece is rotated

@@ -37,6 +37,13 @@ public:
 
 	Vector2 GetWorldPosition() const;
 
+	Vector2 GetWorldScale() const;
+
+	Vector2 GetLocaleScale() const 
+	{
+		return _localScale;
+	}
+
 	virtual void MoveBy(Vector2 deltaPosition)
 	{
 		SetLocalPosition(_localPosition + deltaPosition);
@@ -46,6 +53,8 @@ public:
 	{
 		_localPosition = targetPosition;
 	}
+
+	virtual void SetLocalScale(Vector2 targetScale);
 
 	virtual float GetLocalRotationInRadians()
 	{
@@ -85,6 +94,7 @@ public:
 	std::vector<std::shared_ptr<GameObject>> _children;
 protected:
 	Vector2 _localPosition = { 0, 0 };
+	Vector2 _localScale = { 1, 1 };
 	//In radians
 	float _localRotation = 0;
 	GameObject() {}

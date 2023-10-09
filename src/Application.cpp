@@ -63,6 +63,7 @@ void Application::Setup() {
 	auto rotating = RotatingObject::CreateRotatingObject(30,30,1,rectangle);
 
 	rectangle->SetLocalPosition(Vector2(0, 0));
+	rotating->SetLocalScale(Vector2(0.5f, 0.5f));
 }
 
 void Application::Input() {
