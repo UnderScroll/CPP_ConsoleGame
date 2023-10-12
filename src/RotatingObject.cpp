@@ -8,9 +8,7 @@ void RotatingObject::Update()
 {
     GameObject::Update();
     RotateByDegrees(_angularVelocity);
-    Application::ofstream << GetLocalRotationInDegrees() << std::endl;
 }
-
 
 }
 
