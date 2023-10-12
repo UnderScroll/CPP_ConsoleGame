@@ -1,3 +1,4 @@
+#pragma once
 #include "Application.h"
 
 #include <iostream>
@@ -7,6 +8,7 @@
 #include "RotatingObject.h"
 #include "Polygon.h"
 #include "Rectangle.h"
+#include "GameObject.h"
 
 #define MIN_FRAMETIME_MS 16
 

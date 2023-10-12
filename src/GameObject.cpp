@@ -1,6 +1,8 @@
+#pragma once
 #include "GameObject.h"
 
 #include "Application.h"
+#include "RotatingObject.h"
 
 namespace core {
 

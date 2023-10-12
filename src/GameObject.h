@@ -92,9 +92,6 @@ public:
 	std::vector<std::shared_ptr<GameObject>> _children;
 
 	static std::vector<std::shared_ptr<GameObject>> _rootGameObjects;
-
-	GameObject();
-	~GameObject();
 protected:
 	Vector2 _localPosition = { 0, 0 };
 	//In radians
