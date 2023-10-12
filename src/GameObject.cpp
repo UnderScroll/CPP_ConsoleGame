@@ -4,19 +4,7 @@
 
 namespace core {
 
-std::vector<GameObject*> GameObject::gameObjects = std::vector<GameObject*>();
-
-GameObject::GameObject() {
-	Application::ofstream << "[INFO] GameObject Constructor : " << this << std::endl;
-	gameObjects.push_back(this);
-}
-
-GameObject::~GameObject() {
-	Application::ofstream << "[INFO] GameObject Destructor : " << this << std::endl;
-	auto this_it = std::find(gameObjects.begin(), gameObjects.end(), this);
-	if (this_it != gameObjects.end())
-		gameObjects.erase(this_it);
-}
+std::vector<std::shared_ptr<GameObject >> GameObject::_rootGameObjects = std::vector<std::shared_ptr<GameObject>>();
 
 void GameObject::Update()
 {
@@ -47,15 +35,17 @@ void GameObject::Draw()
 
 Vector2 GameObject::GetWorldPosition() const
 {
-	if (_parent == nullptr) return GetLocalPosition();
-	auto rotatedLocalPosition= GetLocalPosition().RotateByRadians(_parent->GetWorldRotationInRadians());
-	return rotatedLocalPosition + _parent->GetWorldPosition();
+	if (_parent.expired()) return GetLocalPosition();
+	auto parent = _parent.lock();
+	auto rotatedLocalPosition= GetLocalPosition().RotateByRadians(parent->GetWorldRotationInRadians());
+	return rotatedLocalPosition + parent->GetWorldPosition();
 }
 
 float GameObject::GetWorldRotationInRadians()
 {
-	if (_parent == nullptr) return GetLocalRotationInRadians();
-	return _parent->GetWorldRotationInRadians() + GetLocalRotationInRadians();
+	if (_parent.expired()) return GetLocalRotationInRadians();
+	auto parent = _parent.lock();
+	return parent->GetWorldRotationInRadians() + GetLocalRotationInRadians();
 }
 
 float GameObject::GetWorldRotationInDegrees()
@@ -75,20 +65,21 @@ void GameObject::RotateToRadians(float targetAngle)
 
 inline void GameObject::DetachFromParent()
 {
-	if (_parent == nullptr) return;
-	for (auto itr = _parent->_children.begin(); itr != _parent->_children.end(); ++itr)
+	if (_parent.expired()) return;
+	auto parent = _parent.lock();
+	for (auto itr = parent->_children.begin(); itr != parent->_children.end(); ++itr)
 	{
-		_parent->_children.erase(itr);
+		parent->_children.erase(itr);
 		break;
 	}
 
 	_localPosition = GetWorldPosition();
-	_parent = nullptr;
+	_parent.reset();
 }
 
 void GameObject::AddChild(std::shared_ptr<GameObject> newChildPtr)
 {
-	if (newChildPtr->_parent != nullptr)
+	if (!newChildPtr->_parent.expired())
 	{
 		throw std::runtime_error("Tried to add a child that already had a parent to a game object. If you want to change the parent of a game object your must call DetachFromParent first.");
 	}
@@ -98,6 +89,22 @@ void GameObject::AddChild(std::shared_ptr<GameObject> newChildPtr)
 	newChildPtr->_parent = shared_from_this();
 
 	_children.push_back(newChildPtr);
+}
+
+template<typename T>
+std::shared_ptr<T> GameObject::AddChild(T gameObject)
+{
+	auto ptr= std::make_shared<T>(gameObject);
+	AddChild(ptr);
+	return ptr;
+}
+
+template <typename T>
+std::shared_ptr<T> GameObject::AddGameObjectToRoot(T gameObject)
+{
+	auto newObject = std::make_shared<T>(gameObject);
+	_rootGameObjects.push_back(newObject);
+	return newObject;
 }
 
 }

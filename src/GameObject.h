@@ -16,7 +16,10 @@ class GameObject :
 	// inherited by via Drawable
 public:
 	bool _destroyed = false; //When true, the application will delete it from its vectors
-	std::shared_ptr<GameObject> _parent = nullptr;
+	std::weak_ptr<GameObject> _parent = std::weak_ptr<GameObject>();
+
+	template <typename T>
+	static std::shared_ptr<T> AddGameObjectToRoot(T gameObject);
 
 	//All children of GameObject must implement a static factory method ! Sadly, there's no way to define a static virtual function :(
 	//Don't forget to make all the constructor private or protected
@@ -83,10 +86,12 @@ public:
 	void DetachFromParent();
 
 	void AddChild(std::shared_ptr<GameObject> newChildPtr);
+	template <typename T>
+	std::shared_ptr<T> AddChild(T gameObject);
 
 	std::vector<std::shared_ptr<GameObject>> _children;
 
-	static std::vector<GameObject*> gameObjects;
+	static std::vector<std::shared_ptr<GameObject>> _rootGameObjects;
 
 	GameObject();
 	~GameObject();

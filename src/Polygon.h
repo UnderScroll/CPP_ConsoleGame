@@ -21,7 +21,7 @@ public:
 
 	Polygon(): _alpha(1), _color(0), _isClosed(false) {};
 
-	Polygon(std::vector<Vector2> points, bool isClosed, int color, float alpha) :_points(points), _color(color),
+	Polygon(std::vector<Vector2> points, bool isClosed, int color=0x0007, float alpha=1) :_points(points), _color(color),
 		_alpha(alpha), _isClosed(isClosed), _rotated_points(_points) {}
 protected:
 	std::vector<Vector2> _rotated_points;

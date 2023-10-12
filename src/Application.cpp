@@ -53,17 +53,14 @@ void Application::Setup() {
 	rect._color = 1;
 	rect.MoveBy({ 10, 10 });
 
-	_game_objects.push_back(std::make_unique<Rectangle>(rect));
+	auto triangle=Polygon(points,true);
+	triangle.SetLocalPosition(Vector2(0,25));
+	//rect.AddChild<Polygon>(triangle);
 
-	//auto pol1=PolygonObject::CreatePolygon(points, 0x0007);
-	//pol1->MoveTo(Vector2(30,30));
-	//auto triangle=Polygon::CreatePolygon(points,true);
-	//triangle->SetLocalPosition(Vector2(0,25));
-	//rectangle->AddChild(triangle);
-	
-	//auto rotating = RotatingObject::CreateRotatingObject(30,30,1,rectangle);
+	auto rotating = RotatingObject(30,30,1);
+	//rotating.AddChild<Rectangle>(rect);
 
-	//rectangle->SetLocalPosition(Vector2(0, 0));
+	GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
 }
 
 POINT Application::GetCursorPosition() {
@@ -89,20 +86,13 @@ void Application::Input() {
 
 void Application::Update()
 {
-	for (auto& game_object : _game_objects)
-	{
-		game_object->RotateByDegrees(0.1);
-		game_object->Update();
-	}
+	GameObject::UpdateGameObjectPointersList(GameObject::_rootGameObjects);
 }
 
 void Application::Draw() {
 	console.Clear();
 	
-	for(auto& game_object : _game_objects)
-	{
-		game_object->Draw();
-	}
+	GameObject::UpdateGameObjectPointersList(GameObject::_rootGameObjects);
 
 	Drawable::ColorPixel(cursor.x, cursor.y, 7);
 	

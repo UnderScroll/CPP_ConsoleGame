@@ -8,14 +8,16 @@ class RotatingObject :
 {
 public:
 	float _angularVelocity;
-	
-	static std::shared_ptr<RotatingObject> CreateRotatingObject(float x, float y, float angularVelocity, std::shared_ptr<GameObject> r_child);
 
 	// Inherited via GameObject
 	virtual void Update() override;
 
-protected:
 	RotatingObject(float angularVelocity): _angularVelocity(angularVelocity){}
+
+	RotatingObject(float x, float y, float angularVelocity) : RotatingObject(angularVelocity) 
+	{
+		SetLocalPosition(Vector2(x, y));
+	}
 };
 
 }

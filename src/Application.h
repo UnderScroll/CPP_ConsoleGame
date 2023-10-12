@@ -32,8 +32,6 @@ private:
 	bool isOpen;
 	Console& console = Console::GetInstance();
 
-	std::vector<std::unique_ptr<GameObject>> _game_objects;
-
 	POINT GetCursorPosition();
 
 	static POINT cursor;

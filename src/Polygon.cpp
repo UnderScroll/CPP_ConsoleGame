@@ -4,7 +4,6 @@
 #include <algorithm>
 
 #include "Drawable.h"
-#include "Application.h"
 
 namespace core {
 
