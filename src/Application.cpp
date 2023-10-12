@@ -60,7 +60,8 @@ void Application::Setup() {
 
 	auto rotatingPtr=GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
 	auto rectPtr=rotatingPtr->AddChild<Polygon>(rect);
-	rectPtr->AddChild<Polygon>(triangle);
+	rectPtr->SetLocalPosition({ 0, 0 });
+	//rectPtr->AddChild<Polygon>(triangle);
 }
 
 POINT Application::GetCursorPosition() {
