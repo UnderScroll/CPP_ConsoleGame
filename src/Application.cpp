@@ -57,12 +57,13 @@ void Application::Setup() {
 
 	auto triangle=Polygon(points,true);
 	triangle.SetLocalPosition(Vector2(0,25));
+	GameObject::AddGameObjectToRoot<Polygon>(triangle);
 	//rect.AddChild<Polygon>(triangle);
 
 	auto rotating = RotatingObject(30,30,1);
 	//rotating.AddChild<Rectangle>(rect);
 
-	GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
+	//GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
 }
 
 POINT Application::GetCursorPosition() {
@@ -94,7 +95,7 @@ void Application::Update()
 void Application::Draw() {
 	console.Clear();
 	
-	GameObject::UpdateGameObjectPointersList(GameObject::_rootGameObjects);
+	GameObject::DrawRootGameObjects();
 
 	Drawable::ColorPixel(cursor.x, cursor.y, 7);
 	

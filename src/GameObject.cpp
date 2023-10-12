@@ -35,6 +35,14 @@ void GameObject::Draw()
 	}
 }
 
+void GameObject::DrawRootGameObjects()
+{
+	for (auto gameObject : _rootGameObjects)
+	{
+		gameObject->Draw();
+	}
+}
+
 Vector2 GameObject::GetWorldPosition() const
 {
 	if (_parent.expired()) return GetLocalPosition();
@@ -77,36 +85,6 @@ inline void GameObject::DetachFromParent()
 
 	_localPosition = GetWorldPosition();
 	_parent.reset();
-}
-
-void GameObject::AddChild(std::shared_ptr<GameObject> newChildPtr)
-{
-	if (!newChildPtr->_parent.expired())
-	{
-		throw std::runtime_error("Tried to add a child that already had a parent to a game object. If you want to change the parent of a game object your must call DetachFromParent first.");
-	}
-	//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
-	newChildPtr->SetLocalPosition(newChildPtr->GetWorldPosition() - GetWorldPosition());
-
-	newChildPtr->_parent = shared_from_this();
-
-	_children.push_back(newChildPtr);
-}
-
-template<typename T>
-std::shared_ptr<T> GameObject::AddChild(T gameObject)
-{
-	auto ptr= std::make_shared<T>(gameObject);
-	AddChild(ptr);
-	return ptr;
-}
-
-template <typename T>
-std::shared_ptr<T> GameObject::AddGameObjectToRoot(T gameObject)
-{
-	auto newObject = std::make_shared<T>(gameObject);
-	_rootGameObjects.push_back(newObject);
-	return newObject;
 }
 
 }
