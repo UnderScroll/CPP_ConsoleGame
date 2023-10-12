@@ -56,14 +56,11 @@ void Application::Setup() {
 	rect.MoveBy({ 10, 10 });
 
 	auto triangle=Polygon(points,true);
-	triangle.SetLocalPosition(Vector2(0,25));
-	GameObject::AddGameObjectToRoot<Polygon>(triangle);
-	//rect.AddChild<Polygon>(triangle);
-
 	auto rotating = RotatingObject(30,30,1);
-	//rotating.AddChild<Rectangle>(rect);
 
-	//GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
+	auto rotatingPtr=GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
+	auto rectPtr=rotatingPtr->AddChild<Polygon>(rect);
+	rectPtr->AddChild<Polygon>(triangle);
 }
 
 POINT Application::GetCursorPosition() {

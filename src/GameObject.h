@@ -102,20 +102,20 @@ public:
 		_children.push_back(newChildPtr);
 	}
 
-	//template <typename T>
-	//std::shared_ptr<T> AddChild(T gameObject)
-	//{
-	//	gameObject._parent = shared_from_this();
-	//	gameObject.SetLocalPosition(gameObject.GetWorldPosition() - GetWorldPosition());
+	template <typename T>
+	std::shared_ptr<T> AddChild(T gameObject)
+	{
+		gameObject._parent = shared_from_this();
+		gameObject.SetLocalPosition(gameObject.GetWorldPosition() - GetWorldPosition());
 
-	//	auto ptr = std::make_shared<T>(gameObject);
-	//	
-	//	//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
+		auto ptr = std::make_shared<T>(gameObject);
+		
+		//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
 
-	//	_children.push_back(ptr);
+		_children.push_back(ptr);
 
-	//	return ptr;
-	//}
+		return ptr;
+	}
 
 	std::vector<std::shared_ptr<GameObject>> _children;
 
