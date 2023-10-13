@@ -61,7 +61,10 @@ void Application::Setup() {
 	auto rotatingPtr=GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
 	auto rectPtr=rotatingPtr->AddChild<Polygon>(rect);
 	rectPtr->SetLocalPosition({ 0, 0 });
-	//rectPtr->AddChild<Polygon>(triangle);
+	auto triPtr=rectPtr->AddChild<Polygon>(triangle);
+	triPtr->SetLocalPosition({ 0, 12 });
+	triPtr->SetLocalScale({ 0.5, 0.5 });
+	rotatingPtr->SetLocalScale({ 2,2 });
 }
 
 POINT Application::GetCursorPosition() {

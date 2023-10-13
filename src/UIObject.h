@@ -2,8 +2,12 @@
 
 #include "GameObject.h"
 
-class UIObject :
-	public GameObject
+namespace core
 {
-};
+	class UIObject :
+		public GameObject
+	{
+	};
+}
+
 

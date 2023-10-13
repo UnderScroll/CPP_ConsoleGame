@@ -15,7 +15,8 @@ Rectangle::Rectangle(Vector2 pointA, float width, float height) {
 	this->_points.push_back(pointA + Vector2(0, height));
 	this->_points.push_back(pointA + Vector2(width, height));
 	this->_points.push_back(pointA + Vector2(width, 0));
-	this->_rotated_points = _points;
+	this->_isClosed = true;
+	this->_computedPoints = _points;
 }
 
 }

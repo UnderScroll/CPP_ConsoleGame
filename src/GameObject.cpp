@@ -47,14 +47,15 @@ Vector2 GameObject::GetWorldPosition() const
 {
 	if (_parent.expired()) return GetLocalPosition();
 	auto parent = _parent.lock();
-	auto rotatedLocalPosition= (_parent->GetWorldScale() * GetLocalPosition()).RotateByRadians(_parent->GetWorldRotationInRadians());
+	auto rotatedLocalPosition= (parent->GetWorldScale() * GetLocalPosition()).RotateByRadians(parent->GetWorldRotationInRadians());
 	return rotatedLocalPosition + parent->GetWorldPosition();
 }
 
 Vector2 GameObject::GetWorldScale() const
 {
-	if(_parent == nullptr) return GetLocaleScale();
-	return GetLocaleScale() * _parent->GetWorldScale();
+	if (_parent.expired()) return GetLocaleScale();
+	auto parent = _parent.lock();
+	return GetLocaleScale() * parent->GetWorldScale();
 }
 
 void GameObject::SetLocalScale(Vector2 targetScale)
