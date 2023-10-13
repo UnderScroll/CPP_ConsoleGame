@@ -26,7 +26,7 @@ void Polygon::RotateToRadians(float targetAngle)
 {
 	GameObject::RotateToRadians(targetAngle);
 	for (size_t i = 0; i < _rotated_points.size(); ++i)
-		_rotated_points[i] = _rotated_points[i].RotateByRadians(GetWorldRotationInRadians());
+		_rotated_points[i] = _points[i].RotateByRadians(GetWorldRotationInRadians());
 }
 
 }
