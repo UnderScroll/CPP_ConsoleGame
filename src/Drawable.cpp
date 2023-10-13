@@ -1,12 +1,14 @@
 #pragma once
+#include "Drawable.h"
+
 #include <math.h>
 #include <vector>
 
-#include "Drawable.h"
-
 #include "Console.h"
 
-void Drawable::ProcessLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
+namespace core {
+
+void Drawable::DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
 {
 	Vector2 direction = r_end - r_start;
 	std::vector<int> segmentsToCheckY;
@@ -114,5 +116,7 @@ void Drawable::ColorPixel(const int x,const int y,const int color,const float al
 	
 	r_console._virtual_buffer[x][y].Char.UnicodeChar = charToUse;
 	r_console._virtual_buffer[x][y].Attributes = (WORD)color;
+}
+
 }
 

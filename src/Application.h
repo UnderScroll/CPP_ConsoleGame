@@ -1,13 +1,13 @@
 #pragma once
-#include "Console.h"
-
 #include <chrono>
 #include <fstream>
 #include <vector>
 
+#include "Console.h"
 #include "GameObject.h"
-#include "PolygonObject.h"
 #include "Laser.h"
+
+namespace core {
 
 class Application {
 public:
@@ -17,14 +17,8 @@ public:
 
 	static std::ofstream ofstream;
 
-	static void AddGameObject(std::shared_ptr<GameObject> game_object_ptr)
-	{
-		GetInstance()._game_objects.push_back(game_object_ptr);
-	}
-	
-	static void RemoveGameObject(std::shared_ptr<GameObject> game_object_ptr);
 private:
-	Application() {};
+	Application(): isOpen(true) {};
 	Application(const Application& other);
 	~Application();
 
@@ -38,9 +32,13 @@ private:
 	bool isOpen;
 	Console& console = Console::GetInstance();
 
-	std::vector<std::shared_ptr<GameObject>> _game_objects;
+	POINT GetCursorPosition();
 
+	static POINT cursor;
 	static Application instance;
 
 	unsigned long long frameCount = 0;	
 };
+
+}
+

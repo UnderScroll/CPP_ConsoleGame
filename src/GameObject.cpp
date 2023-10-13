@@ -1,6 +1,12 @@
+#pragma once
 #include "GameObject.h"
 
 #include "Application.h"
+#include "RotatingObject.h"
+
+namespace core {
+
+std::vector<std::shared_ptr<GameObject >> GameObject::_rootGameObjects = std::vector<std::shared_ptr<GameObject>>();
 
 void GameObject::Update()
 {
@@ -29,17 +35,27 @@ void GameObject::Draw()
 	}
 }
 
+void GameObject::DrawRootGameObjects()
+{
+	for (auto gameObject : _rootGameObjects)
+	{
+		gameObject->Draw();
+	}
+}
+
 Vector2 GameObject::GetWorldPosition() const
 {
-	if (_parent == nullptr) return GetLocalPosition();
-	auto rotatedLocalPosition= GetLocalPosition().RotateByRadians(_parent->GetWorldRotationInRadians());
-	return rotatedLocalPosition + _parent->GetWorldPosition();
+	if (_parent.expired()) return GetLocalPosition();
+	auto parent = _parent.lock();
+	auto rotatedLocalPosition= GetLocalPosition().RotateByRadians(parent->GetWorldRotationInRadians());
+	return rotatedLocalPosition + parent->GetWorldPosition();
 }
 
 float GameObject::GetWorldRotationInRadians()
 {
-	if (_parent == nullptr) return GetLocalRotationInRadians();
-	return _parent->GetWorldRotationInRadians() + GetLocalRotationInRadians();
+	if (_parent.expired()) return GetLocalRotationInRadians();
+	auto parent = _parent.lock();
+	return parent->GetWorldRotationInRadians() + GetLocalRotationInRadians();
 }
 
 float GameObject::GetWorldRotationInDegrees()
@@ -59,28 +75,17 @@ void GameObject::RotateToRadians(float targetAngle)
 
 inline void GameObject::DetachFromParent()
 {
-	if (_parent == nullptr) return;
-	for (auto itr = _parent->_children.begin(); itr != _parent->_children.end(); ++itr)
+	if (_parent.expired()) return;
+	auto parent = _parent.lock();
+	for (auto itr = parent->_children.begin(); itr != parent->_children.end(); ++itr)
 	{
-		_parent->_children.erase(itr);
+		parent->_children.erase(itr);
 		break;
 	}
 
 	_localPosition = GetWorldPosition();
-	_parent = nullptr;
+	_parent.reset();
 }
 
-void GameObject::AddChild(std::shared_ptr<GameObject> newChildPtr)
-{
-	if (newChildPtr->_parent != nullptr)
-	{
-		throw std::runtime_error("Tried to add a child that already had a parent to a game object. If you want to change the parent of a game object your must call DetachFromParent first.");
-	}
-	//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
-	newChildPtr->SetLocalPosition(newChildPtr->GetWorldPosition() - GetWorldPosition());
-
-	newChildPtr->_parent = shared_from_this();
-
-	_children.push_back(newChildPtr);
-	Application::RemoveGameObject(newChildPtr);
 }
+

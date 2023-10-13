@@ -1,25 +1,25 @@
 #pragma once
 #include "GameObject.h"
-#include "PolygonObject.h"
+#include "Polygon.h"
 
-#include <windows.h>
+namespace core {
 
-class Laser : public GameObject
+class Laser : 
+	public GameObject
 {
 public:
 	Laser();
 	Laser(const float size);
 
-
 	const float size;
-	const int color = FOREGROUND_BLUE;
+	const int color = 1;
 
-	void Draw();
+	void Draw() override;
 	void Update();
 	void ComputeLaserLine();
 private:
-
-	std::shared_ptr<PolygonObject> laserBase;
-	std::shared_ptr<PolygonObject> laserLine;
+	Polygon laseBase;
+	Polygon laseLine;
 };
 
+}

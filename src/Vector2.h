@@ -5,6 +5,8 @@
 #define RAD_TO_DEG (180/PI_F)
 #define DEG_TO_RAD (PI_F/180)
 
+namespace core {
+
 class Vector2
 {
 private:
@@ -62,3 +64,6 @@ Vector2 operator+=(Vector2 &r_v2a, Vector2 const& r_v2b);
 Vector2 operator-(Vector2 const& r_v2a, Vector2 const& r_v2b);
 
 Vector2 operator*(float const& number, Vector2 const& r_v2b);
+
+
+}

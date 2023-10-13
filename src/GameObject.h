@@ -6,6 +6,8 @@
 #include "Drawable.h"
 #include "Collider.h"
 
+namespace core {
+
 class GameObject :
 	public Drawable,
 	public Collider,
@@ -14,7 +16,15 @@ class GameObject :
 	// inherited by via Drawable
 public:
 	bool _destroyed = false; //When true, the application will delete it from its vectors
-	std::shared_ptr<GameObject> _parent = nullptr;
+	std::weak_ptr<GameObject> _parent = std::weak_ptr<GameObject>();
+
+	template <typename T>
+	static std::shared_ptr<T> AddGameObjectToRoot(T gameObject)
+	{
+		auto newObject = std::make_shared<T>(gameObject);
+		_rootGameObjects.push_back(newObject);
+		return newObject;
+	}
 
 	//All children of GameObject must implement a static factory method ! Sadly, there's no way to define a static virtual function :(
 	//Don't forget to make all the constructor private or protected
@@ -23,6 +33,8 @@ public:
 	void static UpdateGameObjectPointersList(std::vector<std::shared_ptr<GameObject>>& r_game_objects);
 
 	virtual void Draw();
+
+	void static DrawRootGameObjects();
 
 	virtual void Destroy()
 	{
@@ -80,13 +92,38 @@ public:
 
 	void DetachFromParent();
 
-	void AddChild(std::shared_ptr<GameObject> newChildPtr);
+	void AddChild(std::shared_ptr<GameObject> newChildPtr)
+	{
+		//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
+		newChildPtr->SetLocalPosition(newChildPtr->GetWorldPosition() - GetWorldPosition());
+
+		newChildPtr->_parent = shared_from_this();
+
+		_children.push_back(newChildPtr);
+	}
+
+	template <typename T>
+	std::shared_ptr<T> AddChild(T gameObject)
+	{
+		gameObject._parent = shared_from_this();
+		gameObject.SetLocalPosition(gameObject.GetWorldPosition() - GetWorldPosition());
+
+		auto ptr = std::make_shared<T>(gameObject);
+		
+		//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
+
+		_children.push_back(ptr);
+
+		return ptr;
+	}
 
 	std::vector<std::shared_ptr<GameObject>> _children;
+
+	static std::vector<std::shared_ptr<GameObject>> _rootGameObjects;
 protected:
 	Vector2 _localPosition = { 0, 0 };
 	//In radians
 	float _localRotation = 0;
-	GameObject() {}
 };
 
+}
