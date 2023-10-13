@@ -16,3 +16,8 @@ Include order :
 \#include "main.h"
 
 \#include "other.h"
+
+Excluding empty or one line constructor/destructor/otherSpecialFunctions if there is a cpp and h file : definition in h file, implementation in cpp file
+No diacritics or special symbols
+Namespaces do not increase indentation
+Everything is in core namespace (there was several conflict with windows.h)
