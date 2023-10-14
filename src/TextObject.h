@@ -52,7 +52,7 @@ namespace core
 			m['F'] = { S1, S7,S9,S7,S4,S5 };
 			m['G'] = { S8, S4,S2,S6,S5 };
 			m['H'] = { S1, S7,S4,S6,S9,S3 };
-			m['I'] = { S2,S8 };
+			m['I'] = { S1,S3, S2,S8 ,S9,S7 };
 			m['J'] = { S7,S9,S8,S2,S4 };
 			m['K'] = { S1,S7,S4,S9,S4,S3 };
 			m['L'] = { S7,S1,S3 };
