@@ -4,13 +4,11 @@
 #include <vector>
 
 #include "Drawable.h"
-#include "Collider.h"
 
 namespace core {
 
 class GameObject :
 	public Drawable,
-	public Collider,
 	public std::enable_shared_from_this<GameObject>
 {
 	// inherited by via Drawable

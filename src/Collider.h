@@ -1,15 +1,23 @@
 #pragma once
-#include <vector>
+
+#include "Polygon.h"
 
 namespace core {
 
 class Collider {
 public:
-	Collider();
-	~Collider();
+	enum CollisionType {
+		Null, //CollisionType not set
+		Wall,
+		Ray,
+		OutOfBounds
+	};
 
-	static std::vector<Collider*> colliders;
+	Collider(CollisionType collisionType = CollisionType::Wall);
+	Collider(Polygon collisionShape, CollisionType collisionType = CollisionType::Wall);
+
+	Polygon collisionShape;
+	CollisionType type;
 };
 
 }
-
