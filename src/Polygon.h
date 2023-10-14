@@ -11,7 +11,7 @@ class Polygon :
 {
 public:
 	std::vector<Vector2> _points; //Coordinates are relatives to the position of the GameObject
-	int _color;
+	Color _color;
 	float _alpha;
 	bool _isClosed;
 
@@ -22,9 +22,9 @@ public:
 
 	virtual void Update() override {}
 
-	Polygon(): _alpha(1), _color(0), _isClosed(true) {};
+	Polygon(): _alpha(1), _color(WHITE), _isClosed(true) {};
 
-	Polygon(std::vector<Vector2> points, bool isClosed, int color=0x0007, float alpha=1) :_points(points), _color(color),
+	Polygon(std::vector<Vector2> points, bool isClosed, Color color=WHITE, float alpha=1) :_points(points), _color(color),
 		_alpha(alpha), _isClosed(isClosed), _computedPoints(_points) {}
 protected:
     std::vector<Vector2> _computedPoints;

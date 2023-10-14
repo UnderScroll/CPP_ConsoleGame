@@ -105,17 +105,68 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 	}
 }
 
+void Drawable::DrawRectangle(Vector2 startPoint, Vector2 endPoint, const int color, const float alpha, bool drawBorders,bool drawAsBackgroundPixels)
+{
+	if (startPoint._x > endPoint._x) {
+		float cache = startPoint._x;
+		startPoint._x = endPoint._x;
+		endPoint._x = cache;
+	}
+
+	if (startPoint._y > endPoint._y) {
+		float cache = startPoint._y;
+		startPoint._y = endPoint._y;
+		endPoint._y = cache;
+	}
+
+	if (!drawBorders) {
+		++startPoint._x;
+		++startPoint._y;
+		--endPoint._x;
+		--endPoint._y;
+	}
+
+	if(startPoint._x<0) startPoint._x=0;
+	if(startPoint._y<0) startPoint._y=0;
+	if(endPoint._x>=WIDTH) endPoint._x=WIDTH-1;
+	if(endPoint._y>=HEIGHT) endPoint._y=HEIGHT-1;
+
+	//We can't call ColorPixel because it'd break the stack for huge rectangles
+	Console& r_console = Console::GetInstance();
+	int charToUseIndex = (int)std::floor(alpha * (SORTED_BY_LUMINANCE_STRING.length() - 1));
+	WCHAR charToUse = drawAsBackgroundPixels ? ' ' : SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
+
+	auto charInfo = (WORD)color << (drawAsBackgroundPixels ? 4 : 0);
+
+	for (int x = ceil(startPoint._x); x <= floor(endPoint._x); ++x) 
+	{
+		for (int y = ceil(startPoint._y); y <= floor(endPoint._y); ++y)
+		{
+			r_console._virtual_buffer[x][y].charToUse = charToUse;
+			if (!drawAsBackgroundPixels) {
+				r_console._virtual_buffer[x][y].color = (WORD)color;
+				continue;
+			}
+			r_console._virtual_buffer[x][y].backgroundColor = (WORD)color;
+		}
+	}
+}
+
 const std::string Drawable::SORTED_BY_LUMINANCE_STRING=".,:;i1tfcLCXO0W@";
 
-void Drawable::ColorPixel(const int x,const int y,const int color,const float alpha) {
+void Drawable::ColorPixel(const int x,const int y,const int color,const float alpha, bool backgroundPixel) {
 	if(x < 0 || y < 0) return;
 	Console& r_console = Console::GetInstance();
 
 	int charToUseIndex=(int)std::floor(alpha*(SORTED_BY_LUMINANCE_STRING.length()-1));
-	WCHAR charToUse=SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
+	WCHAR charToUse= backgroundPixel ? ' ' : SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
 	
-	r_console._virtual_buffer[x][y].Char.UnicodeChar = charToUse;
-	r_console._virtual_buffer[x][y].Attributes = (WORD)color;
+	r_console._virtual_buffer[x][y].charToUse = charToUse;
+	if (!backgroundPixel) {
+		r_console._virtual_buffer[x][y].color = (WORD)color;
+		return;
+	}
+	r_console._virtual_buffer[x][y].backgroundColor = (WORD)color;
 }
 
 }

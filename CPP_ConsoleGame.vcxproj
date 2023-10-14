@@ -158,8 +158,8 @@
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Polygon.cpp" />
+    <ClCompile Include="src\UIRect.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
-    <ClCompile Include="src\UIObject.cpp" />
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -173,8 +173,8 @@
     <ClInclude Include="src\Drawable.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Polygon.h" />
+    <ClInclude Include="src\UIRect.h" />
     <ClInclude Include="src\Vector2.h" />
-    <ClInclude Include="src\UIObject.h" />
     <ClInclude Include="src\TextObject.h" />
   </ItemGroup>
   <ItemGroup>

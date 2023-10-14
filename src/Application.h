@@ -13,9 +13,11 @@ class Application {
 public:
 	static void Run() { GetInstance().InstanceRun(); };
 
-	static Application& GetInstance() { return instance; }
+	static Application& GetInstance() { return _instance; }
 
 	static std::ofstream ofstream;
+
+	POINT GetCursorPosition();
 
 private:
 	Application(): isOpen(true) {};
@@ -32,10 +34,8 @@ private:
 	bool isOpen;
 	Console& console = Console::GetInstance();
 
-	POINT GetCursorPosition();
-
 	static POINT cursor;
-	static Application instance;
+	static Application _instance;
 
 	unsigned long long frameCount = 0;	
 };

@@ -10,12 +10,13 @@
 #include "Rectangle.h"
 #include "GameObject.h"
 #include "TextObject.h"
+#include "UIRect.h"
 
 #define MIN_FRAMETIME_MS 16
 
 namespace core {
 
-Application Application::instance = Application();
+Application Application::_instance = Application();
 std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 POINT Application::cursor = { 0, 0 };
 
@@ -53,7 +54,7 @@ void Application::Setup() {
 	points.push_back(Vector2(0, 10));
 
 	Rectangle rect = Rectangle(10, 10);
-	rect._color = 1;
+	rect._color = Drawable::WHITE;
 	rect.MoveBy({ 10, 10 });
 
 	auto triangle=Polygon(points,true);
@@ -65,14 +66,18 @@ void Application::Setup() {
 	auto triPtr=rectPtr->AddChild<Polygon>(triangle);
 	triPtr->SetLocalPosition({ 0, 12 });
 	triPtr->SetLocalScale({ 0.5, 0.5 });
+	triPtr->_color = Drawable::Color::RED;
 	rotatingPtr->SetLocalScale({ 2,2 });
 
 	auto rotatingPtr2=GameObject::AddGameObjectToRoot<RotatingObject>(RotatingObject(100,50,1));
 
-	auto textPtr = rotatingPtr2->AddChild<TextObject>(TextObject(7, 1,1));
+	auto textPtr = rotatingPtr2->AddChild<TextObject>(TextObject(Drawable::WHITE, 1,1));
 	textPtr->SetText("Hello");
 	textPtr->SetLocalPosition({ 0, 0 });
 	textPtr->SetLocalScale({ 8, 8 });
+
+	auto uiBackGroundPtr=GameObject::AddGameObjectToRoot<UIRect>(UIRect(Vector2(100,50),Drawable::Color::WHITE,Drawable::Color::GREEN,true,UIRect::BackgroundFill));
+	uiBackGroundPtr->SetLocalPosition({ WIDTH/4, HEIGHT-50 });
 }
 
 POINT Application::GetCursorPosition() {
