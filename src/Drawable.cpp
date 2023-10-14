@@ -8,6 +8,7 @@
 
 namespace core {
 
+	const Drawable::Layer Drawable::LAYERS[] = { BACKGROUND,WORLD,UI };
 void Drawable::DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
 {
 	Vector2 direction = r_end - r_start;

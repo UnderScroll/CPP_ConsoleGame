@@ -11,6 +11,7 @@
 #include "GameObject.h"
 #include "TextObject.h"
 #include "UIRect.h"
+#include "Button.h"
 
 #define MIN_FRAMETIME_MS 16
 
@@ -48,6 +49,13 @@ void Application::InstanceRun() {
 void Application::Setup() {
 	console.Setup();
 	isOpen = true;
+
+	auto uiBackGroundPtr = GameObject::AddGameObjectToRoot<UIRect>(UIRect(Vector2((WIDTH / 2) - 2, 46), Drawable::Color::MAGENTA, Drawable::Color::GREEN, true, UIRect::BackgroundFill));
+	uiBackGroundPtr->SetLocalPosition({ WIDTH / 4, HEIGHT - 25 });
+
+	auto button = uiBackGroundPtr->AddChild<Button>(Button(Vector2(WIDTH / 5, 30), Drawable::Color::WHITE, Drawable::LIGHTER_WHITE, Drawable::GRAY, Drawable::Color::BLUE, true, UIRect::BackgroundFill));
+	button->SetLocalPosition({ 0, 0 });
+
 	std::vector<Vector2> points;
 	points.push_back(Vector2(-10, -10));
 	points.push_back(Vector2(10, -10));
@@ -75,9 +83,6 @@ void Application::Setup() {
 	textPtr->SetText("Hello");
 	textPtr->SetLocalPosition({ 0, 0 });
 	textPtr->SetLocalScale({ 8, 8 });
-
-	auto uiBackGroundPtr=GameObject::AddGameObjectToRoot<UIRect>(UIRect(Vector2(100,50),Drawable::Color::WHITE,Drawable::Color::GREEN,true,UIRect::BackgroundFill));
-	uiBackGroundPtr->SetLocalPosition({ WIDTH/4, HEIGHT-50 });
 }
 
 POINT Application::GetCursorPosition() {

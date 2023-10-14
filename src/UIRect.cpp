@@ -21,18 +21,22 @@ namespace core
 			if (_hovered)
 			{
 				_hovered = false;
+				_clicked = false;
 				OnEndHover();
 			}
 			return;
 		}
 
-		OnHover();
-
+		if (!_hovered) {
+			_hovered = true;
+			OnHover();
+		}
+		
 		//Check if cursor is clicked
 		if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
 		{
-			OnCickDown();
 			_clicked = true;
+			OnClickDown();	
 			return;
 		}
 
@@ -58,5 +62,6 @@ namespace core
 		DrawLine(GetWorldPosition() + Vector2(halfBounds._x, -halfBounds._y), GetWorldPosition() + halfBounds, _strokeColor);
 		DrawLine(GetWorldPosition() + Vector2(-halfBounds._x, halfBounds._y), GetWorldPosition() + halfBounds, _strokeColor);
 
+		GameObject::Draw();
 	}
 }

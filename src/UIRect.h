@@ -27,9 +27,11 @@ namespace core
 
 		virtual void OnHover() {};
 		virtual void OnEndHover() {};
+		bool GetHovered() const { return _hovered; };
 
-		virtual void OnCickDown() {};
+		virtual void OnClickDown() {};
 		virtual void OnClickUp() {} ;
+		bool GetClicked() const { return _clicked; };
 
 		virtual void Update() override;
 		virtual void Draw() override;
