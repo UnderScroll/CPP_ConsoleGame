@@ -51,6 +51,8 @@ public:
 
 	Vector2 RotateByRadians(float angle,Vector2 center=Vector2(0,0)) const;
 
+	bool operator==(const Vector2& other) const;
+
 	Vector2 RotateByDegrees(float angle,Vector2 center=Vector2(0,0)) const
 	{
 		RotateByRadians(angle*DEG_TO_RAD);

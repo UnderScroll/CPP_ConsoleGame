@@ -13,6 +13,7 @@
 #define S2 Vector2(0, 0.5f)
 #define S3 Vector2(0.5f, 0.5f)
 #define SNONE Vector2(1000,1000)
+#define CHAR_WIDTH 1
 
 namespace core 
 {
@@ -21,25 +22,24 @@ namespace core
 	{
 	public:
 		// Inherited via GameObject
-		virtual void Draw() override;
-		virtual void Update() override;
-
 		void SetText(std::string text);
 		void SetColor(int color);
 		void SetAlpha(float alpha);
-		void SetFontWidth(int size);
+		void SetSpacing(float spacing);
 
 		std::string GetText() const { return _text; }
 		int GetColor() const { return _color; }
 		float GetAlpha() const { return _alpha; }
-		int GetFontWidth() const { return _fontWidth; }
+		float GetSpacing() const { return _spacing; }
+
+		TextObject(int color = 0x0007, float alpha = 1, float spacing = 0.1f);;
 	private:
 		std::string _text;
 		int _color;
 		float _alpha;
-		int _fontWidth;
+		float _spacing;
 
-		static const std::map<char, std::vector<Vector2>> _chars_polygons;
+		static std::map<char, std::vector<Vector2>> _charPolygons;
 
 		static std::map<char, std::vector<Vector2>> CreatCharPolygons()
 		{
@@ -48,7 +48,7 @@ namespace core
 			m['B'] = { S1, S7,S9,S5,S4,S5,S3,S1 };
 			m['C'] = { S9, S8,S4,S2,S3 };
 			m['D'] = { S1, S2,S6,S8,S7,S1 };
-			m['E'] = { S1, S7,S9,S7,S4,S5,S4,S1,S3 };
+			m['E'] = { S1, S7,S9,S7,S4,S6,S4,S1,S3 };
 			m['F'] = { S1, S7,S9,S7,S4,S5 };
 			m['G'] = { S8, S4,S2,S6,S5 };
 			m['H'] = { S1, S7,S4,S6,S9,S3 };
@@ -58,9 +58,9 @@ namespace core
 			m['L'] = { S7,S1,S3 };
 			m['M'] = { S1,S7,S5,S9,S3 };
 			m['N'] = { S1,S7,S3,S9 };
-			m['O'] = { S2,S4,S8,S6 };
+			m['O'] = { S2,S4,S8,S6,S2};
 			m['P'] = { S1,S7,S9,S5,S4 };
-			m['Q'] = { S2,S4,S8,S6,SNONE,S5,S3 };
+			m['Q'] = { S2,S4,S8,S6,S2,SNONE,S5,S3 };
 			m['R'] = { S1,S7,S9,S5,S4,S5,S3 };
 			m['S'] = { S9,S7,S4,S6,S3,S1 };
 			m['T'] = { S7,S9,S8,S2 };
@@ -74,9 +74,5 @@ namespace core
 			return m;
 		}
 	};
-
-	const std::map<char, std::vector<Vector2>> TextObject::_chars_polygons = TextObject::CreatCharPolygons();
-
-
 }
 

@@ -9,6 +9,7 @@
 #include "Polygon.h"
 #include "Rectangle.h"
 #include "GameObject.h"
+#include "TextObject.h"
 
 #define MIN_FRAMETIME_MS 16
 
@@ -56,7 +57,7 @@ void Application::Setup() {
 	rect.MoveBy({ 10, 10 });
 
 	auto triangle=Polygon(points,true);
-	auto rotating = RotatingObject(30,30,1);
+	auto rotating = RotatingObject(30,30,3);
 
 	auto rotatingPtr=GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
 	auto rectPtr=rotatingPtr->AddChild<Polygon>(rect);
@@ -65,6 +66,11 @@ void Application::Setup() {
 	triPtr->SetLocalPosition({ 0, 12 });
 	triPtr->SetLocalScale({ 0.5, 0.5 });
 	rotatingPtr->SetLocalScale({ 2,2 });
+
+	auto textPtr=GameObject::AddGameObjectToRoot<TextObject>(TextObject(7,1,1));
+	textPtr->SetText("Quoicouzeubi");
+	textPtr->SetLocalPosition({ 100, 30 });
+	textPtr->SetLocalScale({ 8, 8 });
 }
 
 POINT Application::GetCursorPosition() {
