@@ -10,6 +10,8 @@
 #include "Rectangle.h"
 #include "GameObject.h"
 #include "TextObject.h"
+#include "Collider.h"
+#include "Ray.h"
 
 #define MIN_FRAMETIME_MS 16
 
@@ -18,6 +20,18 @@ namespace core {
 Application Application::instance = Application();
 std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 POINT Application::cursor = { 0, 0 };
+
+
+Collider c0;
+Collider c1;
+Ray laser;
+Ray otherLaser;
+
+std::vector<Ray::CollisionInfo> collisionInfos;
+
+double distSqrd(Vector2 a, Vector2 b) {
+	return (b._x - a._x) * (b._x - a._x) + (b._y - a._y) * (b._y - a._y);
+}
 
 Application::~Application() {
 	ofstream.close();
@@ -70,6 +84,16 @@ void Application::Setup() {
 	textPtr->SetText("Hello");
 	textPtr->SetLocalPosition({ 0, 0 });
 	textPtr->SetLocalScale({ 8, 8 });
+
+	std::vector<Vector2> c0points = { Vector2(10, 10), Vector2(90, 10), Vector2(90, 90), Vector2(10 , 90) };
+	c0 = Collider(Polygon(c0points, false));
+
+	std::vector<Vector2> c1points = { Vector2(30, 100), Vector2(80, 100),  Vector2(80, 80) };
+	c1 = Collider(Polygon(c1points, true));
+
+	laser = Ray(Vector2(20, 20), Vector2(0.5, 0.3));
+
+	otherLaser = Ray(Vector2(50, 50), Vector2(0.3, -0.8));
 }
 
 POINT Application::GetCursorPosition() {
@@ -96,6 +120,19 @@ void Application::Input() {
 void Application::Update()
 {
 	GameObject::UpdateGameObjectPointersList(GameObject::_rootGameObjects);
+
+	laser.direction = Vector2(cursor.x - laser.position._x, cursor.y - laser.position._y);
+
+	collisionInfos.clear();
+	std::vector<Ray::CollisionInfo> c0Infos = laser.cast(c0);
+	std::vector<Ray::CollisionInfo> c1Infos = laser.cast(c1);
+	Ray::CollisionInfo rayCollisionInfo = laser.cast(otherLaser);
+
+	collisionInfos.reserve(c0Infos.size() + c1Infos.size() + 1);
+
+	collisionInfos.insert(collisionInfos.end(), c0Infos.begin(), c0Infos.end());
+	collisionInfos.insert(collisionInfos.end(), c1Infos.begin(), c1Infos.end());
+	collisionInfos.push_back(rayCollisionInfo);
 }
 
 void Application::Draw() {
@@ -104,7 +141,35 @@ void Application::Draw() {
 	GameObject::DrawRootGameObjects();
 
 	Drawable::ColorPixel(cursor.x, cursor.y, 7);
+	Drawable::DrawLine(laser.position, laser.position + Vector2(laser.direction._x * 100, laser.direction._y * 100), 3);
 	
+	//Closest Collision Point
+	double minDistSqrd = distSqrd(laser.position, collisionInfos[0].point);
+	Ray::CollisionInfo minDistInfo = collisionInfos[0];
+
+	//Draw all collisionPoints with ray
+	for (Ray::CollisionInfo& info : collisionInfos) {
+
+		switch (info.type) {
+		case Collider::CollisionType::OutOfBounds:
+			break;
+		case Collider::CollisionType::Wall:
+			Drawable::ColorPixel(info.point._x, info.point._y, 2);
+			break;
+		case Collider::CollisionType::Ray:
+			Drawable::ColorPixel(info.point._x, info.point._y, 1);
+			break;
+		}
+
+		if (info.type != Collider::CollisionType::OutOfBounds) {
+			double currentDistSqrd = distSqrd(laser.position, info.point);
+			if (minDistSqrd > currentDistSqrd) {
+				minDistSqrd = currentDistSqrd;
+				minDistInfo = info;
+			}
+		}
+	}
+
 	console.Display();
 }
 

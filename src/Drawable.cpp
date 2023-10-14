@@ -108,7 +108,7 @@ void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end,
 const std::string Drawable::SORTED_BY_LUMINANCE_STRING=".,:;i1tfcLCXO0W@";
 
 void Drawable::ColorPixel(const int x,const int y,const int color,const float alpha) {
-	if(x < 0 || y < 0) return;
+	if(x < 0 || y < 0 || x > 317) return;
 	Console& r_console = Console::GetInstance();
 
 	int charToUseIndex=(int)std::floor(alpha*(SORTED_BY_LUMINANCE_STRING.length()-1));

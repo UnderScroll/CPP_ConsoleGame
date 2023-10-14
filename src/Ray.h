@@ -26,5 +26,4 @@ private:
 	std::pair<const double, const double> ComputeCollisionConstant(Vector2& a, Vector2& b);
 };
 
-
 }
