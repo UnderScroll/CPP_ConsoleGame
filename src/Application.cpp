@@ -37,9 +37,6 @@ void Application::InstanceRun() {
 		frameCount++;
 
 		auto frameEnd = std::chrono::steady_clock::now();
-		ofstream << "[INFO] Colliders : \n";
-		for (Collider*& collider : Collider::colliders)
-			ofstream << "\t" << collider  << std::endl;
 		ofstream << "[INFO] Frame : " << frameCount << " - " << "frameTime : " << std::chrono::duration_cast<std::chrono::milliseconds>(frameEnd - frameStart).count() << "ms" << std::endl;
 	}
 }

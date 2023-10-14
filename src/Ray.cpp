@@ -82,7 +82,7 @@ Ray::CollisionInfo Ray::cast(Ray ray) {
 		//If there is collision
 		if (t > 0 && u > 0) {
 			info.type = Collider::CollisionType::Ray;
-			info.point = Vector2(ray.position._x + t * (rayBPoint_x - ray.position._x), ray.position._y + t * (rayBPoint._y - ray.position._y));
+			info.point = Vector2(ray.position._x + t * (rayBPoint._x - ray.position._x), ray.position._y + t * (rayBPoint._y - ray.position._y));
 		}
 		else
 			info.type = Collider::CollisionType::OutOfBounds;
