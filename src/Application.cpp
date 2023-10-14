@@ -67,9 +67,11 @@ void Application::Setup() {
 	triPtr->SetLocalScale({ 0.5, 0.5 });
 	rotatingPtr->SetLocalScale({ 2,2 });
 
-	auto textPtr=GameObject::AddGameObjectToRoot<TextObject>(TextObject(7,1,1));
-	textPtr->SetText("Quoicouzeubi");
-	textPtr->SetLocalPosition({ 100, 30 });
+	auto rotatingPtr2=GameObject::AddGameObjectToRoot<RotatingObject>(RotatingObject(100,50,1));
+
+	auto textPtr = rotatingPtr2->AddChild<TextObject>(TextObject(7, 1,1));
+	textPtr->SetText("Hello");
+	textPtr->SetLocalPosition({ 0, 0 });
 	textPtr->SetLocalScale({ 8, 8 });
 }
 

@@ -10,7 +10,7 @@ namespace core
 		_text = text;
 		_children.clear();
 		float textWidth = text.size() * (CHAR_WIDTH)+(text.size() - 1) * _spacing;
-		float textIncrement = (0.5 * CHAR_WIDTH + _spacing);
+		float textIncrement = (CHAR_WIDTH + _spacing);
 		float textStartX = -textWidth / 2;
 
 		for (int i = 0; i < _text.size(); i++)

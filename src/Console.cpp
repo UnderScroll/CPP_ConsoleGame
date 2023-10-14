@@ -27,6 +27,8 @@ void Console::InitConsoleStyle(const HANDLE& handle) {
 	//Set window Style
 	SetWindowLongPtrA(windowHandle, GWL_STYLE, WS_CAPTION | WS_SYSMENU);
 
+	SetConsoleTitle(L"Lasciier Attraction");
+
 	SetConsoleScreenBufferSize(handle, { WIDTH, HEIGHT });
 
 	//Set window position

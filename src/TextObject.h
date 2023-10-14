@@ -13,7 +13,7 @@
 #define S2 Vector2(0, 0.5f)
 #define S3 Vector2(0.5f, 0.5f)
 #define SNONE Vector2(1000,1000)
-#define CHAR_WIDTH 1
+#define CHAR_WIDTH 1.0f
 
 namespace core 
 {
