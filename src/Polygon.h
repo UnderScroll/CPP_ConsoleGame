@@ -15,6 +15,9 @@ public:
 	float _alpha;
 	bool _isClosed;
 
+	Vector2 GetBoundingBox();
+	float GetDiameter();
+
 	virtual void Draw() override;
 	void RotateToRadians(float targetAngle);
 

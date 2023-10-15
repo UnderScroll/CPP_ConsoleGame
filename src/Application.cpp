@@ -19,7 +19,7 @@ namespace core {
 
 Application Application::_instance = Application();
 std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
-POINT Application::cursor = { 0, 0 };
+POINT Application::_cursor = { 0, 0 };
 
 Application::~Application() {
 	ofstream.close();
@@ -27,7 +27,7 @@ Application::~Application() {
 
 void Application::InstanceRun() {
 	Setup();
-	while (isOpen) {
+	while (_isOpen) {
 		auto waitTime = std::chrono::steady_clock::now() + std::chrono::milliseconds(MIN_FRAMETIME_MS);
 		auto frameStart = std::chrono::steady_clock::now();
 		
@@ -48,7 +48,7 @@ void Application::InstanceRun() {
 
 void Application::Setup() {
 	console.Setup();
-	isOpen = true;
+	_isOpen = true;
 
 	auto uiBackGroundPtr = GameObject::AddGameObjectToRoot<UIRect>(UIRect(Vector2((WIDTH / 2) - 2, 46), Drawable::Color::MAGENTA, Drawable::Color::GREEN, true, UIRect::BackgroundFill));
 	uiBackGroundPtr->SetLocalPosition({ WIDTH / 4, HEIGHT - 25 });
@@ -101,9 +101,22 @@ POINT Application::GetCursorPosition() {
 
 void Application::Input() {
 	if ((GetKeyState(VK_RETURN) & 0x8000))
-		isOpen = false;
+		_isOpen = false;
 
-	cursor = GetCursorPosition();
+	_clickPressed = false;
+	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) 
+	{
+		_clickDown = true;
+	}
+	else 
+	{
+		if (_clickDown = true) {
+			_clickDown = false;
+			_clickPressed = true;
+		}
+	}
+		
+	_cursor = GetCursorPosition();
 }
 
 void Application::Update()
@@ -116,7 +129,7 @@ void Application::Draw() {
 	
 	GameObject::DrawRootGameObjects();
 
-	Drawable::ColorPixel(cursor.x, cursor.y, 7);
+	Drawable::ColorPixel(_cursor.x, _cursor.y, 7);
 	
 	console.Display();
 }

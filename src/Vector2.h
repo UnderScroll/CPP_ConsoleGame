@@ -1,5 +1,6 @@
 #pragma once
 #include <cmath>
+#include <windef.h>
 
 #define PI_F 3.14159265358979f
 #define RAD_TO_DEG (180/PI_F)
@@ -57,6 +58,8 @@ public:
 	{
 		RotateByRadians(angle*DEG_TO_RAD);
 	}
+
+	Vector2(POINT point) : _x(point.x), _y(point.y) {}
 };
 
 Vector2 operator+(Vector2 const& r_v2a, Vector2 const& r_v2b);

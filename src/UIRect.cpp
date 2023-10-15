@@ -11,12 +11,12 @@ namespace core
 		if (!_isHoveredCheck) return;
 		Vector2 position = GetWorldPosition();
 
-		POINT cursor = Application::GetInstance().GetCursorPosition();
+		POINT _cursor = Application::GetInstance().GetCursorPosition();
 
 		auto halfBounds = 0.5f * _rect;
 
-		if (!(cursor.x >= position._x - halfBounds._x && cursor.x <= position._x + halfBounds._x &&
-			cursor.y >= position._y - halfBounds._y && cursor.y <= position._y + halfBounds._y)) 
+		if (!(_cursor.x >= position._x - halfBounds._x && _cursor.x <= position._x + halfBounds._x &&
+			_cursor.y >= position._y - halfBounds._y && _cursor.y <= position._y + halfBounds._y)) 
 		{
 			if (_hovered)
 			{
@@ -33,7 +33,7 @@ namespace core
 		}
 		
 		//Check if cursor is clicked
-		if (GetAsyncKeyState(VK_LBUTTON) & 0x8000)
+		if (core::Application::_clickDown)
 		{
 			_clicked = true;
 			OnClickDown();	

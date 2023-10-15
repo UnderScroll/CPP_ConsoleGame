@@ -17,10 +17,12 @@ public:
 
 	static std::ofstream ofstream;
 
-	POINT GetCursorPosition();
+	static POINT GetCursorPosition();
+	static bool GetClickDown(){ return _clickDown; }
+	static bool GetClickPressed() { return _clickPressed; }
 
 private:
-	Application(): isOpen(true) {};
+	Application(): _isOpen(true) {};
 	Application(const Application& other);
 	~Application();
 
@@ -31,10 +33,13 @@ private:
 	void Update();
 	void Draw();
 
-	bool isOpen;
+	bool _isOpen;
 	Console& console = Console::GetInstance();
 
-	static POINT cursor;
+	static POINT _cursor;
+	static bool _clickDown;
+	//Click pressed is only true on the frame where the player release the click, like in Unity
+	static bool _clickPressed;
 	static Application _instance;
 
 	unsigned long long frameCount = 0;	

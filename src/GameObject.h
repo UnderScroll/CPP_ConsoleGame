@@ -66,6 +66,12 @@ public:
 		_localPosition = targetPosition;
 	}
 
+	virtual void SetWorldPosition(Vector2 targetPosition) 
+	{
+		Vector2 deltaPosition=targetPosition - GetWorldPosition();
+		MoveBy(deltaPosition);
+	}
+
 	virtual void SetLocalScale(Vector2 targetScale);
 
 	virtual float GetLocalRotationInRadians()
