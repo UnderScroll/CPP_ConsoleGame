@@ -23,19 +23,19 @@ namespace core
 	public:
 		// Inherited via GameObject
 		void SetText(std::string text);
-		void SetColor(int color);
+		void SetColor(Color color);
 		void SetAlpha(float alpha);
 		void SetSpacing(float spacing);
 
 		std::string GetText() const { return _text; }
-		int GetColor() const { return _color; }
+		Color GetColor() const { return _color; }
 		float GetAlpha() const { return _alpha; }
 		float GetSpacing() const { return _spacing; }
 
-		TextObject(int color = 0x0007, float alpha = 1, float spacing = 0.1f);;
+		TextObject(Color color = WHITE, float alpha = 1, float spacing = 0.1f);;
 	private:
 		std::string _text;
-		int _color;
+		Color _color;
 		float _alpha;
 		float _spacing;
 

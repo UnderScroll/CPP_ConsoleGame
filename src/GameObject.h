@@ -14,13 +14,17 @@ class GameObject :
 	// inherited by via Drawable
 public:
 	bool _destroyed = false; //When true, the application will delete it from its vectors
+	bool _enabled=true; //When false, the application will not update it nor draw it
 	std::weak_ptr<GameObject> _parent = std::weak_ptr<GameObject>();
+
+	Color _color;
 
 	template <typename T>
 	static std::shared_ptr<T> AddGameObjectToRoot(T gameObject)
 	{
 		auto newObject = std::make_shared<T>(gameObject);
 		_rootGameObjects.push_back(newObject);
+		newObject->OnCreationOver();
 		return newObject;
 	}
 
@@ -45,6 +49,9 @@ public:
 		return _localPosition;
 	}
 
+	virtual Vector2 GetBoundingBox();
+	virtual float GetDiameter();
+
 	Vector2 GetWorldPosition() const;
 
 	Vector2 GetWorldScale() const;
@@ -62,6 +69,12 @@ public:
 	virtual void SetLocalPosition(Vector2 targetPosition)
 	{
 		_localPosition = targetPosition;
+	}
+
+	virtual void SetWorldPosition(Vector2 targetPosition) 
+	{
+		Vector2 deltaPosition=targetPosition - GetWorldPosition();
+		MoveBy(deltaPosition);
 	}
 
 	virtual void SetLocalScale(Vector2 targetScale);
@@ -109,6 +122,8 @@ public:
 		_children.push_back(newChildPtr);
 	}
 
+	virtual void OnNewChild(std::shared_ptr<GameObject>) {};
+
 	template <typename T>
 	std::shared_ptr<T> AddChild(T gameObject)
 	{
@@ -118,11 +133,17 @@ public:
 		auto ptr = std::make_shared<T>(gameObject);
 		
 		//Change the local position of the new child so that it can stay at the same position in the world even though it now has a parent.
-
 		_children.push_back(ptr);
+
+		OnNewChild(ptr);
+		ptr->OnCreationOver();
 
 		return ptr;
 	}
+
+	//This function is called when the object is created. It is called after the constructor and before the first call to Update()
+	//It exists in case you want to add child to an object on its creation, you can't do that in the constructor because the shared_ptr is not yet initialized so shared_from_this just crasg everything
+	virtual void OnCreationOver() {};
 
 	std::vector<std::shared_ptr<GameObject>> _children;
 

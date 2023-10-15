@@ -42,7 +42,7 @@ namespace core
 		}
 	}
 
-	void TextObject::SetColor(int color)
+	void TextObject::SetColor(Color color)
 	{
 		_color = color;
 		SetText(_text);
@@ -54,7 +54,7 @@ namespace core
 		SetText(_text);
 	}
 
-	TextObject::TextObject(int color, float alpha, float spacing) :_color(color), _alpha(alpha), _spacing(spacing) {}
+	TextObject::TextObject(Color color, float alpha, float spacing) :_color(color), _alpha(alpha), _spacing(spacing) {}
 
 	void TextObject::SetSpacing(float spacing)
 	{
