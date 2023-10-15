@@ -27,8 +27,11 @@ public:
 
 	Polygon(): _alpha(1), _color(WHITE), _isClosed(true) {};
 
-	Polygon(std::vector<Vector2> points, bool isClosed, Color color=WHITE, float alpha=1) :_points(points), _color(color),
-		_alpha(alpha), _isClosed(isClosed), _computedPoints(_points) {}
+	Polygon(std::vector<Vector2> points, bool isClosed, Color color=WHITE, float alpha=1, Vector2 localPosition=Vector2(0,0)) :_points(points), _color(color),
+		_alpha(alpha), _isClosed(isClosed), _computedPoints(_points) 
+	{
+		_localPosition=localPosition;
+	}
 protected:
     std::vector<Vector2> _computedPoints;
     void ComputePoints();

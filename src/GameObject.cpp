@@ -23,6 +23,8 @@ namespace core {
 				return;
 			}
 
+			if(!(*itr)->_enabled) continue;
+
 			(*itr)->Update();
 		}
 	}
@@ -31,6 +33,7 @@ namespace core {
 	{
 		for (auto child : _children)
 		{
+			if(!child->_enabled) continue;
 			child->Draw();
 		}
 	}
@@ -42,6 +45,7 @@ namespace core {
 			auto layer = LAYERS[i];
 			for (auto gameObject : _rootGameObjects)
 			{
+				if (!gameObject->_enabled) continue;
 				if (gameObject->_layer != layer) continue;
 				gameObject->Draw();
 			}

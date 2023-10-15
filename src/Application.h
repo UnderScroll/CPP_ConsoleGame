@@ -9,41 +9,43 @@
 
 namespace core {
 
-class Application {
-public:
-	static void Run() { GetInstance().InstanceRun(); };
+	class Application {
+	public:
+		static void Run() { GetInstance().InstanceRun(); };
 
-	static Application& GetInstance() { return _instance; }
+		static Application& GetInstance() { return _instance; }
 
-	static std::ofstream ofstream;
+		static std::ofstream ofstream;
 
-	static POINT GetCursorPosition();
-	static bool GetClickDown(){ return _clickDown; }
-	static bool GetClickPressed() { return _clickPressed; }
+		static Vector2 GetCursorPosition() { return _cursor; }
+		static bool GetClickDown() { return _clickDown; }
+		static bool GetClickPressed() { return _clickPressed; }
 
-private:
-	Application(): _isOpen(true) {};
-	Application(const Application& other);
-	~Application();
+	private:
+		Application() : _isOpen(true) {};
+		Application(const Application& other);
+		~Application();
 
-	void InstanceRun();
+		void InstanceRun();
 
-	void Setup();
-	void Input();
-	void Update();
-	void Draw();
+		void Setup();
+		void Input();
+		void Update();
+		void Draw();
 
-	bool _isOpen;
-	Console& console = Console::GetInstance();
+		bool _isOpen;
+		Console& console = Console::GetInstance();
 
-	static POINT _cursor;
-	static bool _clickDown;
-	//Click pressed is only true on the frame where the player release the click, like in Unity
-	static bool _clickPressed;
-	static Application _instance;
+		static Vector2 _cursor;
+		static bool _clickDown;
+		//Click pressed is only true on the frame where the player release the click, like in Unity
+		static bool _clickPressed;
+		static Application _instance;
 
-	unsigned long long frameCount = 0;	
-};
+		unsigned long long frameCount = 0;
+
+		static void ComputeCursorPosition();
+	};
 
 }
 

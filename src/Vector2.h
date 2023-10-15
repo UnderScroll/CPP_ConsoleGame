@@ -7,68 +7,69 @@
 
 namespace core {
 
-class Vector2
-{
-private:
-	float _magnitude;
-
-public:
-	Vector2(float x, float y) {
-		_x = x;
-		_y = y;
-		_magnitude = -1;
-	}
-
-	Vector2() :Vector2(0, 0) {};
-
-	float _x;
-	float _y;
-
-
-	float Magnitude() {
-		if (_magnitude < 0) {
-			_magnitude = sqrt(this->_x * this->_x + this->_y * this->_y);
-		}
-		return _magnitude;
-	}
-
-	Vector2 Normalized() {
-		float magnitude = Magnitude();
-		return Vector2(this->_x / magnitude, this->_y / magnitude);
-	}
-
-	//Return a version where x = 1 or -1
-	Vector2 NormalizedX() {
-		float abs_x = abs(_x);
-		return Vector2(_x / abs_x, this->_y / abs_x);
-	}
-	
-	//Return a version where y = 1 or -1
-	Vector2 NormalizedY() {
-		float abs_y = abs(_y);
-		return Vector2(_x / abs_y,_y / abs_y);
-	}
-
-	Vector2 RotateByRadians(float angle,Vector2 center=Vector2(0,0)) const;
-
-	bool operator==(const Vector2& other) const;
-
-	Vector2 RotateByDegrees(float angle,Vector2 center=Vector2(0,0)) const
+	class Vector2
 	{
-		RotateByRadians(angle*DEG_TO_RAD);
-	}
+	private:
+		float _magnitude;
 
-	Vector2(POINT point) : Vector2(point.x, point.y) {};
-};
+	public:
+		Vector2(float x, float y) {
+			_x = x;
+			_y = y;
+			_magnitude = -1;
+		}
 
-Vector2 operator+(Vector2 const& r_v2a, Vector2 const& r_v2b);
+		Vector2() :Vector2(0, 0) {};
 
-Vector2 operator+=(Vector2 &r_v2a, Vector2 const& r_v2b);
+		float _x;
+		float _y;
 
-Vector2 operator-(Vector2 const& r_v2a, Vector2 const& r_v2b);
+		float SqrMagnitude() {
+			return this->_x * this->_x + this->_y * this->_y;
+		}
 
-Vector2 operator*(float const& number, Vector2 const& r_v2b);
+		float Magnitude() {
+			if (_magnitude < 0) {
+				_magnitude = sqrt(SqrMagnitude());
+			}
+			return _magnitude;
+		}
 
-Vector2 operator*(Vector2 const& r_v2a, Vector2 const& r_v2b);
+		Vector2 Normalized() {
+			float magnitude = Magnitude();
+			return Vector2(this->_x / magnitude, this->_y / magnitude);
+		}
+
+		//Return a version where x = 1 or -1
+		Vector2 NormalizedX() {
+			float abs_x = abs(_x);
+			return Vector2(_x / abs_x, this->_y / abs_x);
+		}
+
+		//Return a version where y = 1 or -1
+		Vector2 NormalizedY() {
+			float abs_y = abs(_y);
+			return Vector2(_x / abs_y, _y / abs_y);
+		}
+
+		Vector2 RotateByRadians(float angle, Vector2 center = Vector2(0, 0)) const;
+
+		bool operator==(const Vector2& other) const;
+
+		Vector2 RotateByDegrees(float angle, Vector2 center = Vector2(0, 0)) const
+		{
+			RotateByRadians(angle * DEG_TO_RAD);
+		}
+	};
+
+	Vector2 operator+(Vector2 const& r_v2a, Vector2 const& r_v2b);
+
+	Vector2 operator+=(Vector2& r_v2a, Vector2 const& r_v2b);
+
+	Vector2 operator-(Vector2 const& r_v2a, Vector2 const& r_v2b);
+
+	Vector2 operator*(float const& number, Vector2 const& r_v2b);
+
+	Vector2 operator*(Vector2 const& r_v2a, Vector2 const& r_v2b);
 
 }

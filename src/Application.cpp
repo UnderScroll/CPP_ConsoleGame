@@ -12,6 +12,7 @@
 #include "TextObject.h"
 #include "UIRect.h"
 #include "Button.h"
+#include "MovableObject.h"
 
 #define MIN_FRAMETIME_MS 16
 
@@ -19,7 +20,9 @@ namespace core {
 
 Application Application::_instance = Application();
 std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
-POINT Application::_cursor = { 0, 0 };
+Vector2 Application::_cursor = { 0, 0 };
+bool Application::_clickDown = false;
+bool Application::_clickPressed = false;
 
 Application::~Application() {
 	ofstream.close();
@@ -70,8 +73,14 @@ void Application::Setup() {
 
 	auto rotatingPtr=GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
 	auto rectPtr=rotatingPtr->AddChild<Polygon>(rect);
+
 	rectPtr->SetLocalPosition({ 0, 0 });
-	auto triPtr=rectPtr->AddChild<Polygon>(triangle);
+
+	auto movablePtr=GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
+
+	auto triPtr=movablePtr->AddChild<Polygon>(triangle);
+
+
 	triPtr->SetLocalPosition({ 0, 12 });
 	triPtr->SetLocalScale({ 0.5, 0.5 });
 	triPtr->_color = Drawable::Color::RED;
@@ -85,7 +94,7 @@ void Application::Setup() {
 	textPtr->SetLocalScale({ 8, 8 });
 }
 
-POINT Application::GetCursorPosition() {
+void Application::ComputeCursorPosition() {
 	POINT cursorPosition;
 
 	GetCursorPos(&cursorPosition);
@@ -96,7 +105,7 @@ POINT Application::GetCursorPosition() {
 	int posX = (cursorPosition.x - rect.left - 9) / 6;
 	int posY = (cursorPosition.y - rect.top - 32) / 6;
 
-	return { posX , posY };
+	_cursor= Vector2(posX , posY);
 }
 
 void Application::Input() {
@@ -110,13 +119,13 @@ void Application::Input() {
 	}
 	else 
 	{
-		if (_clickDown = true) {
+		if (_clickDown) {
 			_clickDown = false;
 			_clickPressed = true;
 		}
 	}
 		
-	_cursor = GetCursorPosition();
+	ComputeCursorPosition();
 }
 
 void Application::Update()
@@ -129,7 +138,7 @@ void Application::Draw() {
 	
 	GameObject::DrawRootGameObjects();
 
-	Drawable::ColorPixel(_cursor.x, _cursor.y, 7);
+	Drawable::ColorPixel(_cursor._x, _cursor._y, 7);
 	
 	console.Display();
 }

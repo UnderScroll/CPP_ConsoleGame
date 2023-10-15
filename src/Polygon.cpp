@@ -8,6 +8,7 @@
 namespace core {
 	Vector2 Polygon::GetBoundingBox()
 	{
+		ComputePoints();
 		float minX = INFINITY;
 		float minY = INFINITY;
 		float maxX = -INFINITY;
@@ -27,7 +28,13 @@ namespace core {
 	float Polygon::GetDiameter()
 	{
 		auto boundingBox = GetBoundingBox();
-		return boundingBox.Magnitude();
+		float maxDiamater = boundingBox.Magnitude();
+		for (auto point : _computedPoints)
+		{
+			maxDiamater = std::max(maxDiamater, (GetLocalPosition()+point).Magnitude());
+		}
+		
+		return maxDiamater;
 	}
 
 	void Polygon::Draw()

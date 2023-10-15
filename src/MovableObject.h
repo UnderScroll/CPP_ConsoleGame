@@ -1,6 +1,8 @@
 #pragma once
 #include "GameObject.h"
 
+#include "Polygon.h"
+
 namespace core
 {
 	class MovableObject:
@@ -17,11 +19,22 @@ namespace core
 		};
 		States GetState() const { return _state; };
 		void OnClickPressed();
-		void OnHoverStart();
-		void OnHoverEnd();
+
+		void OnNewChild(std::shared_ptr<GameObject> child) override
+		{
+			GameObject::OnNewChild(child);
+			ComputeDiameter();
+		};
+
+		virtual void OnCreationOver() override;
+
 	private:
-		States _state = Deactivated;
+		States _state = Placed;
 		bool _hover;
+		float _diameter;
+		std::weak_ptr<GameObject> _movePrompt;
+		void ComputeDiameter();
+		bool IsCursorInRange();
 	};
 }
 
