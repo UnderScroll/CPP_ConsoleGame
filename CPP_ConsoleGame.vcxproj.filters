@@ -9,13 +9,15 @@
     <ClCompile Include="src\GameObject.cpp" />
     <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Vector2.cpp" />
-    <ClCompile Include="src\UIObject.cpp" />
     <ClCompile Include="src\TextObject.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
     <ClCompile Include="src\Polygon.cpp" />
     <ClCompile Include="src\Laser.cpp" />
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\Collider.cpp" />
+    <ClCompile Include="src\UIRect.cpp" />
+    <ClCompile Include="src\Button.cpp" />
+    <ClCompile Include="src\MovableObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RotatingObject.h" />
@@ -25,13 +27,15 @@
     <ClInclude Include="src\Drawable.h" />
     <ClInclude Include="src\GameObject.h" />
     <ClInclude Include="src\Vector2.h" />
-    <ClInclude Include="src\UIObject.h" />
     <ClInclude Include="src\TextObject.h" />
     <ClInclude Include="src\Rectangle.h" />
     <ClInclude Include="src\Polygon.h" />
     <ClInclude Include="src\Laser.h" />
     <ClInclude Include="src\Ray.h" />
     <ClInclude Include="src\Collider.h" />
+    <ClInclude Include="src\UIRect.h" />
+    <ClInclude Include="src\Button.h" />
+    <ClInclude Include="src\MovableObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

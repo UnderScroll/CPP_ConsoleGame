@@ -6,6 +6,36 @@
 #include "Drawable.h"
 
 namespace core {
+	Vector2 Polygon::GetBoundingBox()
+	{
+		ComputePoints();
+		float minX = INFINITY;
+		float minY = INFINITY;
+		float maxX = -INFINITY;
+		float maxY = -INFINITY;
+
+		for (auto point : _computedPoints)
+		{
+			minX = std::min(minX, point._x);
+			minY = std::min(minY, point._y);
+			maxX = std::max(maxX, point._x);
+			maxY = std::max(maxY, point._y);
+		}
+
+		return Vector2(maxX - minX, maxY - minY);
+	}
+
+	float Polygon::GetDiameter()
+	{
+		auto boundingBox = GetBoundingBox();
+		float maxDiamater = boundingBox.Magnitude();
+		for (auto point : _computedPoints)
+		{
+			maxDiamater = std::max(maxDiamater, (GetLocalPosition()+point).Magnitude());
+		}
+		
+		return maxDiamater;
+	}
 
 	void Polygon::Draw()
 	{

@@ -9,36 +9,43 @@
 
 namespace core {
 
-class Application {
-public:
-	static void Run() { GetInstance().InstanceRun(); };
+	class Application {
+	public:
+		static void Run() { GetInstance().InstanceRun(); };
 
-	static Application& GetInstance() { return instance; }
+		static Application& GetInstance() { return _instance; }
 
-	static std::ofstream ofstream;
+		static std::ofstream ofstream;
 
-private:
-	Application(): isOpen(true) {};
-	Application(const Application& other);
-	~Application();
+		static Vector2 GetCursorPosition() { return _cursor; }
+		static bool GetClickDown() { return _clickDown; }
+		static bool GetClickPressed() { return _clickPressed; }
 
-	void InstanceRun();
+	private:
+		Application() : _isOpen(true) {};
+		Application(const Application& other);
+		~Application();
 
-	void Setup();
-	void Input();
-	void Update();
-	void Draw();
+		void InstanceRun();
 
-	bool isOpen;
-	Console& console = Console::GetInstance();
+		void Setup();
+		void Input();
+		void Update();
+		void Draw();
 
-	POINT GetCursorPosition();
+		bool _isOpen;
+		Console& console = Console::GetInstance();
 
-	static POINT cursor;
-	static Application instance;
+		static Vector2 _cursor;
+		static bool _clickDown;
+		//Click pressed is only true on the frame where the player release the click, like in Unity
+		static bool _clickPressed;
+		static Application _instance;
 
-	unsigned long long frameCount = 0;	
-};
+		unsigned long long frameCount = 0;
+
+		static void ComputeCursorPosition();
+	};
 
 }
 

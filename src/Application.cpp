@@ -10,14 +10,19 @@
 #include "Rectangle.h"
 #include "GameObject.h"
 #include "TextObject.h"
+#include "UIRect.h"
+#include "Button.h"
+#include "MovableObject.h"
 
 #define MIN_FRAMETIME_MS 16
 
 namespace core {
 
-Application Application::instance = Application();
+Application Application::_instance = Application();
 std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
-POINT Application::cursor = { 0, 0 };
+Vector2 Application::_cursor = { 0, 0 };
+bool Application::_clickDown = false;
+bool Application::_clickPressed = false;
 
 Application::~Application() {
 	ofstream.close();
@@ -25,7 +30,7 @@ Application::~Application() {
 
 void Application::InstanceRun() {
 	Setup();
-	while (isOpen) {
+	while (_isOpen) {
 		auto waitTime = std::chrono::steady_clock::now() + std::chrono::milliseconds(MIN_FRAMETIME_MS);
 		auto frameStart = std::chrono::steady_clock::now();
 		
@@ -43,14 +48,21 @@ void Application::InstanceRun() {
 
 void Application::Setup() {
 	console.Setup();
-	isOpen = true;
+	_isOpen = true;
+
+	auto uiBackGroundPtr = GameObject::AddGameObjectToRoot<UIRect>(UIRect(Vector2((WIDTH / 2) - 2, 46), Drawable::Color::MAGENTA, Drawable::Color::GREEN, true, UIRect::BackgroundFill));
+	uiBackGroundPtr->SetLocalPosition({ WIDTH / 4, HEIGHT - 25 });
+
+	auto button = uiBackGroundPtr->AddChild<Button>(Button(Vector2(WIDTH / 5, 30), Drawable::Color::WHITE, Drawable::LIGHTER_WHITE, Drawable::GRAY, Drawable::Color::BLUE, true, UIRect::BackgroundFill));
+	button->SetLocalPosition({ 0, 0 });
+
 	std::vector<Vector2> points;
 	points.push_back(Vector2(-10, -10));
 	points.push_back(Vector2(10, -10));
 	points.push_back(Vector2(0, 10));
 
 	Rectangle rect = Rectangle(10, 10);
-	rect._color = 1;
+	rect._color = Drawable::WHITE;
 	rect.MoveBy({ 10, 10 });
 
 	auto triangle=Polygon(points,true);
@@ -58,21 +70,28 @@ void Application::Setup() {
 
 	auto rotatingPtr=GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
 	auto rectPtr=rotatingPtr->AddChild<Polygon>(rect);
+
 	rectPtr->SetLocalPosition({ 0, 0 });
-	auto triPtr=rectPtr->AddChild<Polygon>(triangle);
+
+	auto movablePtr=GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
+
+	auto triPtr=movablePtr->AddChild<Polygon>(triangle);
+
+
 	triPtr->SetLocalPosition({ 0, 12 });
 	triPtr->SetLocalScale({ 0.5, 0.5 });
+	triPtr->_color = Drawable::Color::RED;
 	rotatingPtr->SetLocalScale({ 2,2 });
 
 	auto rotatingPtr2=GameObject::AddGameObjectToRoot<RotatingObject>(RotatingObject(100,50,1));
 
-	auto textPtr = rotatingPtr2->AddChild<TextObject>(TextObject(7, 1,1));
+	auto textPtr = rotatingPtr2->AddChild<TextObject>(TextObject(Drawable::WHITE, 1,1));
 	textPtr->SetText("Hello");
 	textPtr->SetLocalPosition({ 0, 0 });
 	textPtr->SetLocalScale({ 8, 8 });
 }
 
-POINT Application::GetCursorPosition() {
+void Application::ComputeCursorPosition() {
 	POINT cursorPosition;
 
 	GetCursorPos(&cursorPosition);
@@ -83,14 +102,27 @@ POINT Application::GetCursorPosition() {
 	int posX = (cursorPosition.x - rect.left - 9) / 6;
 	int posY = (cursorPosition.y - rect.top - 32) / 6;
 
-	return { posX , posY };
+	_cursor= Vector2(posX , posY);
 }
 
 void Application::Input() {
 	if ((GetKeyState(VK_RETURN) & 0x8000))
-		isOpen = false;
+		_isOpen = false;
 
-	cursor = GetCursorPosition();
+	_clickPressed = false;
+	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) 
+	{
+		_clickDown = true;
+	}
+	else 
+	{
+		if (_clickDown) {
+			_clickDown = false;
+			_clickPressed = true;
+		}
+	}
+		
+	ComputeCursorPosition();
 }
 
 void Application::Update()
@@ -103,7 +135,7 @@ void Application::Draw() {
 	
 	GameObject::DrawRootGameObjects();
 
-	Drawable::ColorPixel(cursor.x, cursor.y, 7);
+	Drawable::ColorPixel(_cursor._x, _cursor._y, 7);
 	
 	console.Display();
 }
