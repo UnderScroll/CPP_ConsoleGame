@@ -16,6 +16,7 @@
     <ClCompile Include="src\Polygon.cpp" />
     <ClCompile Include="src\UIRect.cpp" />
     <ClCompile Include="src\Button.cpp" />
+    <ClCompile Include="src\MovableObject.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\RotatingObject.h" />
@@ -32,6 +33,7 @@
     <ClInclude Include="src\Polygon.h" />
     <ClInclude Include="src\UIRect.h" />
     <ClInclude Include="src\Button.h" />
+    <ClInclude Include="src\MovableObject.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include=".gitignore" />

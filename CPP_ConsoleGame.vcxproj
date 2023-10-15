@@ -147,6 +147,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\MovableObject.cpp" />
     <ClCompile Include="src\Button.cpp" />
     <ClCompile Include="src\Rectangle.cpp" />
     <ClCompile Include="src\Collider.cpp" />
@@ -164,6 +165,7 @@
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\MovableObject.h" />
     <ClInclude Include="src\Button.h" />
     <ClInclude Include="src\Rectangle.h" />
     <ClInclude Include="src\RotatingObject.h" />
