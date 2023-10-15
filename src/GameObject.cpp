@@ -56,7 +56,7 @@ namespace core {
 	{
 		if (_parent.expired()) return GetLocalPosition();
 		auto parent = _parent.lock();
-		auto rotatedLocalPosition = (parent->GetWorldScale() * GetLocalPosition()).RotateByRadians(parent->GetWorldRotationInRadians());
+		auto rotatedLocalPosition = (parent->GetLocaleScale() * GetLocalPosition()).RotateByRadians(parent->GetWorldRotationInRadians());
 		return rotatedLocalPosition + parent->GetWorldPosition();
 	}
 

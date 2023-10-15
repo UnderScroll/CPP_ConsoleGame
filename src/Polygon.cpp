@@ -64,6 +64,12 @@ namespace core {
 		ComputePoints();
 	}
 
+	void Polygon::OnCreationOver()
+	{
+		GameObject::OnCreationOver();
+		ComputePoints();
+	}
+
 	void Polygon::ComputePoints()
 	{
 		if (_computedPoints.size() != _points.size())

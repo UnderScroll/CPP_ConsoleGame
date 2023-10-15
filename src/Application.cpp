@@ -13,6 +13,7 @@
 #include "UIRect.h"
 #include "Button.h"
 #include "MovableObject.h"
+#include "AsyncScrollDetect.h"
 
 #define MIN_FRAMETIME_MS 16
 
@@ -23,6 +24,9 @@ std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 Vector2 Application::_cursor = { 0, 0 };
 bool Application::_clickDown = false;
 bool Application::_clickPressed = false;
+float Application::_scrollWheel = 0;
+
+void MouseInputThread(int& r_scrollWheel);
 
 Application::~Application() {
 	ofstream.close();
@@ -49,6 +53,7 @@ void Application::InstanceRun() {
 void Application::Setup() {
 	console.Setup();
 	_isOpen = true;
+	_mouseThread=std::thread([this] {MouseInputThread(); });
 
 	auto uiBackGroundPtr = GameObject::AddGameObjectToRoot<UIRect>(UIRect(Vector2((WIDTH / 2) - 2, 46), Drawable::Color::MAGENTA, Drawable::Color::GREEN, true, UIRect::BackgroundFill));
 	uiBackGroundPtr->SetLocalPosition({ WIDTH / 4, HEIGHT - 25 });
@@ -78,7 +83,7 @@ void Application::Setup() {
 	auto triPtr=movablePtr->AddChild<Polygon>(triangle);
 
 
-	triPtr->SetLocalPosition({ 0, 12 });
+	triPtr->SetLocalPosition({ 0, 0 });
 	triPtr->SetLocalScale({ 0.5, 0.5 });
 	triPtr->_color = Drawable::Color::RED;
 	rotatingPtr->SetLocalScale({ 2,2 });
@@ -121,8 +126,14 @@ void Application::Input() {
 			_clickPressed = true;
 		}
 	}
-		
+
 	ComputeCursorPosition();
+}
+
+void Application::MouseInputThread() {
+	while (true) {
+		_scrollWheel = GetScrollDelta();
+	}
 }
 
 void Application::Update()
