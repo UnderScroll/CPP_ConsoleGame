@@ -170,7 +170,6 @@
   <ItemGroup>
     <ClInclude Include="src\HorizontalLayoutGroup.h" />
     <ClInclude Include="src\MovableObjectButton.h" />
-    <ClInclude Include="src\AsyncScrollDetect.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\Laser.h" />
     <ClInclude Include="src\Ray.h" />

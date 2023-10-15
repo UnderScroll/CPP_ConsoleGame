@@ -26,7 +26,7 @@ namespace core
 			ComputeDiameter();
 		};
 
-		float _rotationSpeed = 1.0f; //In degrees
+		float _rotationSpeed = 3.0f; //In degrees
 
 		virtual void OnCreationOver() override;
 

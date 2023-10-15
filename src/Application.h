@@ -22,7 +22,7 @@ namespace core {
 		static Vector2 GetCursorPosition() { return _cursor; }
 		static bool GetClickDown() { return _clickDown; }
 		static bool GetClickPressed() { return _clickPressed; }
-		static float GetScrollWheel() { return _scrollWheel; }
+		static float GetHorizontalAxis() { return _horizontalAxis; }
 
 	private:
 		Application() : _isOpen(true) {};
@@ -37,8 +37,6 @@ namespace core {
 
 		void Setup();
 		void Input();
-		void MouseInputThread();
-		std::thread _mouseThread;
 		void Update();
 		void Draw();
 
@@ -49,7 +47,7 @@ namespace core {
 		static bool _clickDown;
 		//Click pressed is only true on the frame where the player release the click, like in Unity
 		static bool _clickPressed;
-		static float _scrollWheel;
+		static float _horizontalAxis;
 		static Application _instance;
 
 		unsigned long long frameCount = 0;

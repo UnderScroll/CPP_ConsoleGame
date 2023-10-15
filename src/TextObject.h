@@ -32,6 +32,8 @@ namespace core
 		float GetAlpha() const { return _alpha; }
 		float GetSpacing() const { return _spacing; }
 
+		static std::vector<Vector2> GetPointsForLetter(char letter, int part=0);
+
 		TextObject(Color color = WHITE, float alpha = 1, float spacing = 0.1f);;
 	private:
 		std::string _text;

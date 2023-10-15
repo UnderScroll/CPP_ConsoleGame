@@ -13,7 +13,6 @@
 #include "UIRect.h"
 #include "Button.h"
 #include "MovableObject.h"
-#include "AsyncScrollDetect.h"
 #include "MovableObjectButton.h"
 #include "HorizontalLayoutGroup.h"
 
@@ -24,12 +23,11 @@ std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 Vector2 Application::_cursor = { 0, 0 };
 bool Application::_clickDown = false;
 bool Application::_clickPressed = false;
-float Application::_scrollWheel = 0;
+float Application::_horizontalAxis = 0;
 
 void MouseInputThread(int& r_scrollWheel);
 
 Application::~Application() {
-	_mouseThread.join();
 	ofstream.close();
 }
 
@@ -54,7 +52,6 @@ void Application::InstanceRun() {
 void Application::Setup() {
 	console.Setup();
 	_isOpen = true;
-	_mouseThread=std::thread([this] {MouseInputThread(); });
 
 	std::vector<Vector2> points;
 	points.push_back(Vector2(-10, -10));
@@ -134,14 +131,15 @@ void Application::Input() {
 		}
 	}
 
-	ComputeCursorPosition();
-}
+	_horizontalAxis = 0;
+	//0x51 is the code for the key Q on AZERTY Keyboard and A on QWERTY keyboards
+	if (GetAsyncKeyState(VK_LEFT) & 0x8000 || GetAsyncKeyState(0x51) & 0x8000)
+		_horizontalAxis -= 1;
+	//0x44 is the code for the key D on AZERTY Keyboard and D on QWERTY keyboards
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000 || GetAsyncKeyState(0x44) & 0x8000)
+		_horizontalAxis += 1;
 
-void Application::MouseInputThread() {
-	while (true) {
-		_scrollWheel = GetScrollDelta();
-		GetWaitTime();
-	}
+	ComputeCursorPosition();
 }
 
 void Application::Update()
