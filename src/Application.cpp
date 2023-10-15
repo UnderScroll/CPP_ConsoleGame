@@ -29,6 +29,7 @@ float Application::_scrollWheel = 0;
 void MouseInputThread(int& r_scrollWheel);
 
 Application::~Application() {
+	_mouseThread.join();
 	ofstream.close();
 }
 

@@ -26,6 +26,8 @@ namespace core
 			ComputeDiameter();
 		};
 
+		float _rotationSpeed = 1.0f; //In degrees
+
 		virtual void OnCreationOver() override;
 
 	private:
@@ -33,6 +35,7 @@ namespace core
 		bool _hover;
 		float _diameter;
 		std::weak_ptr<GameObject> _movePrompt;
+		std::weak_ptr<GameObject> _rotatePrompt;
 		void ComputeDiameter();
 		bool IsCursorInRange();
 	};

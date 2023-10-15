@@ -79,47 +79,52 @@ namespace core
 					Vector2(-1, -0.75),
 					Vector2(-1, 0.75)
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(0,-3),Vector2(4,4)), //Mouse
+				, true, Drawable::GRAY, 0.5f,Vector2(-3,0),Vector2(4,4)), //Mouse
 			Polygon(
 				{
 					Vector2(1, -0.75),
 					Vector2(0, -1.5),
 					Vector2(0, -0.75),
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(0,-3),Vector2(4,4)), //Right click
+				, true, Drawable::GRAY, 0.5f,Vector2(-3,0),Vector2(4,4)), //Right click
 			Polygon(
 				{
 					Vector2(-1, -0.75),
 					Vector2(0, -1.5),
 					Vector2(0, -0.75),
 				}
-				, true, Drawable::RED, 0.5f,Vector2(0,-3),Vector2(4,4)), //Left click
-
-			//Cross with arrows:
+				, true, Drawable::GRAY, 0.5f,Vector2(-3,0),Vector2(4,4)), //Left click
 			Polygon(
 				{
-
-					Vector2(0,-1),
-					Vector2(-0.2,-0.8),
-					Vector2(0,-1),
-					Vector2(-0.2,1.2),
-					Vector2(0,-1),
-
-					Vector2(-1,0),
-
-					Vector2(0,1),
-					Vector2(-0.2,0.8),
-					Vector2(0,1),
-					Vector2(-0.2,1.2),				
+					Vector2(0, -1.5),
+					Vector2(0, -0.75),
 				}
-				, false, Drawable::GRAY, 0.5f,Vector2(0,3),Vector2(5,5)), //Left click
+				, false, Drawable::RED, 0.5f,Vector2(-3,0),Vector2(4,4)), //Scroll wheel
+
+			//Half circle with arrows:
+			Polygon(
+				{
+					Vector2(0, 1),
+					Vector2(0.2, 0.8),
+					Vector2(0, 1),
+					Vector2(0.2, 1.2),
+					Vector2(0, 1),
+					Vector2(0.5, 0.75),
+					Vector2(1, 0),
+					Vector2(0.5, -0.75),
+					Vector2(0, -1),
+					Vector2(0.2, -0.8),
+					Vector2(0, -1),
+					Vector2(0.2, -1.2),
+				}
+				, false, Drawable::GRAY, 0.5f,Vector2(3,0),Vector2(5,5)),
 		};
 
-		_movePrompt = AddChild<GameObject>(GameObject());
-		auto movePrompt = _movePrompt.lock();
-		movePrompt->SetLocalScale(Vector2(2, 2));
-		for (auto pol : movePromptsPolygons) {
-			movePrompt->AddChild<Polygon>(pol);
+		_rotatePrompt = AddChild<GameObject>(GameObject());
+		auto rotatePrompt = _rotatePrompt.lock();
+		rotatePrompt->SetLocalScale(Vector2(2, 2));
+		for (auto pol : rotatePromptsPolygons) {
+			rotatePrompt->AddChild<Polygon>(pol);
 		}
 	}
 
@@ -135,11 +140,29 @@ namespace core
 			OnClickPressed();
 		}
 		_hover = IsCursorInRange();
+
+		if(_hover)
+		{
+			for (auto child : _children) {
+				if (!_movePrompt.expired()) {
+					if (_movePrompt.lock() == child) continue;
+				}
+				if (!_rotatePrompt.expired()) {
+					if (_rotatePrompt.lock() == child) continue;
+				}
+				child->RotateByDegrees(_rotationSpeed * Application::GetScrollWheel());
+			}
+		}
+
 		if (_movePrompt.expired()) return;
 
 		auto movePrompt= _movePrompt.lock();
+		movePrompt->_enabled = _hover && _state!=BeingPlaced;
 
-		movePrompt->_enabled = _hover;
+		if (_rotatePrompt.expired()) return;
+		
+		auto rotatePrompt = _rotatePrompt.lock();
+		rotatePrompt->_enabled = _hover;
 	}
 
 	void MovableObject::Draw()
@@ -177,6 +200,8 @@ namespace core
 		_diameter = maxDiameter;
 		if (_movePrompt.expired()) return;
 		_movePrompt.lock()->SetLocalPosition({ -0.5f * _diameter-10,0 });
+		if (_rotatePrompt.expired()) return;
+		_rotatePrompt.lock()->SetLocalPosition({0, -0.5f * _diameter-15});
 	}
 
 	bool MovableObject::IsCursorInRange()
