@@ -79,27 +79,27 @@ namespace core
 					Vector2(-1, -0.75),
 					Vector2(-1, 0.75)
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(-3,0),Vector2(4,4)), //Mouse
+				, true, Drawable::GRAY, 0.5f,Vector2(0,0),Vector2(4,4)), //Mouse
 			Polygon(
 				{
 					Vector2(1, -0.75),
 					Vector2(0, -1.5),
 					Vector2(0, -0.75),
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(-3,0),Vector2(4,4)), //Right click
+				, true, Drawable::GRAY, 0.5f,Vector2(0,0),Vector2(4,4)), //Right click
 			Polygon(
 				{
 					Vector2(-1, -0.75),
 					Vector2(0, -1.5),
 					Vector2(0, -0.75),
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(-3,0),Vector2(4,4)), //Left click
+				, true, Drawable::GRAY, 0.5f,Vector2(0,0),Vector2(4,4)), //Left click
 			Polygon(
 				{
 					Vector2(0, -1.5),
 					Vector2(0, -0.75),
 				}
-				, false, Drawable::RED, 0.5f,Vector2(-3,0),Vector2(4,4)), //Scroll wheel
+				, false, Drawable::RED, 0.5f,Vector2(0,0),Vector2(4,4)), //Scroll wheel
 
 			//Half circle with arrows:
 			Polygon(
@@ -117,7 +117,7 @@ namespace core
 					Vector2(0, -1),
 					Vector2(0.2, -1.2),
 				}
-				, false, Drawable::GRAY, 0.5f,Vector2(3,0),Vector2(5,5)),
+				, false, Drawable::GRAY, 0.5f,Vector2(6,0),Vector2(5,5)),
 		};
 
 		_rotatePrompt = AddChild<GameObject>(GameObject());
@@ -174,13 +174,13 @@ namespace core
 		}
 	}
 
-	void MovableObject::OnClickPressed()
+	void MovableObject::OnClickPressed(bool forceCursorInRange)
 	{
 		if (_state == States::BeingPlaced)
 		{
 			_state = States::Placed;
 		}
-		else if (_state == States::Placed && IsCursorInRange())
+		else if (_state == States::Placed && (forceCursorInRange||IsCursorInRange()))
 		{
 			_state = States::BeingPlaced;
 		}

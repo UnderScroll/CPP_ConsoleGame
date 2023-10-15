@@ -7,6 +7,8 @@
 #include "GameObject.h"
 #include "Laser.h"
 
+#define MIN_FRAMETIME_MS 16
+
 namespace core {
 
 	class Application {
@@ -26,6 +28,10 @@ namespace core {
 		Application() : _isOpen(true) {};
 		Application(const Application& other);
 		~Application();
+
+		static std::chrono::steady_clock::time_point GetWaitTime() {
+			return  std::chrono::steady_clock::now() + std::chrono::milliseconds(MIN_FRAMETIME_MS);
+		}
 
 		void InstanceRun();
 

@@ -55,7 +55,11 @@ namespace core
 		}
 
 
-		if (!_stroke) return;
+		if (!_stroke) {
+			GameObject::Draw();
+			return;
+		}
+
 		auto halfBounds = 0.5f * _rect;
 		DrawLine(GetWorldPosition()-halfBounds, GetWorldPosition() + Vector2(halfBounds._x,-halfBounds._y), _strokeColor);
 		DrawLine(GetWorldPosition()-halfBounds, GetWorldPosition() + Vector2(-halfBounds._x, halfBounds._y), _strokeColor);

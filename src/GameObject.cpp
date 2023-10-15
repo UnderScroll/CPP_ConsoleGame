@@ -52,6 +52,22 @@ namespace core {
 		}
 	}
 
+	Vector2 GameObject::GetBoundingBox()
+	{
+		Vector2 biggestBoundingBox=Vector2();
+		for (auto child : _children) {
+			if (child->GetBoundingBox().SqrMagnitude() > biggestBoundingBox.SqrMagnitude()) {
+				biggestBoundingBox = child->GetBoundingBox();
+			}
+		}
+		return biggestBoundingBox;
+	}
+
+	float GameObject::GetDiameter()
+	{
+		return GetBoundingBox().Magnitude();
+	}
+
 	Vector2 GameObject::GetWorldPosition() const
 	{
 		if (_parent.expired()) return GetLocalPosition();

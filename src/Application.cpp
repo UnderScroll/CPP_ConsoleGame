@@ -14,8 +14,8 @@
 #include "Button.h"
 #include "MovableObject.h"
 #include "AsyncScrollDetect.h"
-
-#define MIN_FRAMETIME_MS 16
+#include "MovableObjectButton.h"
+#include "HorizontalLayoutGroup.h"
 
 namespace core {
 
@@ -36,7 +36,7 @@ Application::~Application() {
 void Application::InstanceRun() {
 	Setup();
 	while (_isOpen) {
-		auto waitTime = std::chrono::steady_clock::now() + std::chrono::milliseconds(MIN_FRAMETIME_MS);
+		auto waitTime = GetWaitTime();
 		auto frameStart = std::chrono::steady_clock::now();
 		
 		Input();
@@ -56,12 +56,6 @@ void Application::Setup() {
 	_isOpen = true;
 	_mouseThread=std::thread([this] {MouseInputThread(); });
 
-	auto uiBackGroundPtr = GameObject::AddGameObjectToRoot<UIRect>(UIRect(Vector2((WIDTH / 2) - 2, 46), Drawable::Color::MAGENTA, Drawable::Color::GREEN, true, UIRect::BackgroundFill));
-	uiBackGroundPtr->SetLocalPosition({ WIDTH / 4, HEIGHT - 25 });
-
-	auto button = uiBackGroundPtr->AddChild<Button>(Button(Vector2(WIDTH / 5, 30), Drawable::Color::WHITE, Drawable::LIGHTER_WHITE, Drawable::GRAY, Drawable::Color::BLUE, true, UIRect::BackgroundFill));
-	button->SetLocalPosition({ 0, 0 });
-
 	std::vector<Vector2> points;
 	points.push_back(Vector2(-10, -10));
 	points.push_back(Vector2(10, -10));
@@ -75,11 +69,11 @@ void Application::Setup() {
 	auto rotating = RotatingObject(30,30,3);
 
 	auto rotatingPtr=GameObject::AddGameObjectToRoot<RotatingObject>(rotating);
-	auto rectPtr=rotatingPtr->AddChild<Polygon>(rect);
-
-	rectPtr->SetLocalPosition({ 0, 0 });
-
+	
 	auto movablePtr=GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
+	auto movablePtr2=GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
+	auto rectPtr = movablePtr2->AddChild<Polygon>(rect);
+	rectPtr->SetLocalPosition({ 0, 0 });
 
 	auto triPtr=movablePtr->AddChild<Polygon>(triangle);
 
@@ -88,6 +82,18 @@ void Application::Setup() {
 	triPtr->SetLocalScale({ 0.5, 0.5 });
 	triPtr->_color = Drawable::Color::RED;
 	rotatingPtr->SetLocalScale({ 2,2 });
+
+	auto uiBackGroundPtr = GameObject::AddGameObjectToRoot<HorizontalLayoutGroup>(HorizontalLayoutGroup(Vector2((WIDTH / 2)+2, 24),10, Drawable::Color::BLACK, Drawable::Color::WHITE, true, UIRect::BackgroundFill));
+	uiBackGroundPtr->SetLocalPosition({ WIDTH / 4-1, HEIGHT - 12 });
+
+	auto button = uiBackGroundPtr->AddElement<MovableObjectButton>(MovableObjectButton(Vector2(WIDTH / 5, 20), Drawable::Color::WHITE, Drawable::LIGHTER_WHITE, Drawable::GRAY,movablePtr, Drawable::Color::BLACK, Drawable::Color::CYAN,true, UIRect::BackgroundFill));
+	button->SetPreview(*triPtr,Drawable::BLACK);
+
+	auto button2 = uiBackGroundPtr->AddElement<MovableObjectButton>(MovableObjectButton(Vector2(WIDTH / 5, 20), Drawable::Color::WHITE, Drawable::LIGHTER_WHITE, Drawable::GRAY, movablePtr2, Drawable::Color::BLACK, Drawable::Color::CYAN, true, UIRect::BackgroundFill));
+	button2->SetPreview(*rectPtr, Drawable::BLACK);
+
+	auto button3 = uiBackGroundPtr->AddElement<MovableObjectButton>(MovableObjectButton(Vector2(WIDTH / 5, 20), Drawable::Color::WHITE, Drawable::LIGHTER_WHITE, Drawable::GRAY, movablePtr2, Drawable::Color::BLACK, Drawable::Color::CYAN, true, UIRect::BackgroundFill));
+	button3->SetPreview(*rectPtr, Drawable::BLACK);
 
 	auto rotatingPtr2=GameObject::AddGameObjectToRoot<RotatingObject>(RotatingObject(100,50,1));
 
@@ -134,6 +140,7 @@ void Application::Input() {
 void Application::MouseInputThread() {
 	while (true) {
 		_scrollWheel = GetScrollDelta();
+		GetWaitTime();
 	}
 }
 

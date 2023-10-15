@@ -18,7 +18,7 @@ namespace core
 			Locked
 		};
 		States GetState() const { return _state; };
-		void OnClickPressed();
+		void OnClickPressed(bool forceCursorInRange=false);
 
 		void OnNewChild(std::shared_ptr<GameObject> child) override
 		{

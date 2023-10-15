@@ -17,6 +17,8 @@ public:
 	bool _enabled=true; //When false, the application will not update it nor draw it
 	std::weak_ptr<GameObject> _parent = std::weak_ptr<GameObject>();
 
+	Color _color;
+
 	template <typename T>
 	static std::shared_ptr<T> AddGameObjectToRoot(T gameObject)
 	{
@@ -46,6 +48,9 @@ public:
 	{
 		return _localPosition;
 	}
+
+	virtual Vector2 GetBoundingBox();
+	virtual float GetDiameter();
 
 	Vector2 GetWorldPosition() const;
 

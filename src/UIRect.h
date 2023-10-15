@@ -35,7 +35,7 @@ namespace core
 
 		virtual void Update() override;
 		virtual void Draw() override;
-		UIRect(Vector2 rect, Color fillColor, Color strokeColor=BLACK, bool stroke = true,  FillType fillType=FillType::RegularFill, float alpha = 1) : _rect(rect), _fillColor(fillColor), _strokeColor(strokeColor), _fillType(fillType), _alpha(alpha)
+		UIRect(Vector2 rect, Color fillColor, Color strokeColor=BLACK, bool stroke = true,  FillType fillType=FillType::RegularFill, float alpha = 1) : _rect(rect), _fillColor(fillColor), _stroke(stroke),_strokeColor(strokeColor), _fillType(fillType), _alpha(alpha)
 		{
 			_layer=Layer::UI;
 		};
