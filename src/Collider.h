@@ -6,18 +6,17 @@ namespace core {
 
 class Collider {
 public:
-	enum CollisionType {
-		Null, //CollisionType not set
+	enum Type {
 		Wall,
-		Ray,
-		OutOfBounds
+		Ray
 	};
 
-	Collider(CollisionType collisionType = CollisionType::Wall);
-	Collider(Polygon collisionShape, CollisionType collisionType = CollisionType::Wall);
+	Collider(Type collisionType = Type::Wall, bool isReflective = false);
+	Collider(Polygon collisionShape, Type collisionType = Type::Wall, bool isReflective = false);
 
 	Polygon collisionShape;
-	CollisionType type;
+	Type type;
+	bool isReflective;
 };
 
 }

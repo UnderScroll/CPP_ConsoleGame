@@ -58,7 +58,11 @@ namespace core {
 
 		Vector2 RotateByDegrees(float angle, Vector2 center = Vector2(0, 0)) const
 		{
-			RotateByRadians(angle * DEG_TO_RAD);
+			return RotateByRadians(angle * DEG_TO_RAD);
+		}
+
+		double dot(Vector2 other) const {
+			return _x * other._x + _y * other._y;
 		}
 	};
 
@@ -70,6 +74,9 @@ namespace core {
 
 	Vector2 operator*(float const& number, Vector2 const& r_v2b);
 
+	Vector2 operator*(Vector2 const& r_v2a, float const& number);
+
 	Vector2 operator*(Vector2 const& r_v2a, Vector2 const& r_v2b);
 
+	double distSqrd(Vector2 a, Vector2 b);
 }

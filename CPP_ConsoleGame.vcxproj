@@ -212,7 +212,6 @@
     <Text Include="res\runtime.log" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="BlastOfWind.wav" />
     <Media Include="res\sounds\click.wav" />
     <Media Include="res\sounds\laserLoop.wav" />
     <Media Include="res\sounds\nextLevel.wav" />
