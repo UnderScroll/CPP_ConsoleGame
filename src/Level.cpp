@@ -47,7 +47,9 @@ namespace core {
 
 	void Level::ClearCurrentLevel()
 	{
-		GameObject::_rootGameObjects.clear();
+		for (auto rootGameObject : GameObject::_rootGameObjects) {
+			rootGameObject->Destroy();
+		}
 	}
 }
 

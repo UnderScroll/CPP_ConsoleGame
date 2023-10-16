@@ -26,6 +26,10 @@ namespace core {
 		static void CancelClickPress(){ _clickPressed = false; }
 		static float GetHorizontalAxis() { return _horizontalAxis; }
 
+		static void LoadNextLevel();
+		static void LoadLevel(int index);
+		int _currentLevelIndex = 0;
+
 	private:
 		Application() : _isOpen(true) {};
 		Application(const Application& other);
@@ -53,10 +57,6 @@ namespace core {
 		static Application _instance;
 
 		std::vector<std::shared_ptr<Level>> _levels;
-		int _currentLevelIndex=0;
-		
-		static void LoadNextLevel();
-		static void LoadLevel(int index);
 		
 		template <typename T>
 		void AddLevel()

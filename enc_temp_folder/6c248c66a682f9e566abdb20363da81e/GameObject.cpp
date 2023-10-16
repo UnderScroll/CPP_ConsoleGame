@@ -19,7 +19,7 @@ namespace core {
 		{
 			if ((*itr)->_destroyed)
 			{
-				r_game_objects.erase(itr);
+				//r_game_objects.erase(itr);
 				break;
 				return;
 			}
@@ -27,6 +27,8 @@ namespace core {
 			if(!(*itr)->_enabled) continue;
 
 			(*itr)->Update();
+
+			if(itr==r_game_objects.end()) break;
 		}
 	}
 

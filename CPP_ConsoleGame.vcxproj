@@ -147,9 +147,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\BobbingGameObject.cpp" />
+    <ClCompile Include="src\NextLevelButton.cpp" />
+    <ClCompile Include="src\Lerper.cpp" />
     <ClCompile Include="src\Levels\Level1.cpp" />
     <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\HorizontalLayoutGroup.cpp" />
+    <ClCompile Include="src\Levels\LevelMainMenu.cpp" />
     <ClCompile Include="src\MovableObjectButton.cpp" />
     <ClCompile Include="src\MovableObject.cpp" />
     <ClCompile Include="src\Button.cpp" />
@@ -170,9 +174,13 @@
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\BobbingGameObject.h" />
+    <ClInclude Include="src\NextLevelButton.h" />
+    <ClInclude Include="src\Lerper.h" />
     <ClInclude Include="src\Levels\Level1.h" />
     <ClInclude Include="src\Level.h" />
     <ClInclude Include="src\HorizontalLayoutGroup.h" />
+    <ClInclude Include="src\Levels\LevelMainMenu.h" />
     <ClInclude Include="src\MovableObjectButton.h" />
     <ClInclude Include="src\Collider.h" />
     <ClInclude Include="src\Laser.h" />

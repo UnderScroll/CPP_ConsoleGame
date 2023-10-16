@@ -16,6 +16,7 @@
 #include "MovableObjectButton.h"
 #include "HorizontalLayoutGroup.h"
 #include "Levels/Level1.h"
+#include "Levels/LevelMainMenu.h"
 
 namespace core {
 
@@ -54,6 +55,7 @@ void Application::Setup() {
 	console.Setup();
 	_isOpen = true;
 
+	AddLevel<levels::LevelMainMenu>();
 	AddLevel<levels::Level1>();
 	_currentLevelIndex = 0;
 	LoadLevel(_currentLevelIndex);
