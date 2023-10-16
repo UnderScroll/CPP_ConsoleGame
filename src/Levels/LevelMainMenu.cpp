@@ -26,15 +26,17 @@ void core::levels::LevelMainMenu::LoadLevel()
 	playText->SetLocalScale({ 6,6 });
 
 	//Credits texts
-	auto creditsText1Ptr = GameObject::AddGameObjectToRoot<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));
+	auto bobbingCredits=GameObject::AddGameObjectToRoot<BobbingGameObject>(BobbingGameObject(0,0,Vector2(0,6),Vector2(0,0), 70));
+
+	auto creditsText1Ptr = bobbingCredits->AddChild<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));
 	creditsText1Ptr->SetText("Game made by");
 	creditsText1Ptr->SetLocalPosition({ WIDTH / 4,68+15 });
 	creditsText1Ptr->SetLocalScale({ 4,4 });
-	auto creditsText2Ptr = GameObject::AddGameObjectToRoot<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));
+	auto creditsText2Ptr = bobbingCredits->AddChild<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));
 	creditsText2Ptr->SetText("Jeremy Loic Auclair");
 	creditsText2Ptr->SetLocalPosition({ WIDTH / 4,68+15+13 });
 	creditsText2Ptr->SetLocalScale({ 4,4 });
-	auto creditsText3Ptr = GameObject::AddGameObjectToRoot<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));
+	auto creditsText3Ptr = bobbingCredits->AddChild<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));
 	creditsText3Ptr->SetText("Fabien Vallet");
 	creditsText3Ptr->SetLocalPosition({ WIDTH / 4,68+15+2*13 });
 	creditsText3Ptr->SetLocalScale({ 4,4 });

@@ -6,7 +6,8 @@ namespace core {
 		if (_currentStep > 2*_numberOfSteps) {
 			_currentStep = 0;
 		}
-		RotateToDegrees(_lerper.GetValue(_currentStep));
+		RotateToDegrees(_rotationLerper.GetValue(_currentStep));
+		_localPosition=(_unmodifierPos + Vector2(_posXLerper.GetValue(_currentStep), _posYLerper.GetValue(_currentStep)));
 		GameObject::Update();
 	}
 }
