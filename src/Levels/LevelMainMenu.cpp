@@ -35,7 +35,7 @@ void core::levels::LevelMainMenu::LoadLevel()
 	creditsText2Ptr->SetLocalPosition({ WIDTH / 4,68+15+13 });
 	creditsText2Ptr->SetLocalScale({ 4,4 });
 	auto creditsText3Ptr = GameObject::AddGameObjectToRoot<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));
-	creditsText3Ptr->SetText("Fabien");
+	creditsText3Ptr->SetText("Fabien Vallet");
 	creditsText3Ptr->SetLocalPosition({ WIDTH / 4,68+15+2*13 });
 	creditsText3Ptr->SetLocalScale({ 4,4 });
 	/*auto creditsText4Ptr = GameObject::AddGameObjectToRoot<TextObject>(TextObject(Drawable::Color::WHITE, 1, 1));

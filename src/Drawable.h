@@ -40,10 +40,6 @@ public:
 	Layer _layer = WORLD;
 	const static Layer LAYERS[];
 	const static int LAYERS_COUNT=3;
-
-private:
-	static void ProcessHorizontalLine( const Vector2& r_start, const Vector2& r_end, const int color, const float alpha);
-	static void ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha);
 };
 
 }

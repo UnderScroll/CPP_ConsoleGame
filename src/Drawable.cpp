@@ -5,170 +5,198 @@
 #include <vector>
 
 #include "Console.h"
+#include <map>
+
+#define PIXEL_COORDS std::pair<int, int>
 
 namespace core {
 
 	const Drawable::Layer Drawable::LAYERS[] = { BACKGROUND,WORLD,UI };
-void Drawable::DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
-{
-	Vector2 direction = r_end - r_start;
-	std::vector<int> segmentsToCheckY;
-	if (std::abs(direction._x) > std::abs(direction._y))
-	{
-		if (r_start._x > r_end._x) {
-			ProcessHorizontalLine(r_end, r_start, color,alpha);
+
+#pragma region Drawing Lines
+	//https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm Xialoin Wu's anti-aliasing line algorithm
+
+	// integer part of x
+	int ipart(float x) {
+		return floor(x);
+	}
+
+
+	int round(float x) {
+		return ipart(x + 0.5);
+	}
+
+	// fractional part of x
+	float fpart(float x) {
+		return x - ipart(x);
+	}
+
+
+	float rfpart(float x) {
+		return 1 - fpart(x);
+	}
+
+	void setPixelBrightness(int x, int y, float brightness,std::map<PIXEL_COORDS, float> &r_pixelsBrightesses) {
+		float oldBrightness = 0;
+		if (r_pixelsBrightesses.contains({x,y })){
+			oldBrightness = r_pixelsBrightesses[{ x,y }];
 		}
-		ProcessHorizontalLine(r_start, r_end,color,alpha);
+
+		float newBrightness = std::max<float>(oldBrightness, brightness);
+		r_pixelsBrightesses[{x,y}] = newBrightness;
 	}
-	else
+
+	void Drawable::DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
 	{
-		if (r_start._y > r_end._y) {
-			ProcessVerticalLine(r_end, r_start, color,alpha);
-		}
-		ProcessVerticalLine(r_start, r_end,color,alpha);
-		
-	}
-}
+		float x0 = r_start._x;
+		float y0 = r_start._y;
+		float x1 = r_end._x;
+		float y1 = r_end._y;
 
-void Drawable::ProcessHorizontalLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
-{
-	int startX = (int)floor(r_start._x);
-	int endX = (int)ceil(r_end._x);
-	Vector2 direction = (r_end - r_start);
-	float yMovement = direction.NormalizedX()._y;
+		std::map<PIXEL_COORDS,float> pixelsBrightnesses= std::map<PIXEL_COORDS, float>();
 
-	//The vector is going left or right, we must determine which horizontal segments we check, we'll only check those that are going to cross the vector
-	int startY = (int)ceil(r_start._y);
-	if (r_end._y > r_start._y)
-	{
-		startY = (int)floor(r_start._y);
-	}
+		boolean steep = abs(y1 - y0) > abs(x1 - x0);
 
-	float luminancesCache[WIDTH][HEIGHT]={0};
-	
-	for(int x = startX;x < endX;x++) {
-		//We find on which y the collision with the next vertical line will happen
-		float nextY = (float)startY + (float)(x - startX) * yMovement;
-
-		//We apply the principles of Xiaolin Wu's algorithm to calculate the luminance of the two pixels to place
-		//https://www.geeksforgeeks.org/anti-aliased-line-xiaolin-wus-algorithm/
-		float decimalPartOfY=nextY-floor(nextY);
-
-		int inextY=(int)floor(nextY);
-
-		if (inextY < 0) continue;
-		if (inextY >= HEIGHT - 1) continue;
-		if (x >= WIDTH - 1) continue;
-		if (x < 0) continue;
-
-		luminancesCache[x][inextY]+=1-decimalPartOfY;
-		luminancesCache[x][inextY+1]+=decimalPartOfY;
-		
-		ColorPixel(x, inextY, color,alpha*luminancesCache[x][inextY]);
-		ColorPixel(x, inextY+1, color,alpha*luminancesCache[x][inextY+1]);
-	}
-}
-
-void Drawable::ProcessVerticalLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
-{
-	int startY = (int)floor(r_start._y);
-	int endY = (int)ceil(r_end._y);
-	Vector2 direction = (r_end - r_start);
-	float xMovement = direction.NormalizedY()._x;
-
-	//The vector is going left or right, we must determine which horizontal segments we check, we'll only check those that are going to cross the vector
-	int startX = (int)ceil(r_start._x);
-	if (r_end._x > r_start._x)
-	{
-		startX = (int)floor(r_start._x);
-	}
-
-	float luminancesCache[WIDTH][HEIGHT]={0};
-	
-	for(int y = startY;y < endY;y++) {
-		//We find on which y the collision with the next vertical line will happen
-		float nextX = (float)startX + (float)(y - startY) * xMovement;
-
-		//We apply the principles of Xiaolin Wu's algorithm to calculate the luminance of the two pixels to place
-		//https://www.geeksforgeeks.org/anti-aliased-line-xiaolin-wus-algorithm/
-		float decimalPartOfX=nextX-floor(nextX);
-
-		int inextX=(int)floor(nextX);
-		if(inextX<0) continue;
-		if (inextX >= WIDTH - 1) continue;
-		if (y >= HEIGHT - 1) continue;
-		if (y < 0) continue;
-		luminancesCache[inextX][y]+=1-decimalPartOfX;
-		luminancesCache[inextX+1][y]+=decimalPartOfX;
-		
-		ColorPixel(inextX, y, color,alpha*luminancesCache[inextX][y]);
-		ColorPixel(inextX+1, y, color,alpha*luminancesCache[inextX+1][y]);
-	}
-}
-
-void Drawable::DrawRectangle(Vector2 startPoint, Vector2 endPoint, const int color, const float alpha, bool drawBorders,bool drawAsBackgroundPixels)
-{
-	if (startPoint._x > endPoint._x) {
-		float cache = startPoint._x;
-		startPoint._x = endPoint._x;
-		endPoint._x = cache;
-	}
-
-	if (startPoint._y > endPoint._y) {
-		float cache = startPoint._y;
-		startPoint._y = endPoint._y;
-		endPoint._y = cache;
-	}
-
-	if (!drawBorders) {
-		++startPoint._x;
-		++startPoint._y;
-		--endPoint._x;
-		--endPoint._y;
-	}
-
-	if(startPoint._x<0) startPoint._x=0;
-	if(startPoint._y<0) startPoint._y=0;
-	if(endPoint._x>=WIDTH) endPoint._x=WIDTH-1;
-	if(endPoint._y>=HEIGHT) endPoint._y=HEIGHT-1;
-
-	//We can't call ColorPixel because it'd break the stack for huge rectangles
-	Console& r_console = Console::GetInstance();
-	int charToUseIndex = (int)std::floor(alpha * (SORTED_BY_LUMINANCE_STRING.length() - 1));
-	WCHAR charToUse = drawAsBackgroundPixels ? ' ' : SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
-
-	auto charInfo = (WORD)color << (drawAsBackgroundPixels ? 4 : 0);
-
-	for (int x = ceil(startPoint._x); x <= floor(endPoint._x); ++x) 
-	{
-		for (int y = ceil(startPoint._y); y <= floor(endPoint._y); ++y)
+		if (steep)
 		{
-			r_console._virtual_buffer[x][y].charToUse = charToUse;
-			if (!drawAsBackgroundPixels) {
-				r_console._virtual_buffer[x][y].color = (WORD)color;
-				continue;
+			std::swap(x0, y0);
+			std::swap(x1, y1);
+		}
+
+		if (x0 > x1)
+		{
+			std::swap(x0, x1);
+			std::swap(y0, y1);
+		}
+
+		float dx = x1 - x0;
+		float dy = y1 - y0;
+
+		float gradient = 1.0f;
+		if (dx != 0.0) {
+			gradient = dy / dx;
+		}
+
+		// handle first endpoint
+		float xend = round(x0);
+		float yend = y0 + gradient * (xend - x0);
+		float xgap = rfpart(x0 + 0.5);
+		int xpxl1 = xend; // this will be used in the main loop
+		float ypxl1 = ipart(yend);
+		if (steep) {
+			setPixelBrightness(ypxl1, xpxl1, rfpart(yend) * xgap, pixelsBrightnesses);
+			setPixelBrightness(ypxl1 + 1, xpxl1, fpart(yend) * xgap, pixelsBrightnesses);
+		}
+		else
+		{
+			setPixelBrightness(xpxl1, ypxl1, rfpart(yend) * xgap, pixelsBrightnesses);
+			setPixelBrightness(xpxl1, ypxl1 + 1, fpart(yend) * xgap, pixelsBrightnesses);
+		}
+		float intery = yend + gradient; // first y-intersection for the main loop
+
+		// handle second endpoint
+		xend = round(x1);
+		yend = y1 + gradient * (xend - x1);
+		xgap = fpart(x1 + 0.5);
+		int xpxl2 = xend; //this will be used in the main loop
+		int ypxl2 = ipart(yend);
+		if (steep) {
+			setPixelBrightness(ypxl2, xpxl2, rfpart(yend) * xgap,pixelsBrightnesses);
+			setPixelBrightness(ypxl2 + 1, xpxl2, fpart(yend) * xgap, pixelsBrightnesses);
+		}
+		else {
+			setPixelBrightness(xpxl2, ypxl2, rfpart(yend) * xgap, pixelsBrightnesses);
+			setPixelBrightness(xpxl2, ypxl2 + 1, fpart(yend) * xgap, pixelsBrightnesses);
+		}
+
+		// main loop
+		if (steep) {
+			for (int x = xpxl1 + 1; x < xpxl2; x++) {
+				setPixelBrightness(ipart(intery), x, rfpart(intery), pixelsBrightnesses);
+				setPixelBrightness(ipart(intery) + 1, x, fpart(intery), pixelsBrightnesses);
+				intery += gradient;
 			}
-			r_console._virtual_buffer[x][y].backgroundColor = (WORD)color;
+		}
+		else {
+			for (int x = xpxl1 + 1; x < xpxl2; x++) {
+				setPixelBrightness(x, ipart(intery), rfpart(intery), pixelsBrightnesses);
+				setPixelBrightness(x, ipart(intery) + 1, fpart(intery), pixelsBrightnesses);
+				intery += gradient;
+			}
+		}
+
+		for (auto pixelBrightness : pixelsBrightnesses) {
+
+			ColorPixel(pixelBrightness.first.first, pixelBrightness.first.second, color, pixelBrightness.second);
 		}
 	}
-}
+#pragma endregion
 
-const std::string Drawable::SORTED_BY_LUMINANCE_STRING=".,:;i1tfcLCXO0W@";
+	void Drawable::DrawRectangle(Vector2 startPoint, Vector2 endPoint, const int color, const float alpha, bool drawBorders, bool drawAsBackgroundPixels)
+	{
+		if (startPoint._x > endPoint._x) {
+			float cache = startPoint._x;
+			startPoint._x = endPoint._x;
+			endPoint._x = cache;
+		}
 
-void Drawable::ColorPixel(const int x,const int y,const int color,const float alpha, bool backgroundPixel) {
-	if(x < 0 || y < 0) return;
-	Console& r_console = Console::GetInstance();
+		if (startPoint._y > endPoint._y) {
+			float cache = startPoint._y;
+			startPoint._y = endPoint._y;
+			endPoint._y = cache;
+		}
 
-	int charToUseIndex=(int)std::floor(alpha*(SORTED_BY_LUMINANCE_STRING.length()-1));
-	WCHAR charToUse= backgroundPixel ? ' ' : SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
-	
-	r_console._virtual_buffer[x][y].charToUse = charToUse;
-	if (!backgroundPixel) {
-		r_console._virtual_buffer[x][y].color = (WORD)color;
-		return;
+		if (!drawBorders) {
+			++startPoint._x;
+			++startPoint._y;
+			--endPoint._x;
+			--endPoint._y;
+		}
+
+		if (startPoint._x < 0) startPoint._x = 0;
+		if (startPoint._y < 0) startPoint._y = 0;
+		if (endPoint._x >= WIDTH) endPoint._x = WIDTH - 1;
+		if (endPoint._y >= HEIGHT) endPoint._y = HEIGHT - 1;
+
+		//We can't call ColorPixel because it'd break the stack for huge rectangles
+		Console& r_console = Console::GetInstance();
+		int charToUseIndex = (int)std::floor(alpha * (SORTED_BY_LUMINANCE_STRING.length() - 1));
+		WCHAR charToUse = drawAsBackgroundPixels ? ' ' : SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
+
+		auto charInfo = (WORD)color << (drawAsBackgroundPixels ? 4 : 0);
+
+		for (int x = ceil(startPoint._x); x <= floor(endPoint._x); ++x)
+		{
+			for (int y = ceil(startPoint._y); y <= floor(endPoint._y); ++y)
+			{
+				r_console._virtual_buffer[x][y].charToUse = charToUse;
+				if (!drawAsBackgroundPixels) {
+					r_console._virtual_buffer[x][y].color = (WORD)color;
+					continue;
+				}
+				r_console._virtual_buffer[x][y].backgroundColor = (WORD)color;
+			}
+		}
 	}
-	r_console._virtual_buffer[x][y].backgroundColor = (WORD)color;
-}
+
+	const std::string Drawable::SORTED_BY_LUMINANCE_STRING = ".,:;i1tfcLCXO0W@";
+
+	void Drawable::ColorPixel(const int x, const int y, const int color, const float alpha, bool backgroundPixel) {
+		if (x < 0 || y < 0) return;
+		if (x >= WIDTH || y >= HEIGHT) return;
+
+		Console& r_console = Console::GetInstance();
+
+		int charToUseIndex = (int)std::floor(alpha * (SORTED_BY_LUMINANCE_STRING.length() - 1));
+		WCHAR charToUse = backgroundPixel ? ' ' : SORTED_BY_LUMINANCE_STRING.at(charToUseIndex);
+
+		r_console._virtual_buffer[x][y].charToUse = charToUse;
+		if (!backgroundPixel) {
+			r_console._virtual_buffer[x][y].color = (WORD)color;
+			return;
+		}
+		r_console._virtual_buffer[x][y].backgroundColor = (WORD)color;
+	}
 
 }
 
