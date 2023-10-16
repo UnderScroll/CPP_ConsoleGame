@@ -195,6 +195,7 @@ namespace core
 		{
 			_state = States::BeingPlaced;
 		}
+		SoundManager::PlayClickSound();
 	}
 
 	void MovableObject::ComputeDiameter()
