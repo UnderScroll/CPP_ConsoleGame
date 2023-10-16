@@ -212,7 +212,12 @@
     <Text Include="res\runtime.log" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="res\sounds\BlastOfWind.wav" />
+    <Media Include="BlastOfWind.wav" />
+    <Media Include="res\sounds\click.wav" />
+    <Media Include="res\sounds\laserLoop.wav" />
+    <Media Include="res\sounds\nextLevel.wav" />
+    <Media Include="res\sounds\nextLevel2.wav" />
+    <Media Include="res\sounds\rotatingObjectLoop.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

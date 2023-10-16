@@ -1,6 +1,6 @@
 #include "SoundManager.h"
 
-#include <Windows.h>
+#include <windows.h>
 #pragma comment(lib, "winmm.lib")
 
 namespace core {
@@ -13,27 +13,55 @@ namespace core {
 		return ws;
 	}
 
-	void SoundManager::StartLoop(std::string filename)
+	void SoundManager::StartLoop(SoundEffect soundEffect)
 	{
+		PlaySound(ConvertToLPWSTR(soundEffect.filepath.c_str()), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
+		_currentLoop = soundEffect;
 	}
-	void SoundManager::StopLoop(std::string filename)
+
+	void SoundManager::StopLoop(SoundEffect soundEffect)
 	{
+		//The loop is already stopped as there can only be one loop at the time
+		//And we dont want to stop the current loop
+		if (soundEffect != _currentLoop) {
+			StopAllLoops();
+		}
 	}
+
 	void SoundManager::StopAllLoops()
 	{
+		PlaySound(NULL, NULL, 0);
 	}
 
-	void SoundManager::PlayAudioFile(std::string filename, float volume)
+	void SoundManager::PlaySoundEffect(SoundEffect soundEffect, bool stopPrevious)
 	{
-		LPCWSTR convertedFilename= ConvertToLPWSTR(filename.c_str());
-		PlaySound(convertedFilename, NULL, SND_FILENAME | SND_ASYNC);
+		if (stopPrevious) {
+			mciSendStringA(("stop " + soundEffect.filepath).c_str(), NULL, 0, NULL);
+		}
+		
+		mciSendStringA(("play " + soundEffect.filepath).c_str(), NULL, 0, NULL);
 	}
-#pragma endregion
 
-	const std::string SoundManager::_clickSound = "../res/sounds/BlastOfWind.wav";
+#pragma endregion
+	SoundEffect SoundManager::_currentLoop = SoundEffect();
+	const SoundEffect SoundManager::_clickSound = SoundEffect("res/sounds/click.wav");
+	const SoundEffect SoundManager::_rotateSound = SoundEffect("res/sounds/rotatingObjectLoop.wav");
+	const SoundEffect SoundManager::_nextLevelSound = SoundEffect("res/sounds/nextLevel2.wav",0.1f);
+	const SoundEffect SoundManager::_laserSound = SoundEffect("res/sounds/laserLoop.wav");
+	int SoundManager::_numberOfLasers = 0;
 
 	void SoundManager::PlayClickSound()
 	{
-		PlayAudioFile(_clickSound);
+		PlaySoundEffect(_clickSound);
+	}
+
+	void SoundManager::PlayRotateSound()
+	{
+		PlaySoundEffect(_rotateSound,false);
+	}
+
+	void SoundManager::PlayNextLevelSound()
+	{
+		PlaySoundEffect(_nextLevelSound);
 	}
 }

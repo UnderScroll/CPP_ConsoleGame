@@ -2,6 +2,7 @@
 
 #include "Application.h"
 #include "TextObject.h"
+#include "SoundManager.h"
 
 namespace core
 {
@@ -156,6 +157,9 @@ namespace core
 				}
 				if (!_rotatePrompt.expired()) {
 					if (_rotatePrompt.lock() == child) continue;
+				}
+				if (Application::GetHorizontalAxis() != 0) {
+					SoundManager::PlayRotateSound();
 				}
 				child->RotateByDegrees(_rotationSpeed * Application::GetHorizontalAxis());
 			}
