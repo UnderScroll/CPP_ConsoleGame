@@ -19,14 +19,17 @@ namespace core {
 		{
 			if ((*itr)->_destroyed)
 			{
-				r_game_objects.erase(itr);
-				break;
-				return;
+				itr=r_game_objects.erase(itr);
 			}
+		}
 
-			if(!(*itr)->_enabled) continue;
+		for (int i=0;i<r_game_objects.size();++i)
+		{
+			auto r_game_object=r_game_objects[i];
 
-			(*itr)->Update();
+			if(!(r_game_object)->_enabled) continue;
+
+			(r_game_object)->Update();
 		}
 	}
 
