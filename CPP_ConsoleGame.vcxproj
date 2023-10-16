@@ -147,6 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Levels\Level1.cpp" />
+    <ClCompile Include="src\Level.cpp" />
     <ClCompile Include="src\HorizontalLayoutGroup.cpp" />
     <ClCompile Include="src\MovableObjectButton.cpp" />
     <ClCompile Include="src\MovableObject.cpp" />
@@ -168,6 +170,8 @@
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Levels\Level1.h" />
+    <ClInclude Include="src\Level.h" />
     <ClInclude Include="src\HorizontalLayoutGroup.h" />
     <ClInclude Include="src\MovableObjectButton.h" />
     <ClInclude Include="src\Collider.h" />

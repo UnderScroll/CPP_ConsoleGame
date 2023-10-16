@@ -1,4 +1,5 @@
 #include "MovableObjectButton.h"
+#include "Application.h"
 
 void core::MovableObjectButton::Update()
 {
@@ -21,4 +22,5 @@ void core::MovableObjectButton::OnClickUp()
 	if (_movableObject.expired()) return;
 	auto movableObject = _movableObject.lock();
 	movableObject->OnClickPressed(true);
+	Application::CancelClickPress();
 }
