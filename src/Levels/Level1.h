@@ -19,6 +19,7 @@ namespace core::levels {
 				Polygon({Vector2(0,-50), Vector2(0,50)},false,Drawable::RED,1,Vector2(40,80),Vector2(1,1),3.14/2),
 				Polygon({Vector2(-50,0), Vector2(50,0)},false,Drawable::RED,1,Vector2(40,WIDTH-80),Vector2(1,1),3.14 / 2),
 			};
+			_levelName="First trials";
 		}
 	};
 }

@@ -1,4 +1,5 @@
 #include "Button.h"
+#include "SoundManager.h"
 namespace core
 {
 	void Button::OnHover()
@@ -18,6 +19,7 @@ namespace core
 	void Button::OnClickUp()
 	{
 		ComputeColor();
+		SoundManager::PlayClickSound();
 	}
 
 	void Button::ComputeColor()

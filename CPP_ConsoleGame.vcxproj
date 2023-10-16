@@ -147,6 +147,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Levels\LevelEndMenu.cpp" />
+    <ClCompile Include="src\SoundManager.cpp" />
     <ClCompile Include="src\BobbingGameObject.cpp" />
     <ClCompile Include="src\NextLevelButton.cpp" />
     <ClCompile Include="src\Lerper.cpp" />
@@ -174,6 +176,8 @@
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Levels\LevelEndMenu.h" />
+    <ClInclude Include="src\SoundManager.h" />
     <ClInclude Include="src\BobbingGameObject.h" />
     <ClInclude Include="src\NextLevelButton.h" />
     <ClInclude Include="src\Lerper.h" />
@@ -206,6 +210,9 @@
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\runtime.log" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="res\sounds\BlastOfWind.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -17,6 +17,7 @@
 #include "HorizontalLayoutGroup.h"
 #include "Levels/Level1.h"
 #include "Levels/LevelMainMenu.h"
+#include "Levels/LevelEndMenu.h"
 
 namespace core {
 
@@ -56,6 +57,7 @@ void Application::Setup() {
 	_isOpen = true;
 
 	AddLevel<levels::LevelMainMenu>();
+	AddLevel<levels::LevelEndMenu>();
 	AddLevel<levels::Level1>();
 	_currentLevelIndex = 0;
 	LoadLevel(_currentLevelIndex);
