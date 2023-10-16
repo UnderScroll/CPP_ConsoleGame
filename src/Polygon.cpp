@@ -41,6 +41,11 @@ namespace core {
 	{
 		GameObject::Draw();
 
+		if (_computedPoints.size() != _points.size())
+		{
+			ComputePoints();
+		}
+
 		for (size_t i = 0; i < _computedPoints.size() - (_isClosed ? 0 : 1); ++i)
 		{
 			Vector2 currentPoint = GetWorldPosition() + (_computedPoints[i]);

@@ -6,6 +6,7 @@
 #include "Console.h"
 #include "GameObject.h"
 #include "Laser.h"
+#include "Level.h"
 
 #define MIN_FRAMETIME_MS 16
 
@@ -22,7 +23,12 @@ namespace core {
 		static Vector2 GetCursorPosition() { return _cursor; }
 		static bool GetClickDown() { return _clickDown; }
 		static bool GetClickPressed() { return _clickPressed; }
-		static float GetScrollWheel() { return _scrollWheel; }
+		static void CancelClickPress(){ _clickPressed = false; }
+		static float GetHorizontalAxis() { return _horizontalAxis; }
+
+		static void LoadNextLevel();
+		static void LoadLevel(int index);
+		int _currentLevelIndex = 0;
 
 	private:
 		Application() : _isOpen(true) {};
@@ -37,8 +43,6 @@ namespace core {
 
 		void Setup();
 		void Input();
-		void MouseInputThread();
-		std::thread _mouseThread;
 		void Update();
 		void Draw();
 
@@ -49,8 +53,16 @@ namespace core {
 		static bool _clickDown;
 		//Click pressed is only true on the frame where the player release the click, like in Unity
 		static bool _clickPressed;
-		static float _scrollWheel;
+		static float _horizontalAxis;
 		static Application _instance;
+
+		std::vector<std::shared_ptr<Level>> _levels;
+		
+		template <typename T>
+		void AddLevel()
+		{
+			_levels.push_back(std::make_shared<T>(T()));
+		}
 
 		unsigned long long frameCount = 0;
 

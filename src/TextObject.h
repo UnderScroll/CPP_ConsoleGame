@@ -32,6 +32,8 @@ namespace core
 		float GetAlpha() const { return _alpha; }
 		float GetSpacing() const { return _spacing; }
 
+		static std::vector<Vector2> GetPointsForLetter(char letter, int part=0);
+
 		TextObject(Color color = WHITE, float alpha = 1, float spacing = 0.1f);;
 	private:
 		std::string _text;
@@ -49,7 +51,7 @@ namespace core
 			m['C'] = { S9, S8,S4,S2,S3 };
 			m['D'] = { S1, S2,S6,S8,S7,S1 };
 			m['E'] = { S1, S7,S9,S7,S4,S6,S4,S1,S3 };
-			m['F'] = { S1, S7,S9,S7,S4,S5 };
+			m['F'] = { S1, S7,S9,S7,S4,S6 };
 			m['G'] = { S8, S4,S2,S6,S5 };
 			m['H'] = { S1, S7,S4,S6,S9,S3 };
 			m['I'] = { S1,S3, S2,S8 ,S9,S7 };
@@ -70,6 +72,8 @@ namespace core
 			m['X'] = { S1,S9,SNONE,S7,S3 };
 			m['Y'] = { S7,S5,S9,S5,S2 };
 			m['Z'] = { S7,S9,S1,S3 };
+			m['!'] = { S8,S5,SNONE,S2,S2-Vector2(0,0.1f)};
+			m['\'']= { S8,S8+Vector2(-0.2f,0.2f)};
 
 			return m;
 		}

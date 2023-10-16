@@ -54,6 +54,26 @@ namespace core
 		SetText(_text);
 	}
 
+	std::vector<Vector2> TextObject::GetPointsForLetter(char letter, int part) {
+		//For letters in multiple part like the X
+		std::vector<Vector2> points = _charPolygons.at(letter);
+		std::vector<std::vector<Vector2>> pointsVectors = std::vector<std::vector<Vector2>>();
+
+		std::vector<Vector2> currentPointsVector = std::vector<Vector2>();
+		for (auto point : points) {
+			if (point == SNONE) {
+				pointsVectors.push_back(currentPointsVector);
+				currentPointsVector = std::vector<Vector2>();
+				continue;
+			}
+			currentPointsVector.push_back(point);
+		}
+		pointsVectors.push_back(currentPointsVector);
+
+		int index= ((part+1) % (pointsVectors.size()))-1;
+		return pointsVectors[part % currentPointsVector.size()];
+	}
+
 	TextObject::TextObject(Color color, float alpha, float spacing) :_color(color), _alpha(alpha), _spacing(spacing) {}
 
 	void TextObject::SetSpacing(float spacing)

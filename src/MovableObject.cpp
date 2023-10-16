@@ -1,5 +1,7 @@
 #include "MovableObject.h"
+
 #include "Application.h"
+#include "TextObject.h"
 
 namespace core
 {
@@ -72,52 +74,57 @@ namespace core
 		Polygon rotatePromptsPolygons[]{
 			Polygon(
 				{
-					Vector2(0, 1.5),
-					Vector2(1, 0.75),
-					Vector2(1, -0.75),
-					Vector2(0, -1.5),
-					Vector2(-1, -0.75),
-					Vector2(-1, 0.75)
+					Vector2(-0.5, -0.5),
+					Vector2(0.5, -0.5),
+					Vector2(0.5, 0.5),
+					Vector2(-0.5, 0.5),
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(0,0),Vector2(4,4)), //Mouse
+				, true, Drawable::GRAY, 0.5f,Vector2(-2.8f,0),Vector2(9,9)), //Q/A key
+
 			Polygon(
 				{
-					Vector2(1, -0.75),
-					Vector2(0, -1.5),
-					Vector2(0, -0.75),
+					Vector2(0.3, -0.3),
+					Vector2(-0.3, 0.3),
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(0,0),Vector2(4,4)), //Right click
+				, true, Drawable::GRAY, 0.5f,Vector2(-2.8f,0),Vector2(9,9)), // Slash
+
+			Polygon(TextObject::GetPointsForLetter('Q',2), false, Drawable::RED, 0.5f,Vector2(-2.8f-0.6f,-0.6f),Vector2(3,3)), //Q letter2
+			Polygon(TextObject::GetPointsForLetter('Q',3), false, Drawable::RED, 0.5f,Vector2(-2.8f - 0.6f,-0.6f),Vector2(3,3)), //Q letter part 2
+
+			Polygon(TextObject::GetPointsForLetter('A'), false, Drawable::RED, 0.5f,Vector2(-2.8f + 1.0f,+0.8f),Vector2(2.5,4)), //A
+
 			Polygon(
 				{
-					Vector2(-1, -0.75),
-					Vector2(0, -1.5),
-					Vector2(0, -0.75),
+					Vector2(-0.5, -0.5),
+					Vector2(0.5, -0.5),
+					Vector2(0.5, 0.5),
+					Vector2(-0.5, 0.5),
 				}
-				, true, Drawable::GRAY, 0.5f,Vector2(0,0),Vector2(4,4)), //Left click
-			Polygon(
-				{
-					Vector2(0, -1.5),
-					Vector2(0, -0.75),
-				}
-				, false, Drawable::RED, 0.5f,Vector2(0,0),Vector2(4,4)), //Scroll wheel
+				, true, Drawable::GRAY, 0.5f,Vector2(2.8f,0),Vector2(9,9)), //D key
+
+			Polygon(TextObject::GetPointsForLetter('D'), false, Drawable::RED, 0.5f,Vector2(2.8f,0),Vector2(4,6)), //D
 
 			//Half circle with arrows:
 			Polygon(
 				{
-					Vector2(0, 1),
-					Vector2(0.2, 0.8),
-					Vector2(0, 1),
-					Vector2(0.2, 1.2),
-					Vector2(0, 1),
-					Vector2(0.5, 0.75),
+					Vector2(-1, 0),
+					Vector2(-0.8, -0.2),
+					Vector2(-1, 0),
+					Vector2(-1.2, -0.2),
+					Vector2(-1, 0),
+
+					Vector2(-1,-0.3),
+					Vector2(-0.75, -0.75),
+					Vector2(0, -1),
+					Vector2(0.75, -0.75),
+					Vector2(1, -0.3),
+
 					Vector2(1, 0),
-					Vector2(0.5, -0.75),
-					Vector2(0, -1),
-					Vector2(0.2, -0.8),
-					Vector2(0, -1),
-					Vector2(0.2, -1.2),
+					Vector2(0.8, -0.2),
+					Vector2(1,0),
+					Vector2(1.2, -0.2)
 				}
-				, false, Drawable::GRAY, 0.5f,Vector2(6,0),Vector2(5,5)),
+				, false, Drawable::GRAY, 0.5f,Vector2(0,-3),Vector2(7,7)),
 		};
 
 		_rotatePrompt = AddChild<GameObject>(GameObject());
@@ -150,7 +157,7 @@ namespace core
 				if (!_rotatePrompt.expired()) {
 					if (_rotatePrompt.lock() == child) continue;
 				}
-				child->RotateByDegrees(_rotationSpeed * Application::GetScrollWheel());
+				child->RotateByDegrees(_rotationSpeed * Application::GetHorizontalAxis());
 			}
 		}
 
@@ -199,9 +206,9 @@ namespace core
 		}
 		_diameter = maxDiameter;
 		if (_movePrompt.expired()) return;
-		_movePrompt.lock()->SetLocalPosition({ -0.5f * _diameter-10,0 });
+		_movePrompt.lock()->SetLocalPosition({ -0.5f * _diameter-18,0 });
 		if (_rotatePrompt.expired()) return;
-		_rotatePrompt.lock()->SetLocalPosition({0, -0.5f * _diameter-15});
+		_rotatePrompt.lock()->SetLocalPosition({0, -0.5f * _diameter-18});
 	}
 
 	bool MovableObject::IsCursorInRange()
