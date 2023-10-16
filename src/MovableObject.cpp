@@ -88,7 +88,7 @@ namespace core
 				}
 				, true, Drawable::GRAY, 0.5f,Vector2(-2.8f,0),Vector2(9,9)), // Slash
 
-			Polygon(TextObject::GetPointsForLetter('Q',2), false, Drawable::RED, 0.5f,Vector2(-2.8f-0.6f,-0.6f),Vector2(3,3)), //Q letter2
+			Polygon(TextObject::GetPointsForLetter('Q',2), false, Drawable::RED, 0.5f,Vector2(-2.8f - 0.6f,-0.6f),Vector2(3,3)), //Q letter2
 			Polygon(TextObject::GetPointsForLetter('Q',3), false, Drawable::RED, 0.5f,Vector2(-2.8f - 0.6f,-0.6f),Vector2(3,3)), //Q letter part 2
 
 			Polygon(TextObject::GetPointsForLetter('A'), false, Drawable::RED, 0.5f,Vector2(-2.8f + 1.0f,+0.8f),Vector2(2.5,4)), //A
@@ -148,7 +148,7 @@ namespace core
 		}
 		_hover = IsCursorInRange();
 
-		if(_hover)
+		if (_hover)
 		{
 			for (auto child : _children) {
 				if (!_movePrompt.expired()) {
@@ -163,11 +163,11 @@ namespace core
 
 		if (_movePrompt.expired()) return;
 
-		auto movePrompt= _movePrompt.lock();
-		movePrompt->_enabled = _hover && _state!=BeingPlaced;
+		auto movePrompt = _movePrompt.lock();
+		movePrompt->_enabled = _hover && _state != BeingPlaced;
 
 		if (_rotatePrompt.expired()) return;
-		
+
 		auto rotatePrompt = _rotatePrompt.lock();
 		rotatePrompt->_enabled = _hover;
 	}
@@ -187,7 +187,7 @@ namespace core
 		{
 			_state = States::Placed;
 		}
-		else if (_state == States::Placed && (forceCursorInRange||IsCursorInRange()))
+		else if (_state == States::Placed && (forceCursorInRange || IsCursorInRange()))
 		{
 			_state = States::BeingPlaced;
 		}
@@ -206,9 +206,9 @@ namespace core
 		}
 		_diameter = maxDiameter;
 		if (_movePrompt.expired()) return;
-		_movePrompt.lock()->SetLocalPosition({ -0.5f * _diameter-18,0 });
+		_movePrompt.lock()->SetLocalPosition({ -0.5f * _diameter - 18,0 });
 		if (_rotatePrompt.expired()) return;
-		_rotatePrompt.lock()->SetLocalPosition({0, -0.5f * _diameter-18});
+		_rotatePrompt.lock()->SetLocalPosition({ 0, -0.5f * _diameter - 18 });
 	}
 
 	bool MovableObject::IsCursorInRange()

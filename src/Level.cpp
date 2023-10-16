@@ -25,7 +25,7 @@ namespace core {
 			namePtr->SetLocalPosition({ 0,-6 });
 		}
 
-		for (Polygon pol : _movableElements)
+		for (Polygon& pol : _movableElements)
 		{
 			auto movablElementPtr=GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
 			movablElementPtr->SetLocalPosition(pol.GetLocalPosition());
@@ -36,12 +36,16 @@ namespace core {
 			buttonPtr->SetPreview(pol, Drawable::BLACK);
 		}
 
-		for (Polygon pol : _staticNonReflectivesElements) {
+		for (Polygon& pol : _staticNonReflectivesElements) {
 			auto polPtr = GameObject::AddGameObjectToRoot<Polygon>(pol);
 		}
 
-		for (Polygon pol : _staticReflectivesElements) {
+		for (Polygon& pol : _staticReflectivesElements) {
 			auto polPtr = GameObject::AddGameObjectToRoot<Polygon>(pol);
+		}
+
+		for (Laser& laser : _lasers) {
+			auto polPtr = GameObject::AddGameObjectToRoot<Laser>(laser);
 		}
 	}
 

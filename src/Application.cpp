@@ -71,6 +71,7 @@ void Application::ComputeCursorPosition() {
 	RECT rect;
 	GetWindowRect(Console::windowHandle, &rect);
 
+	//Offsets the cursor position from window pos + borders and rectify by char size
 	int posX = (cursorPosition.x - rect.left - 9) / 6;
 	int posY = (cursorPosition.y - rect.top - 32) / 6;
 

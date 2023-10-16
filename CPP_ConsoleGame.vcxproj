@@ -209,9 +209,6 @@
     <None Include="res\doc.md" />
   </ItemGroup>
   <ItemGroup>
-    <Text Include="res\runtime.log" />
-  </ItemGroup>
-  <ItemGroup>
     <Media Include="res\sounds\BlastOfWind.wav" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

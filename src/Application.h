@@ -29,7 +29,6 @@ namespace core {
 		static void LoadNextLevel();
 		static void LoadLevel(int index);
 		int _currentLevelIndex = 0;
-
 	private:
 		Application() : _isOpen(true) {};
 		Application(const Application& other);
