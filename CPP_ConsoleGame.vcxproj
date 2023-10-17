@@ -165,7 +165,6 @@
     <ClCompile Include="src\Ray.cpp" />
     <ClCompile Include="src\RotatingObject.cpp" />
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\Drawable.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -194,7 +193,6 @@
     <ClInclude Include="src\Rectangle.h" />
     <ClInclude Include="src\RotatingObject.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Character.h" />
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Drawable.h" />
     <ClInclude Include="src\GameObject.h" />

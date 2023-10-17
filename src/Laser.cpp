@@ -10,6 +10,9 @@ Laser::Laser(Vector2 position, Vector2 direction)
 	: _position(position), _direction(direction) 
 {
 	_laserBase = Polygon({ Vector2(-3, 4), Vector2(4, 0) , Vector2(-3, -4) }, true);
+	
+	_laserBase.RotateToRadians(atan2(_direction._x, _direction._y));
+
 	_laserBeam._color = Drawable::Color::RED;
 	_laserBeam._isClosed = false;
 }
@@ -62,7 +65,7 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		_laserBeam._points.push_back(closestCollisionPointInfo.point);
 	}
 
-	if (closestCollisionPointInfo.collider->isReflective && nb_iter < 1) {
+	if (closestCollisionPointInfo.collider->isReflective && nb_iter < 20) {
 		Ray reflectedRay = computeReflectedRay(closestCollisionPointInfo.collisionSurface, ray, closestCollisionPointInfo.point);
 
 		computeBeamRec(colliders, reflectedRay, nb_iter + 1);
@@ -71,12 +74,11 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 
 void Laser::Update() {	
 	_laserBase.SetLocalPosition(_position);
+	
 	_laserBase.RotateByDegrees(1);
+	_direction = _direction.RotateByDegrees(1);
 
-	float _rotation= _laserBase.GetLocalRotationInRadians();
-	this->_direction = Vector2(cos(_rotation), sin(_rotation));
-
-	std::vector<Collider> colliders = { Collider(Polygon({ Vector2(0, 0), Vector2(328, 0), Vector2(328, 124), Vector2(0, 124) }, true), Collider::Type::Wall, true) };
+	std::vector<Collider> colliders = { Collider(Polygon({Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100)}, true), Collider::Type::Wall, true) };
 	computeBeam(colliders);
 
 	_laserBeam.ComputePoints();

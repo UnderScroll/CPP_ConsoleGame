@@ -19,7 +19,7 @@ public:
 		};
 
 		_staticReflectivesElements = {
-			Polygon({Vector2(0, 0), Vector2(328, 0), Vector2(328, 124), Vector2(0, 124)}, true),
+			Polygon({Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100)}, true),
 		};
 
 		_lasers = {
