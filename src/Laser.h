@@ -5,10 +5,12 @@
 #include "Collider.h"
 #include "Ray.h"
 
+#include "MovableObject.h"
+
 namespace core {
 
 class Laser 
-	: public GameObject
+	:public MovableObject
 {
 public:
 	Laser(Vector2 position = Vector2(0, 0), Vector2 direction = Vector2(0, 0));
@@ -25,8 +27,12 @@ public:
 	virtual void Draw();
 
 	static std::vector<Collider> s_colliders;
+
+	
 private:
 	void computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter);
+
+	Collider* _sensor;
 };
 
 }

@@ -40,6 +40,15 @@ namespace core {
 			Laser::s_colliders.push_back(Collider(pol, Collider::Wall, true));
 		}
 
+		for (Polygon& pol : _rotatableElements) {
+			auto movablElementPtr = GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
+			movablElementPtr->SetLocalPosition(pol.GetLocalPosition());
+			auto polPtr = movablElementPtr->AddChild<Polygon>(pol);
+
+			movablElementPtr->_colliderIndex = movableElementColliderIndex++;
+			Laser::s_colliders.push_back(Collider(pol, Collider::Wall, true));
+		}
+
 		for (Polygon& pol : _staticNonReflectivesElements) {
 			auto polPtr = GameObject::AddGameObjectToRoot<Polygon>(pol);
 			Laser::s_colliders.push_back(Collider(pol, Collider::Wall, false));
@@ -51,9 +60,18 @@ namespace core {
 		}
 
 		for (Laser& laser : _lasers) {
-			auto polPtr = GameObject::AddGameObjectToRoot<Laser>(laser);
+			auto movablElementPtr = GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
+			movablElementPtr->_canOnlyRotate = true;
+			movablElementPtr->SetLocalPosition(laser._position);
+			auto polPtr = movablElementPtr->AddChild<Laser>(laser);
+
 			Laser::s_colliders.push_back(Collider(laser._laserBase, Collider::Wall, false));
 		}
+
+		GameObject::AddGameObjectToRoot<Polygon>(_sensor._collisionShape);
+		Laser::s_colliders.push_back(_sensor);
+
+		
 	}
 
 	void Level::ClearCurrentLevel()

@@ -28,8 +28,6 @@ bool Application::_clickDown = false;
 bool Application::_clickPressed = false;
 float Application::_horizontalAxis = 0;
 
-void MouseInputThread(int& r_scrollWheel);
-
 Application::~Application() {
 	ofstream.close();
 }

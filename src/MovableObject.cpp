@@ -182,6 +182,7 @@ namespace core
 
 		auto movePrompt = _movePrompt.lock();
 		movePrompt->_enabled = _hover && _state != BeingPlaced;
+		movePrompt->_enabled &= !_canOnlyRotate;
 
 		if (_rotatePrompt.expired()) return;
 
@@ -192,14 +193,13 @@ namespace core
 	void MovableObject::Draw()
 	{
 		GameObject::Draw();
-		if (_state == States::BeingPlaced)
-		{
-			return;
-		}
 	}
 
 	void MovableObject::OnClickPressed(bool forceCursorInRange)
 	{
+		if (_canOnlyRotate)
+			return;
+
 		if (_state == States::BeingPlaced)
 		{
 			SoundManager::PlayClickSound();

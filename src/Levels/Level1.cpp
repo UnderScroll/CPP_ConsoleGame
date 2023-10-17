@@ -5,21 +5,23 @@
 
 void core::levels::Level1::LoadLevel() {
 	_lasers = {
-		Laser(Vector2(10, 10), Vector2(0.5, 0.5))
+		Laser(Vector2(15, 15), Vector2(0.5, 0.5))
 	};
 
 	_staticNonReflectivesElements = {
-		Polygon({ Vector2(50, 50), Vector2(60, 50), Vector2(60, 60), Vector2(50, 60) }, true)
+		Polygon({ Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100) }, true, Drawable::Color::WHITE, 0)
 	};
 
 	_staticReflectivesElements = {
-		Polygon({ Vector2(0, 0), Vector2(WIDTH/2, 0), Vector2(WIDTH/2, 100), Vector2(0, 100) }, true, Drawable::WHITE,0)
 	};
 	
 	_movableElements = {
-		Polygon({ Vector2(0, 0), Vector2(10, 0), Vector2(10, 10), Vector2(0, 10) }, true)
+
 	};
 
+	Polygon sensorShape = Rectangle(Vector2(130, 10), Vector2(140, 20));
+	sensorShape._color = Drawable::Color::GREEN;
+	_sensor = Sensor(sensorShape);
 
 	Level::LoadLevel();
 }

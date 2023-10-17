@@ -111,6 +111,7 @@ namespace core {
 
 		// main loop
 		if (steep) {
+#pragma omp parallel for num_threads(4)
 			for (int x = xpxl1 + 1; x < xpxl2; x++) {
 				setPixelBrightness(ipart(intery), x, rfpart(intery), pixelsBrightnesses);
 				setPixelBrightness(ipart(intery) + 1, x, fpart(intery), pixelsBrightnesses);
@@ -118,13 +119,14 @@ namespace core {
 			}
 		}
 		else {
+#pragma omp parallel for num_threads(4)
 			for (int x = xpxl1 + 1; x < xpxl2; x++) {
 				setPixelBrightness(x, ipart(intery), rfpart(intery), pixelsBrightnesses);
 				setPixelBrightness(x, ipart(intery) + 1, fpart(intery), pixelsBrightnesses);
 				intery += gradient;
 			}
 		}
-
+#pragma omp parallel for num_threads(4)
 		for (auto pixelBrightness : pixelsBrightnesses) {
 
 			ColorPixel(pixelBrightness.first.first, pixelBrightness.first.second, color, pixelBrightness.second);
