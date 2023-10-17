@@ -21,6 +21,8 @@ void core::levels::Level1::LoadLevel() {
 		Polygon({ Vector2(0, 0), Vector2(10, 0), Vector2(10, 10), Vector2(0, 10) }, true)
 	};
 
+	_sensor = Sensor(Polygon({ Vector2(50, 10), Vector2(60, 10), Vector2(60, 20), Vector2(50, 20) }, true));
+
 
 	Level::LoadLevel();
 }

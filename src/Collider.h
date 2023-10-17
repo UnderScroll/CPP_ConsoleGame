@@ -6,9 +6,11 @@ namespace core {
 
 class Collider {
 public:
+	virtual ~Collider() {};
+
 	enum Type {
 		Wall,
-		Ray
+		Sensor
 	};
 
 	Collider(Polygon collisionShape, Type collisionType = Type::Wall, bool isReflective = false);
@@ -16,6 +18,8 @@ public:
 	Polygon _collisionShape;
 	Type _type;
 	bool _isReflective;
+
+	unsigned int chargeLevel = 0;
 };
 
 }

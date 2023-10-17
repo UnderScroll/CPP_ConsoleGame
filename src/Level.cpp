@@ -54,6 +54,9 @@ namespace core {
 			auto polPtr = GameObject::AddGameObjectToRoot<Laser>(laser);
 			Laser::s_colliders.push_back(Collider(laser._laserBase, Collider::Wall, false));
 		}
+
+		GameObject::AddGameObjectToRoot<Polygon>(_sensor._collisionShape);
+		Laser::s_colliders.push_back(_sensor);
 	}
 
 	void Level::ClearCurrentLevel()

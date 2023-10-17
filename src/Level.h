@@ -5,6 +5,7 @@
 #include "UIRect.h"
 #include "HorizontalLayoutGroup.h"
 #include "Laser.h"
+#include "Sensor.h"
 
 namespace core {
 	class Level
@@ -16,8 +17,7 @@ namespace core {
 		std::vector<Polygon> _movableElements;
 		std::vector<Polygon> _staticNonReflectivesElements;
 		std::vector<Polygon> _staticReflectivesElements;
-
-		//std::vector<Polygon> _polygon;
+		Sensor _sensor;
 
 		std::vector<Laser> _lasers;
 

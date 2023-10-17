@@ -2,7 +2,8 @@
 
 #include <limits>
 
-#include "Ray.h"
+#include "Application.h"
+#undef max
 
 namespace core {
 
@@ -64,6 +65,10 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		return;
 	}
 	else {
+		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
+			if (++closestCollisionPointInfo.collider->chargeLevel > 100)
+				Application::LoadNextLevel();
+		}
 		_laserBeam._points.push_back(closestCollisionPointInfo.point);
 	}
 
