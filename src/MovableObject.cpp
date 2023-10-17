@@ -173,6 +173,10 @@ namespace core
 				if (!pol) continue;
 
 				auto polValue = *pol;
+				polValue.SetLocalPosition(polValue.GetWorldPosition());
+				polValue.RotateToRadians(polValue.GetLocalRotationInRadians());
+				polValue.SetLocalScale(polValue.GetWorldScale());
+				polValue._parent.reset();
 				Laser::s_colliders[_colliderIndex] = Collider(polValue, Collider::Wall, true);
 				break;
 			}

@@ -89,9 +89,6 @@ void Application::ComputeCursorPosition() {
 }
 
 void Application::Input() {
-	if ((GetKeyState(VK_RETURN) & 0x8000))
-		_isOpen = false;
-
 	_clickPressed = false;
 	if (GetAsyncKeyState(VK_LBUTTON) & 0x8000) 
 	{
