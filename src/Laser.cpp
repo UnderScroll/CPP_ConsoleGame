@@ -3,6 +3,7 @@
 #include <limits>
 
 #include "Application.h"
+#include "SoundManager.h"
 #undef max
 
 namespace core {
@@ -97,6 +98,8 @@ void Laser::Update() {
 	computeBeam(s_colliders);
 
 	_laserBeam.ComputePoints();
+	//Each collision creates a point, we remove the start and end point and badabim badaboom, we get the number of collisions
+	SoundManager::PlayLaserSound(_laserBeam._points.size() - 2);
 }
 
 void Laser::Draw() {
