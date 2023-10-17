@@ -12,10 +12,14 @@ Rectangle::Rectangle(float width, float height, Drawable::Color color): Rectangl
 
 Rectangle::Rectangle(Vector2 pointA, float width, float height, Drawable::Color color)
 {
-	this->_points.push_back(pointA);
-	this->_points.push_back(pointA + Vector2(0, height));
-	this->_points.push_back(pointA + Vector2(width, height));
-	this->_points.push_back(pointA + Vector2(width, 0));
+	this->SetLocalPosition(pointA+0.5*Vector2(width,height));
+
+	this->_points.push_back(Vector2(-0.5*width, -0.5*height));
+	this->_points.push_back(Vector2(0.5 * width, -0.5 * height));
+
+	this->_points.push_back(Vector2(0.5 * width, 0.5 * height));
+	this->_points.push_back(Vector2(-0.5 * width, 0.5 * height));
+
 	this->_isClosed = true;
 	_color = color;
 
