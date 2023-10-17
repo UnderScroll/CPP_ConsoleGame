@@ -14,7 +14,7 @@ Laser::Laser(Vector2 position, Vector2 direction)
 {
 	_laserBase = Polygon({ Vector2(-3, 4), Vector2(4, 0) , Vector2(-3, -4) }, true);
 	
-	_laserBase.RotateToRadians(atan2(_direction._x, _direction._y));
+	//_laserBase.RotateToRadians(atan2(_direction._x, _direction._y));
 
 	_laserBeam._color = Drawable::Color::RED;
 	_laserBeam._isClosed = false;
@@ -38,6 +38,11 @@ Ray computeReflectedRay(std::pair<Vector2, Vector2> surface, Ray& ray, Vector2& 
 	Vector2 reflectedRayDir = Vector2(incident._x - 2 * incidentDotNormal * normal._x, incident._y - 2 * incidentDotNormal * normal._y);
 
 	return Ray(reflectionPoint, reflectedRayDir);
+}
+
+float Laser::GetDiameter()
+{
+	return 0.2f*_laserBase.GetDiameter();
 }
 
 void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter) {
@@ -67,6 +72,7 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 	else {
 		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
 			_sensor = closestCollisionPointInfo.collider;
+			//TO DO : Add audio and/or visual feedbacks
 			if (++_sensor->chargeLevel > 100); //Application::LoadNextLevel();
 		}
 		else {
@@ -84,8 +90,9 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 
 void Laser::Update() {	
 	_laserBase.SetWorldPosition(_position);
+	_laserBase.RotateToRadians(GetLocalRotationInRadians());
 	
-	_direction = Vector2(cos(GetLocalRotationInDegrees()), sin(GetLocalRotationInDegrees()));
+	_direction = Vector2(cos(GetLocalRotationInRadians()), sin(GetLocalRotationInRadians()));
 
 	computeBeam(s_colliders);
 

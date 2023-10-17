@@ -217,11 +217,7 @@ namespace core
 		float maxDiameter = 0;
 		for (auto child : _children)
 		{
-			std::shared_ptr<Polygon> polygonObj = std::dynamic_pointer_cast<Polygon>(child);
-
-			if (!polygonObj) continue;
-
-			maxDiameter = max(maxDiameter, polygonObj->GetDiameter());
+			maxDiameter = max(maxDiameter, child->GetDiameter());
 		}
 		_diameter = maxDiameter;
 		if (_movePrompt.expired()) return;

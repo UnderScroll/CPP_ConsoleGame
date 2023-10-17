@@ -5,11 +5,11 @@
 
 void core::levels::Level1::LoadLevel() {
 	_lasers = {
-		Laser(Vector2(15, 15), Vector2(0.5, 0.5))
+		Laser(Vector2(15, 65), Vector2(0.5, 0.5))
 	};
 
 	_staticNonReflectivesElements = {
-		Polygon({ Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100) }, true, Drawable::Color::WHITE, 0)
+		Polygon({ Vector2(0, 0), Vector2(WIDTH/2, 0), Vector2(WIDTH/2, 100), Vector2(0, 100) }, true, Drawable::Color::WHITE, 0)
 	};
 
 	_staticReflectivesElements = {

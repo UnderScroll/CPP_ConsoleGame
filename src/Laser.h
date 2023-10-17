@@ -28,11 +28,12 @@ public:
 
 	static std::vector<Collider> s_colliders;
 
+	virtual float GetDiameter() override;
 	
 private:
 	void computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter);
 
-	Collider* _sensor;
+	Collider* _sensor=nullptr;
 };
 
 }

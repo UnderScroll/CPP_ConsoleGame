@@ -65,13 +65,11 @@ namespace core {
 			movablElementPtr->SetLocalPosition(laser._position);
 			auto polPtr = movablElementPtr->AddChild<Laser>(laser);
 
-			Laser::s_colliders.push_back(Collider(laser._laserBase, Collider::Wall, false));
+			//Laser::s_colliders.push_back(Collider(laser._laserBase, Collider::Wall, false));
 		}
 
 		GameObject::AddGameObjectToRoot<Polygon>(_sensor._collisionShape);
-		Laser::s_colliders.push_back(_sensor);
-
-		
+		Laser::s_colliders.push_back(_sensor);	
 	}
 
 	void Level::ClearCurrentLevel()
