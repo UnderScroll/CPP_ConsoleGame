@@ -198,7 +198,21 @@ namespace core
 	void MovableObject::Draw()
 	{
 		ComputeRotatePromptsPosition();
+
 		GameObject::Draw();
+
+		//Iterate through the children until it finds the one that is a polygon
+		for (auto& child : _children) {
+			std::shared_ptr<Polygon> pol = std::dynamic_pointer_cast<Polygon>(child);
+
+			if (!pol) continue;
+			//iterate on _computedPointsWorldPositions
+			for (int i = 0; i < pol->_computedPointsWorldPositions.size(); i++) {
+				Application::ofstream << "WorldX of point" << i << " = " << pol->_computedPointsWorldPositions[i]._x << std::endl;
+			}
+
+			break;
+		}
 	}
 
 	void MovableObject::OnClickPressed(bool forceCursorInRange)
