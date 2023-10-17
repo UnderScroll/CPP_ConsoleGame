@@ -54,6 +54,7 @@ namespace core {
 		for (auto rootGameObject : GameObject::_rootGameObjects) {
 			rootGameObject->Destroy();
 		}
+		GameObject::_rootGameObjects.clear();
 	}
 }
 

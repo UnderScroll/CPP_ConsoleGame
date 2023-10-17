@@ -15,6 +15,7 @@ namespace core {
 
 	void SoundManager::StartLoop(SoundEffect soundEffect)
 	{
+		if (_currentLoop == soundEffect) return;
 		PlaySound(ConvertToLPWSTR(soundEffect.filepath.c_str()), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
 		_currentLoop = soundEffect;
 	}
@@ -31,6 +32,7 @@ namespace core {
 	void SoundManager::StopAllLoops()
 	{
 		PlaySound(NULL, NULL, 0);
+		_currentLoop = SoundEffect();
 	}
 
 	void SoundManager::PlaySoundEffect(SoundEffect soundEffect, bool stopPrevious)
