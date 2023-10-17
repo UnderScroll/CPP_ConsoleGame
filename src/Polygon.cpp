@@ -42,6 +42,8 @@ void Polygon::Draw()
 {
 	GameObject::Draw();
 
+	if(_alpha<=0) return;
+
 	if (_computedPoints.size() != _points.size())
 	{
 		ComputePoints();
@@ -50,15 +52,16 @@ void Polygon::Draw()
 	if (_computedPoints.size() == 0)
 		return;
 
+
+	auto position = GetWorldPosition();
+
 	for (size_t i = 0; i < _computedPoints.size() - (_isClosed ? 0 : 1); ++i)
 	{
-		Vector2 currentPoint = _computedPointsWorldPositions[i];
-		Vector2 nextPoint = _computedPointsWorldPositions[(i < _computedPoints.size() - 1) ? i + 1 : 0];
+		Vector2 currentPoint = position+_computedPoints[i];
+		Vector2 nextPoint = position+_computedPoints[(i < _computedPoints.size() - 1) ? i + 1 : 0];
 
 		Drawable::DrawLine(currentPoint, nextPoint, _color);
 	}
-
-	auto position = GetWorldPosition();
 }
 
 void Polygon::RotateToRadians(float targetAngle)
