@@ -172,11 +172,12 @@ namespace core
 
 				if (!pol) continue;
 
-				auto polValue = *pol;
-				polValue.SetLocalPosition(polValue.GetWorldPosition());
-				polValue.RotateToRadians(polValue.GetLocalRotationInRadians());
-				polValue.SetLocalScale(polValue.GetWorldScale());
-				polValue._parent.reset();
+				auto polValue = Polygon();
+
+				polValue._points = pol->_computedPointsWorldPositions;
+				polValue._computedPointsWorldPositions = pol->_computedPointsWorldPositions;
+				polValue._isClosed = pol->_isClosed;
+				
 				Laser::s_colliders[_colliderIndex] = Collider(polValue, Collider::Wall, true);
 				break;
 			}
