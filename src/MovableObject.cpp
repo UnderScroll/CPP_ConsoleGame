@@ -202,13 +202,14 @@ namespace core
 	{
 		if (_state == States::BeingPlaced)
 		{
+			SoundManager::PlayClickSound();
 			_state = States::Placed;
 		}
 		else if (_state == States::Placed && (forceCursorInRange || IsCursorInRange()))
 		{
+			SoundManager::PlayClickSound();
 			_state = States::BeingPlaced;
-		}
-		SoundManager::PlayClickSound();
+		}	
 	}
 
 	void MovableObject::ComputeDiameter()
