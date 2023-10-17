@@ -10,7 +10,7 @@ class Level1 :
 {
 public:
 	Level1() {
-		_levelName = "First trials";
+		_levelName = "Level 1";
 	}
 
 	void LoadLevel();

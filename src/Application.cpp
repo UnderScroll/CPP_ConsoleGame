@@ -16,6 +16,10 @@
 #include "MovableObjectButton.h"
 #include "HorizontalLayoutGroup.h"
 #include "Levels/Level1.h"
+#include "Levels/Level2.h"
+#include "Levels/Level3.h"
+#include "Levels/Level4.h"
+#include "Levels/Level5.h"
 #include "Levels/LevelMainMenu.h"
 #include "Levels/LevelEndMenu.h"
 
@@ -54,10 +58,16 @@ void Application::Setup() {
 	console.Setup();
 	_isOpen = true;
 
-	AddLevel<levels::LevelMainMenu>();
-	AddLevel<levels::LevelEndMenu>();
-	AddLevel<levels::Level1>();
 	_currentLevelIndex = 0;
+
+	AddLevel<levels::LevelMainMenu>();
+	//AddLevel<levels::Level1>();
+	//AddLevel<levels::Level2>();
+	//AddLevel<levels::Level3>();
+	//AddLevel<levels::Level4>();
+	AddLevel<levels::Level5>();
+	AddLevel<levels::LevelEndMenu>();
+
 	LoadLevel(_currentLevelIndex);
 }
 

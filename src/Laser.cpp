@@ -70,14 +70,6 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		return;
 	}
 	else {
-		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
-			_sensor = closestCollisionPointInfo.collider;
-			//TO DO : Add audio and/or visual feedbacks
-			if (++_sensor->chargeLevel > 100); //Application::LoadNextLevel();
-		}
-		else {
-			if (_sensor != nullptr) _sensor->chargeLevel = 0;
-		}
 		_laserBeam._points.push_back(closestCollisionPointInfo.point);
 	}
 
@@ -85,6 +77,17 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		Ray reflectedRay = computeReflectedRay(closestCollisionPointInfo.collisionSurface, ray, closestCollisionPointInfo.point);
 
 		computeBeamRec(colliders, reflectedRay, nb_iter + 1);
+	}
+	else {
+		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
+			//TO DO : Add audio and/or visual feedbacks
+			_sensor = closestCollisionPointInfo.collider;
+			if (++_sensor->chargeLevel > 100)
+				Application::LoadNextLevel();
+		}
+		else {
+			if (_sensor != nullptr) _sensor->chargeLevel = 0;
+		}
 	}
 }
 

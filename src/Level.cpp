@@ -43,6 +43,7 @@ namespace core {
 		for (Polygon& pol : _rotatableElements) {
 			auto movablElementPtr = GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
 			movablElementPtr->SetLocalPosition(pol.GetLocalPosition());
+			movablElementPtr->_canOnlyRotate = true;
 			auto polPtr = movablElementPtr->AddChild<Polygon>(pol);
 
 			movablElementPtr->_colliderIndex = movableElementColliderIndex++;

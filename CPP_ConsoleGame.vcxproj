@@ -80,7 +80,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\intermidiates</IntDir>
+    <IntDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\intermidiates\</IntDir>
     <IncludePath>res\libraries\irrKlang\include;$(IncludePath)</IncludePath>
     <LibraryPath>res\libraries\irrKlang\lib\WinX64-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -152,6 +152,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Levels\Level5.cpp" />
+    <ClCompile Include="src\Levels\Level4.cpp" />
+    <ClCompile Include="src\Levels\Level3.cpp" />
+    <ClCompile Include="src\Levels\Level2.cpp" />
     <ClCompile Include="src\Sensor.cpp" />
     <ClCompile Include="src\Levels\LevelEndMenu.cpp" />
     <ClCompile Include="src\SoundManager.cpp" />
@@ -181,6 +185,10 @@
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Levels\Level5.h" />
+    <ClInclude Include="src\Levels\Level4.h" />
+    <ClInclude Include="src\Levels\Level3.h" />
+    <ClInclude Include="src\Levels\Level2.h" />
     <ClInclude Include="src\Sensor.h" />
     <ClInclude Include="src\Levels\LevelEndMenu.h" />
     <ClInclude Include="src\SoundManager.h" />
