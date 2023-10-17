@@ -6,6 +6,9 @@
 #include "SoundManager.h"
 #undef max
 #define MAX_REFLECTIONS 3
+#define MAX_REFLECTIONS 20
+//When we reflect the laser, we should start the reflected ray a bit further from the reflection point, to avoid colliding with the same surface again, this is this distance.
+#define REFLECTION_SAFETY_DISTANCE 0.01
 
 namespace core {
 
@@ -17,7 +20,6 @@ Laser::Laser(Vector2 position, Vector2 direction)
 	_laserBase = Polygon({ Vector2(-3, 4), Vector2(4, 0) , Vector2(-3, -4) }, true);
 	
 	//_laserBase.RotateToRadians(atan2(_direction._x, _direction._y));
-	_collisionSurfaces=std::vector<std::pair<Vector2, Vector2>>();
 
 	_laserBeam._color = Drawable::Color::RED;
 	_laserBeam._isClosed = false;
@@ -40,7 +42,7 @@ Ray computeReflectedRay(std::pair<Vector2, Vector2> surface, Ray& ray, Vector2& 
 
 	Vector2 reflectedRayDir = Vector2(incident._x - 2 * incidentDotNormal * normal._x, incident._y - 2 * incidentDotNormal * normal._y);
 
-	return Ray(reflectionPoint+0.01f*reflectedRayDir.Normalized(), reflectedRayDir);
+	return Ray(reflectionPoint+ REFLECTION_SAFETY_DISTANCE * reflectedRayDir, reflectedRayDir);
 }
 
 float Laser::GetDiameter()
@@ -76,11 +78,10 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		_laserBeam._points.push_back(closestCollisionPointInfo.point);
 	}
 
-	if (closestCollisionPointInfo.collider->_isReflective && nb_iter < MAX_REFLECTIONS) {
+	if (closestCollisionPointInfo.collider->_isReflective && nb_iter < 20) {
 		Ray reflectedRay = computeReflectedRay(closestCollisionPointInfo.collisionSurface, ray, closestCollisionPointInfo.point);
 
 		computeBeamRec(colliders, reflectedRay, nb_iter + 1);
-		_collisionSurfaces.push_back(closestCollisionPointInfo.collisionSurface);
 	}
 	else {
 		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
@@ -96,7 +97,6 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 }
 
 void Laser::Update() {	
-	_collisionSurfaces.clear();
 	_laserBase.SetWorldPosition(_position);
 	_laserBase.RotateToRadians(GetLocalRotationInRadians());
 	

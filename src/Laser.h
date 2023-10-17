@@ -30,7 +30,6 @@ public:
 
 	virtual float GetDiameter() override;
 	
-	std::vector<std::pair<Vector2, Vector2>> _collisionSurfaces;
 private:
 	void computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter);
 
