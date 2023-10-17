@@ -23,8 +23,9 @@ namespace core
 			template <typename T>
 			void SetPreview(T gameObject)
 			{
-				float a = _rect._x / gameObject.GetBoundingBox()._x;
-				float b = _rect._y / gameObject.GetBoundingBox()._y;
+				Vector2 worldScaleOfObject= gameObject.GetWorldScale();
+				float a = _rect._x / (gameObject.GetBoundingBox()._x/ worldScaleOfObject._x);
+				float b = _rect._y / (gameObject.GetBoundingBox()._y/ worldScaleOfObject._y);
 				//The value 0.4f was chosen using pifometrie
 				float scale = std::min<float>(0.4f * a, 0.4f * b);
 
