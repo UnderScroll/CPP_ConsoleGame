@@ -2,12 +2,19 @@
 #include <vector>
 #include <string>
 #include <ik_ISoundEngine.h>
+#include <map>
 
 namespace core {
 	struct SoundEffect {
 		std::string filepath;
 		float volume;
-		SoundEffect(std::string filepath, float volume=1) : filepath(filepath), volume(volume){};
+		irrklang::ISoundSource *soundSource=nullptr;
+		bool isLooping = false;
+		irrklang::ISound *sound = nullptr;
+
+		SoundEffect(std::string filepath, float volume=1) : filepath(filepath), volume(volume)
+		{
+		};
 		SoundEffect() : SoundEffect(""){};
 
 		bool operator==(const SoundEffect& other) const {
@@ -23,11 +30,11 @@ namespace core {
 	class SoundManager
 	{
 	public:
-		static void StartLoop(SoundEffect soundEffect);
-		static void StopLoop(SoundEffect soundEffect);
+		static void StartLoop(SoundEffect &soundEffect, bool needToCreateAPointer = false);
+		static void StopLoop(SoundEffect &soundEffect);
 		static void StopAllLoops();
 
-		static void PlaySoundEffect(SoundEffect soundEffect, bool allowOverlap=true);
+		static void PlaySoundEffect(SoundEffect& soundEffect, bool stopPrevious = true, bool looping = false, bool needToCreateAPointer=false);
 
 		static void PlayClickSound();
 
@@ -37,16 +44,21 @@ namespace core {
 
 		static void PlayLaserSound(int numberOfCollisions);
 
-	private:
-		static const SoundEffect _clickSound;
-		static const SoundEffect _rotateSound;
-		static const SoundEffect _nextLevelSound;
-		static const std::vector<SoundEffect> _laserSounds;
+		static void Setup();
 
+	private:
+		static SoundEffect _clickSound;
+		static SoundEffect _rotateSound;
+		static SoundEffect _nextLevelSound;
+		static SoundEffect _laserSound;
+		static const float _laserPitchStart;
+		static const float _laserPitchIncrement;
+		static const int _maxNbrOfLaserPitchShift;
+
+		static std::vector<SoundEffect> _currentlyLooping;
 		static irrklang::ISoundEngine* _engine;
 
-		static bool _isInitialized;
-		static void Initialize();
+		static bool _isSetup;
 	};
 }
 

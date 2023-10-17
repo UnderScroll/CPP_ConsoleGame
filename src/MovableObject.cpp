@@ -217,6 +217,7 @@ namespace core
 		float maxDiameter = 0;
 		for (auto child : _children)
 		{
+			if (child == _movePrompt.lock() || child == _rotatePrompt.lock()) continue;
 			maxDiameter = max(maxDiameter, child->GetDiameter());
 		}
 		_diameter = maxDiameter;

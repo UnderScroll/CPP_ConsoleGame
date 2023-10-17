@@ -227,14 +227,6 @@
   <ItemGroup>
     <Media Include="res\sounds\click.wav" />
     <Media Include="res\sounds\laserLoop.wav" />
-    <Media Include="res\sounds\laser\laser1.wav" />
-    <Media Include="res\sounds\laser\laser2.wav" />
-    <Media Include="res\sounds\laser\laser3.wav" />
-    <Media Include="res\sounds\laser\laser4.wav" />
-    <Media Include="res\sounds\laser\laser5.wav" />
-    <Media Include="res\sounds\laser\laser6.wav" />
-    <Media Include="res\sounds\laser\laser7.wav" />
-    <Media Include="res\sounds\laser\laser8.wav" />
     <Media Include="res\sounds\nextLevel.wav" />
     <Media Include="res\sounds\nextLevel2.wav" />
     <Media Include="res\sounds\rotatingObjectLoop.wav" />

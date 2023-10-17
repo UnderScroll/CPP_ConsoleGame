@@ -4,6 +4,7 @@
 #include <iostream>
 #include <thread>
 
+#include "SoundManager.h"
 #include "Vector2.h"
 #include "RotatingObject.h"
 #include "Polygon.h"
@@ -56,6 +57,7 @@ void Application::InstanceRun() {
 
 void Application::Setup() {
 	console.Setup();
+	SoundManager::Setup();
 	_isOpen = true;
 
 	_currentLevelIndex = 0;

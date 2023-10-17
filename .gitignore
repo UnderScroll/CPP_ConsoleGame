@@ -399,3 +399,11 @@ FodyWeavers.xsd
 
 # JetBrains Rider
 *.sln.iml
+
+# Exclude specific DLL files from being ignored
+!**/ikpFlac.dll
+!**/ikpMP3.dll
+!**/irrKlang.dll
+
+# Exclude irrKlang lib files from being ignored
+!**/irrKlang.lib

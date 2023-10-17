@@ -3,6 +3,7 @@
 #include <limits>
 
 #include "Application.h"
+#include "SoundManager.h"
 #undef max
 
 namespace core {
@@ -42,7 +43,7 @@ Ray computeReflectedRay(std::pair<Vector2, Vector2> surface, Ray& ray, Vector2& 
 
 float Laser::GetDiameter()
 {
-	return 0.2f*_laserBase.GetDiameter();
+	return _laserBase.GetDiameter();
 }
 
 void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter) {
@@ -100,6 +101,8 @@ void Laser::Update() {
 	computeBeam(s_colliders);
 
 	_laserBeam.ComputePoints();
+	//Each collision creates a point, we remove the start and end point and badabim badaboom, we get the number of collisions
+	SoundManager::PlayLaserSound(_laserBeam._points.size() - 2);
 }
 
 void Laser::Draw() {
