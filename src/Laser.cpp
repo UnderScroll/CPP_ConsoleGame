@@ -42,7 +42,7 @@ Ray computeReflectedRay(std::pair<Vector2, Vector2> surface, Ray& ray, Vector2& 
 
 float Laser::GetDiameter()
 {
-	return 0.2f*_laserBase.GetDiameter();
+	return _laserBase.GetDiameter();
 }
 
 void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter) {
