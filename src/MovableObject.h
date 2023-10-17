@@ -43,6 +43,7 @@ namespace core
 		std::weak_ptr<GameObject> _movePrompt;
 		std::weak_ptr<GameObject> _rotatePrompt;
 		void ComputeDiameter();
+		void ComputeRotatePromptsPosition();
 		bool IsCursorInRange();
 	};
 }

@@ -197,6 +197,7 @@ namespace core
 
 	void MovableObject::Draw()
 	{
+		ComputeRotatePromptsPosition();
 		GameObject::Draw();
 	}
 
@@ -226,10 +227,21 @@ namespace core
 			maxDiameter = max(maxDiameter, child->GetDiameter());
 		}
 		_diameter = maxDiameter;
+
 		if (_movePrompt.expired()) return;
 		_movePrompt.lock()->SetLocalPosition({ -0.5f * _diameter - 18,0 });
+	}
+
+	void MovableObject::ComputeRotatePromptsPosition() {
+		float maxHeight = 0;
+		for (auto child : _children)
+		{
+			if (child == _movePrompt.lock() || child == _rotatePrompt.lock()) continue;
+			maxHeight = max(maxHeight, child->GetBoundingBox()._y);
+		}
+
 		if (_rotatePrompt.expired()) return;
-		_rotatePrompt.lock()->SetLocalPosition({ 0, -0.5f * _diameter - 18 });
+		_rotatePrompt.lock()->SetLocalPosition({ 0, -0.5f * maxHeight - 18 });
 	}
 
 	bool MovableObject::IsCursorInRange()
