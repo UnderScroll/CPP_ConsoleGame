@@ -38,9 +38,9 @@ public:
 	};
 
 	void OnCreationOver() override;
+	void ComputePoints();
 protected:
     std::vector<Vector2> _computedPoints;
-    void ComputePoints();
 };
 
 }
