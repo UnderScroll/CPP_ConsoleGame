@@ -102,15 +102,20 @@ void Application::Input() {
 		}
 	}
 
-	_horizontalAxis = 0;
-	//0x51 is the code for the key Q on AZERTY Keyboard and A on QWERTY keyboards
-	if (GetAsyncKeyState(VK_LEFT) & 0x8000 || GetAsyncKeyState(0x51) & 0x8000)
-		_horizontalAxis -= 1;
-	//0x44 is the code for the key D on AZERTY Keyboard and D on QWERTY keyboards
-	if (GetAsyncKeyState(VK_RIGHT) & 0x8000 || GetAsyncKeyState(0x44) & 0x8000)
-		_horizontalAxis += 1;
-
 	ComputeCursorPosition();
+
+	//0x51 is the code for the key Q on AZERTY Keyboard and A on QWERTY keyboards
+	if (GetAsyncKeyState(VK_LEFT) & 0x8000 || GetAsyncKeyState(0x51) & 0x8000) {
+		_horizontalAxis = max(-1, _horizontalAxis - 0.05f);
+		return;
+	}
+	//0x44 is the code for the key D on AZERTY Keyboard and D on QWERTY keyboards
+	if (GetAsyncKeyState(VK_RIGHT) & 0x8000 || GetAsyncKeyState(0x44) & 0x8000) {
+		_horizontalAxis = min(1, _horizontalAxis + 0.05f);;
+		return;
+	}
+		
+	_horizontalAxis = 0;
 }
 
 void Application::Update()
