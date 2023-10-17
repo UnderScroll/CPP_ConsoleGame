@@ -4,9 +4,6 @@
 
 #include "Ray.h"
 
-#include "Application.h"
-#undef max
-
 namespace core {
 
 Laser::Laser(Vector2 position, Vector2 direction) 
@@ -75,11 +72,14 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 void Laser::Update() {	
 	_laserBase.SetLocalPosition(_position);
 	_laserBase.RotateByDegrees(1);
+
 	float _rotation= _laserBase.GetLocalRotationInRadians();
 	this->_direction = Vector2(cos(_rotation), sin(_rotation));
 
 	std::vector<Collider> colliders = { Collider(Polygon({ Vector2(0, 0), Vector2(328, 0), Vector2(328, 124), Vector2(0, 124) }, true), Collider::Type::Wall, true) };
 	computeBeam(colliders);
+
+	_laserBeam.ComputePoints();
 }
 
 void Laser::Draw() {
