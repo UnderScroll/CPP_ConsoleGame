@@ -82,7 +82,7 @@
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\intermidiates</IntDir>
     <IncludePath>res\libraries\irrKlang\include;$(IncludePath)</IncludePath>
-    <LibraryPath>res\libraries\irrKlang\lib\Win32-visualStudio;$(LibraryPath)</LibraryPath>
+    <LibraryPath>res\libraries\irrKlang\lib\WinX64-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>

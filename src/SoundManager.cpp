@@ -1,51 +1,54 @@
 #include "SoundManager.h"
-
+#include <irrKlang.h>
 #include <windows.h>
-#pragma comment(lib, "winmm.lib")
+#pragma comment(lib, "irrKlang.lib")
 
 namespace core {
+	using namespace irrklang;
 #pragma region Generic functions
-	LPWSTR ConvertToLPWSTR(const std::string& s)
-	{
-		LPWSTR ws = new wchar_t[s.size() + 1]; // +1 for zero at the end
-		copy(s.begin(), s.end(), ws);
-		ws[s.size()] = 0; // zero at the end
-		return ws;
-	}
-
 	void SoundManager::StartLoop(SoundEffect soundEffect)
 	{
-		if (_currentLoop == soundEffect) return;
-		PlaySound(ConvertToLPWSTR(soundEffect.filepath.c_str()), NULL, SND_FILENAME | SND_ASYNC | SND_LOOP | SND_NODEFAULT);
-		_currentLoop = soundEffect;
+		if (!_isInitialized)
+			Initialize();
 	}
 
 	void SoundManager::StopLoop(SoundEffect soundEffect)
 	{
-		//The loop is already stopped as there can only be one loop at the time
-		//And we dont want to stop the current loop
-		if (soundEffect != _currentLoop) {
-			StopAllLoops();
-		}
+		if (!_isInitialized)
+			Initialize();
 	}
 
 	void SoundManager::StopAllLoops()
 	{
-		PlaySound(NULL, NULL, 0);
-		_currentLoop = SoundEffect();
+		if (!_isInitialized)
+			Initialize();
 	}
 
-	void SoundManager::PlaySoundEffect(SoundEffect soundEffect, bool stopPrevious)
+	void SoundManager::PlaySoundEffect(SoundEffect soundEffect, bool allowOverlap)
 	{
-		if (stopPrevious) {
-			mciSendStringA(("stop " + soundEffect.filepath).c_str(), NULL, 0, NULL);
+		if(!_isInitialized)
+			Initialize();
+		if (!allowOverlap && _engine->isCurrentlyPlaying(soundEffect.filepath.c_str()))
+		{
+			return;
 		}
-		
-		mciSendStringA(("play " + soundEffect.filepath).c_str(), NULL, 0, NULL);
+		_engine->play2D(soundEffect.filepath.c_str());
 	}
+
+	void SoundManager::Initialize()
+	{
+		if(_isInitialized)
+			return;
+
+		_engine = createIrrKlangDevice();
+
+		_isInitialized = true;
+	}	
 
 #pragma endregion
-	SoundEffect SoundManager::_currentLoop = SoundEffect();
+	irrklang::ISoundEngine* SoundManager::_engine;
+	bool SoundManager::_isInitialized = false;
+
 	const SoundEffect SoundManager::_clickSound = SoundEffect("res/sounds/click.wav");
 	const SoundEffect SoundManager::_rotateSound = SoundEffect("res/sounds/rotatingObjectLoop.wav");
 	const SoundEffect SoundManager::_nextLevelSound = SoundEffect("res/sounds/nextLevel2.wav");
@@ -62,12 +65,12 @@ namespace core {
 
 	void SoundManager::PlayClickSound()
 	{
-		//PlaySoundEffect(_clickSound);
+		PlaySoundEffect(_clickSound);
 	}
 
 	void SoundManager::PlayRotateSound()
 	{
-		//PlaySoundEffect(_rotateSound,false);
+		PlaySoundEffect(_rotateSound,false);
 	}
 
 	void SoundManager::PlayNextLevelSound()

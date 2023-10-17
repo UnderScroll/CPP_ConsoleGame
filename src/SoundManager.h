@@ -1,12 +1,14 @@
 #pragma once
 #include <vector>
 #include <string>
+#include <ik_ISoundEngine.h>
 
 namespace core {
 	struct SoundEffect {
 		std::string filepath;
-		SoundEffect(std::string filepath) : filepath(filepath){};
-		SoundEffect() : filepath(""){};
+		float volume;
+		SoundEffect(std::string filepath, float volume=1) : filepath(filepath), volume(volume){};
+		SoundEffect() : SoundEffect(""){};
 
 		bool operator==(const SoundEffect& other) const {
 			return filepath == other.filepath;
@@ -16,6 +18,8 @@ namespace core {
 		}
 	};
 
+
+
 	class SoundManager
 	{
 	public:
@@ -23,7 +27,7 @@ namespace core {
 		static void StopLoop(SoundEffect soundEffect);
 		static void StopAllLoops();
 
-		static void PlaySoundEffect(SoundEffect soundEffect, bool stopPrevious = true);
+		static void PlaySoundEffect(SoundEffect soundEffect, bool allowOverlap=true);
 
 		static void PlayClickSound();
 
@@ -32,14 +36,17 @@ namespace core {
 		static void PlayNextLevelSound();
 
 		static void PlayLaserSound(int numberOfCollisions);
+
 	private:
 		static const SoundEffect _clickSound;
 		static const SoundEffect _rotateSound;
 		static const SoundEffect _nextLevelSound;
 		static const std::vector<SoundEffect> _laserSounds;
 
-		//Because we use "PlaySound" to loop sound effects, only one sound effect can be looped at a time
-		static SoundEffect _currentLoop;
+		static irrklang::ISoundEngine* _engine;
+
+		static bool _isInitialized;
+		static void Initialize();
 	};
 }
 
