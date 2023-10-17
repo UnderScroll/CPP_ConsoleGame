@@ -11,12 +11,11 @@ public:
 		Ray
 	};
 
-	Collider(Type collisionType = Type::Wall, bool isReflective = false);
 	Collider(Polygon collisionShape, Type collisionType = Type::Wall, bool isReflective = false);
 
-	Polygon collisionShape;
-	Type type;
-	bool isReflective;
+	Polygon _collisionShape;
+	Type _type;
+	bool _isReflective;
 };
 
 }

@@ -23,6 +23,8 @@ public:
 
 	virtual void Update();
 	virtual void Draw();
+
+	static std::vector<Collider> s_colliders;
 private:
 	void computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter);
 };

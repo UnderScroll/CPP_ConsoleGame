@@ -6,8 +6,8 @@ namespace core {
 
 std::vector<Ray::CollisionInfo> Ray::cast(Collider& collider) {
 
-	std::vector<Vector2>& colliderShapePoints = collider.collisionShape._points;
-	std::vector<CollisionInfo> collisionInfos = std::vector<CollisionInfo>(collider.collisionShape._points.size());
+	std::vector<Vector2> colliderShapePoints = collider._collisionShape._computedPointsWorldPositions;
+	std::vector<CollisionInfo> collisionInfos = std::vector<CollisionInfo>(colliderShapePoints.size());
 
 	for (size_t i = 0; i < colliderShapePoints.size() - 1; ++i) {
 		CollisionInfo info = cast(colliderShapePoints[i], colliderShapePoints[(i + 1)]);
@@ -16,7 +16,7 @@ std::vector<Ray::CollisionInfo> Ray::cast(Collider& collider) {
 			collisionInfos.push_back(info);
 		}
 	}
-	if (collider.collisionShape._isClosed) {
+	if (collider._collisionShape._isClosed) {
 		CollisionInfo info = cast(colliderShapePoints[colliderShapePoints.size() - 1], colliderShapePoints[0]);
 		if (info.hasCollided) {
 			info.collider = &collider;

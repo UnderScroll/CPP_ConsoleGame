@@ -151,7 +151,7 @@ namespace core
 
 		if (_hover)
 		{
-			for (auto child : _children) {
+			for (auto& child : _children) {
 				if (!_movePrompt.expired()) {
 					if (_movePrompt.lock() == child) continue;
 				}
@@ -162,6 +162,13 @@ namespace core
 					SoundManager::PlayRotateSound();
 				}
 				child->RotateByDegrees(_rotationSpeed * Application::GetHorizontalAxis());
+			}
+		}
+
+		if (Application::GetHorizontalAxis() != 0 || _state == States::BeingPlaced)
+		{
+			for (auto& child : _children) {
+				Laser::s_colliders[_colliderIndex] = Collider(*std::dynamic_pointer_cast<Polygon>(child), Collider::Wall, true);
 			}
 		}
 
