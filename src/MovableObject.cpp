@@ -168,7 +168,12 @@ namespace core
 		if (Application::GetHorizontalAxis() != 0 || _state == States::BeingPlaced)
 		{
 			for (auto& child : _children) {
-				Laser::s_colliders[_colliderIndex] = Collider(*std::dynamic_pointer_cast<Polygon>(child), Collider::Wall, true);
+				std::shared_ptr<Polygon> pol = std::dynamic_pointer_cast<Polygon>(child);
+
+				if (!pol) break;
+
+				Laser::s_colliders[_colliderIndex] = Collider(*pol, Collider::Wall, true);
+				break;
 			}
 		}
 
