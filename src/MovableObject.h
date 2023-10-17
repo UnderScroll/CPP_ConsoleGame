@@ -34,6 +34,8 @@ namespace core
 
 		virtual void OnCreationOver() override;
 
+		bool _canOnlyRotate = false;
+
 	private:
 		States _state = Placed;
 		bool _hover;

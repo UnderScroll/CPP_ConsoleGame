@@ -66,8 +66,11 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 	}
 	else {
 		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
-			if (++closestCollisionPointInfo.collider->chargeLevel > 100)
-				Application::LoadNextLevel();
+			_sensor = closestCollisionPointInfo.collider;
+			if (++_sensor->chargeLevel > 100); //Application::LoadNextLevel();
+		}
+		else {
+			if (_sensor != nullptr) _sensor->chargeLevel = 0;
 		}
 		_laserBeam._points.push_back(closestCollisionPointInfo.point);
 	}
@@ -82,8 +85,7 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 void Laser::Update() {	
 	_laserBase.SetWorldPosition(_position);
 	
-	_laserBase.RotateByDegrees(1);
-	_direction = _direction.RotateByDegrees(1);
+	_direction = Vector2(cos(GetLocalRotationInDegrees()), sin(GetLocalRotationInDegrees()));
 
 	computeBeam(s_colliders);
 

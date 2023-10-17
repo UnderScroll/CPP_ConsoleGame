@@ -15,9 +15,10 @@ namespace core {
 		static void ClearCurrentLevel();
 
 		std::vector<Polygon> _movableElements;
+		std::vector<Polygon> _rotatableElements;
 		std::vector<Polygon> _staticNonReflectivesElements;
 		std::vector<Polygon> _staticReflectivesElements;
-		Sensor _sensor;
+		Sensor _sensor = Sensor();
 
 		std::vector<Laser> _lasers;
 
