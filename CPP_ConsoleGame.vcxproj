@@ -152,6 +152,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Levels\Debug.cpp" />
     <ClCompile Include="src\Levels\Level5.cpp" />
     <ClCompile Include="src\Levels\Level4.cpp" />
     <ClCompile Include="src\Levels\Level3.cpp" />
@@ -185,6 +186,7 @@
     <ClCompile Include="src\TextObject.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Levels\Debug.h" />
     <ClInclude Include="src\Levels\Level5.h" />
     <ClInclude Include="src\Levels\Level4.h" />
     <ClInclude Include="src\Levels\Level3.h" />

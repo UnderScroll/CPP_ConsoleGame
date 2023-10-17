@@ -15,7 +15,7 @@ namespace core
 		virtual void OnClickDown() override;
 		virtual void OnClickUp() override;
 
-		Button(Vector2 rect, Color regularColor, Color hoverColor, Color clickColor, Color strokeColor = BLACK, bool stroke = true, FillType fillType = FillType::RegularFill, float alpha = 1) :
+		Button(Vector2 rect, Color regularColor, Color hoverColor, Color clickColor, Color strokeColor = BLACK, bool stroke = true, FillType fillType = FillType::RegularFill, double alpha = 1) :
 			UIRect(rect, regularColor, strokeColor, stroke, fillType, alpha), _hoverColor(hoverColor), _clickColor(clickColor)
 		{
 			_regularColor = _fillColor;

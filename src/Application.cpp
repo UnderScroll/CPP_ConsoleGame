@@ -22,6 +22,7 @@
 #include "Levels/Level5.h"
 #include "Levels/LevelMainMenu.h"
 #include "Levels/LevelEndMenu.h"
+#include "Levels/Debug.h"
 
 namespace core {
 
@@ -30,7 +31,7 @@ std::ofstream Application::ofstream = std::ofstream("res/runtime.log");
 Vector2 Application::_cursor = { 0, 0 };
 bool Application::_clickDown = false;
 bool Application::_clickPressed = false;
-float Application::_horizontalAxis = 0;
+double Application::_horizontalAxis = 0;
 
 Application::~Application() {
 	ofstream.close();
@@ -60,13 +61,15 @@ void Application::Setup() {
 
 	_currentLevelIndex = 0;
 
-	AddLevel<levels::LevelMainMenu>();
+	//AddLevel<levels::LevelMainMenu>();
 	//AddLevel<levels::Level1>();
 	//AddLevel<levels::Level2>();
 	//AddLevel<levels::Level3>();
 	//AddLevel<levels::Level4>();
-	AddLevel<levels::Level5>();
-	AddLevel<levels::LevelEndMenu>();
+	//AddLevel<levels::Level5>();
+	//AddLevel<levels::LevelEndMenu>();
+
+	AddLevel<levels::Debug>();
 
 	LoadLevel(_currentLevelIndex);
 }

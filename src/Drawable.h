@@ -8,10 +8,10 @@ namespace core {
 class Drawable {
 public:
 	virtual void Draw()=0;
-	static void DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha=1);
-	static void DrawRectangle(Vector2 startPoint, Vector2 endPoint, const int color, const float alpha, bool drawBorders = true, bool drawAsBackgroundPixels=false);
+	static void DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const double alpha=1);
+	static void DrawRectangle(Vector2 startPoint, Vector2 endPoint, const int color, const double alpha, bool drawBorders = true, bool drawAsBackgroundPixels=false);
 	
-	static void ColorPixel(const int x,const int y, const int color, const float alpha=1, bool backgroundPixel=false);
+	static void ColorPixel(const int x,const int y, const int color, const double alpha=1, bool backgroundPixel=false);
 
 	enum Color {
 		WHITE = 0x0007,

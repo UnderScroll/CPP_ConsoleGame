@@ -6,8 +6,8 @@
 namespace core {
 	struct SoundEffect {
 		std::string filepath;
-		float volume;
-		SoundEffect(std::string filepath, float volume=1) : filepath(filepath), volume(volume){};
+		double volume;
+		SoundEffect(std::string filepath, double volume=1) : filepath(filepath), volume(volume){};
 		SoundEffect() : SoundEffect(""){};
 
 		bool operator==(const SoundEffect& other) const {

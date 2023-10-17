@@ -17,43 +17,43 @@ namespace core {
 	//https://en.wikipedia.org/wiki/Xiaolin_Wu%27s_line_algorithm Xialoin Wu's anti-aliasing line algorithm
 
 	// integer part of x
-	int ipart(float x) {
+	int ipart(double x) {
 		return floor(x);
 	}
 
 
-	int round(float x) {
+	int round(double x) {
 		return ipart(x + 0.5);
 	}
 
 	// fractional part of x
-	float fpart(float x) {
+	double fpart(double x) {
 		return x - ipart(x);
 	}
 
 
-	float rfpart(float x) {
+	double rfpart(double x) {
 		return 1 - fpart(x);
 	}
 
-	void setPixelBrightness(int x, int y, float brightness,std::map<PIXEL_COORDS, float> &r_pixelsBrightesses) {
-		float oldBrightness = 0;
+	void setPixelBrightness(int x, int y, double brightness,std::map<PIXEL_COORDS, double> &r_pixelsBrightesses) {
+		double oldBrightness = 0;
 		if (r_pixelsBrightesses.contains({x,y })){
 			oldBrightness = r_pixelsBrightesses[{ x,y }];
 		}
 
-		float newBrightness = std::max<float>(oldBrightness, brightness);
+		double newBrightness = std::max<double>(oldBrightness, brightness);
 		r_pixelsBrightesses[{x,y}] = newBrightness;
 	}
 
-	void Drawable::DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const float alpha)
+	void Drawable::DrawLine(const Vector2& r_start, const Vector2& r_end, const int color, const double alpha)
 	{
-		float x0 = r_start._x;
-		float y0 = r_start._y;
-		float x1 = r_end._x;
-		float y1 = r_end._y;
+		double x0 = r_start._x;
+		double y0 = r_start._y;
+		double x1 = r_end._x;
+		double y1 = r_end._y;
 
-		std::map<PIXEL_COORDS,float> pixelsBrightnesses= std::map<PIXEL_COORDS, float>();
+		std::map<PIXEL_COORDS,double> pixelsBrightnesses= std::map<PIXEL_COORDS, double>();
 
 		boolean steep = abs(y1 - y0) > abs(x1 - x0);
 
@@ -69,20 +69,20 @@ namespace core {
 			std::swap(y0, y1);
 		}
 
-		float dx = x1 - x0;
-		float dy = y1 - y0;
+		double dx = x1 - x0;
+		double dy = y1 - y0;
 
-		float gradient = 1.0f;
+		double gradient = 1.0f;
 		if (dx != 0.0) {
 			gradient = dy / dx;
 		}
 
 		// handle first endpoint
-		float xend = round(x0);
-		float yend = y0 + gradient * (xend - x0);
-		float xgap = rfpart(x0 + 0.5);
+		double xend = round(x0);
+		double yend = y0 + gradient * (xend - x0);
+		double xgap = rfpart(x0 + 0.5);
 		int xpxl1 = xend; // this will be used in the main loop
-		float ypxl1 = ipart(yend);
+		double ypxl1 = ipart(yend);
 		if (steep) {
 			setPixelBrightness(ypxl1, xpxl1, rfpart(yend) * xgap, pixelsBrightnesses);
 			setPixelBrightness(ypxl1 + 1, xpxl1, fpart(yend) * xgap, pixelsBrightnesses);
@@ -92,7 +92,7 @@ namespace core {
 			setPixelBrightness(xpxl1, ypxl1, rfpart(yend) * xgap, pixelsBrightnesses);
 			setPixelBrightness(xpxl1, ypxl1 + 1, fpart(yend) * xgap, pixelsBrightnesses);
 		}
-		float intery = yend + gradient; // first y-intersection for the main loop
+		double intery = yend + gradient; // first y-intersection for the main loop
 
 		// handle second endpoint
 		xend = round(x1);
@@ -134,16 +134,16 @@ namespace core {
 	}
 #pragma endregion
 
-	void Drawable::DrawRectangle(Vector2 startPoint, Vector2 endPoint, const int color, const float alpha, bool drawBorders, bool drawAsBackgroundPixels)
+	void Drawable::DrawRectangle(Vector2 startPoint, Vector2 endPoint, const int color, const double alpha, bool drawBorders, bool drawAsBackgroundPixels)
 	{
 		if (startPoint._x > endPoint._x) {
-			float cache = startPoint._x;
+			double cache = startPoint._x;
 			startPoint._x = endPoint._x;
 			endPoint._x = cache;
 		}
 
 		if (startPoint._y > endPoint._y) {
-			float cache = startPoint._y;
+			double cache = startPoint._y;
 			startPoint._y = endPoint._y;
 			endPoint._y = cache;
 		}
@@ -183,7 +183,7 @@ namespace core {
 
 	const std::string Drawable::SORTED_BY_LUMINANCE_STRING = ".,:;i1tfcLCXO0W@";
 
-	void Drawable::ColorPixel(const int x, const int y, const int color, const float alpha, bool backgroundPixel) {
+	void Drawable::ColorPixel(const int x, const int y, const int color, const double alpha, bool backgroundPixel) {
 		if (x < 0 || y < 0) return;
 		if (x >= WIDTH || y >= HEIGHT) return;
 

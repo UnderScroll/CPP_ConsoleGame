@@ -10,7 +10,7 @@ namespace core
 		public Button
 	{
 		public:
-			MovableObjectButton(Vector2 rect, Color regularColor, Color hoverColor, Color clickColor, std::weak_ptr<MovableObject> movableObject, Color strokeColor = BLACK, Color selectedStrokeColor = GRAY, bool stroke = true, FillType fillType = FillType::RegularFill, float alpha = 1) :
+			MovableObjectButton(Vector2 rect, Color regularColor, Color hoverColor, Color clickColor, std::weak_ptr<MovableObject> movableObject, Color strokeColor = BLACK, Color selectedStrokeColor = GRAY, bool stroke = true, FillType fillType = FillType::RegularFill, double alpha = 1) :
 				Button(rect, regularColor, hoverColor, clickColor, strokeColor, stroke, fillType, alpha), _selectedStrokeColor(selectedStrokeColor), _movableObject(movableObject) {
 				_regularStrokeColor = _strokeColor;
 				if (_movableObject.expired()) return;
@@ -23,10 +23,10 @@ namespace core
 			template <typename T>
 			void SetPreview(T gameObject)
 			{
-				float a = _rect._x / gameObject.GetBoundingBox()._x;
-				float b = _rect._y / gameObject.GetBoundingBox()._y;
+				double a = _rect._x / gameObject.GetBoundingBox()._x;
+				double b = _rect._y / gameObject.GetBoundingBox()._y;
 				//The value 0.4f was chosen using pifometrie
-				float scale = std::min<float>(0.4f * a, 0.4f * b);
+				double scale = std::min<double>(0.4f * a, 0.4f * b);
 
 				auto preview = AddChild<T>(gameObject);
 				preview->SetLocalPosition(Vector2(0, 0));

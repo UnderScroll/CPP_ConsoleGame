@@ -24,22 +24,22 @@ namespace core
 		// Inherited via GameObject
 		void SetText(std::string text);
 		void SetColor(Color color);
-		void SetAlpha(float alpha);
-		void SetSpacing(float spacing);
+		void SetAlpha(double alpha);
+		void SetSpacing(double spacing);
 
 		std::string GetText() const { return _text; }
 		Color GetColor() const { return _color; }
-		float GetAlpha() const { return _alpha; }
-		float GetSpacing() const { return _spacing; }
+		double GetAlpha() const { return _alpha; }
+		double GetSpacing() const { return _spacing; }
 
 		static std::vector<Vector2> GetPointsForLetter(char letter, int part=0);
 
-		TextObject(Color color = WHITE, float alpha = 1, float spacing = 0.1f);;
+		TextObject(Color color = WHITE, double alpha = 1, double spacing = 0.1f);;
 	private:
 		std::string _text;
 		Color _color;
-		float _alpha;
-		float _spacing;
+		double _alpha;
+		double _spacing;
 
 		static std::map<char, std::vector<Vector2>> _charPolygons;
 

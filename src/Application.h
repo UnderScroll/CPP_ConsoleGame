@@ -24,7 +24,7 @@ namespace core {
 		static bool GetClickDown() { return _clickDown; }
 		static bool GetClickPressed() { return _clickPressed; }
 		static void CancelClickPress(){ _clickPressed = false; }
-		static float GetHorizontalAxis() { return _horizontalAxis; }
+		static double GetHorizontalAxis() { return _horizontalAxis; }
 
 		static void LoadNextLevel();
 		static void LoadLevel(int index);
@@ -52,7 +52,7 @@ namespace core {
 		static bool _clickDown;
 		//Click pressed is only true on the frame where the player release the click, like in Unity
 		static bool _clickPressed;
-		static float _horizontalAxis;
+		static double _horizontalAxis;
 		static Application _instance;
 
 		std::vector<std::shared_ptr<Level>> _levels;
