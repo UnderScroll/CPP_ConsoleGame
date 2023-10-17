@@ -9,7 +9,6 @@ void core::levels::Level1::LoadLevel() {
 	};
 
 	_staticNonReflectivesElements = {
-		_lasers[0]._laserBase,
 		Polygon({ Vector2(50, 50), Vector2(60, 50), Vector2(60, 60), Vector2(50, 60) }, true)
 	};
 

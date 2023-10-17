@@ -62,12 +62,12 @@ namespace core {
 
 	void SoundManager::PlayClickSound()
 	{
-		PlaySoundEffect(_clickSound);
+		//PlaySoundEffect(_clickSound);
 	}
 
 	void SoundManager::PlayRotateSound()
 	{
-		PlaySoundEffect(_rotateSound,false);
+		//PlaySoundEffect(_rotateSound,false);
 	}
 
 	void SoundManager::PlayNextLevelSound()
