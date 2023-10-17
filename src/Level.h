@@ -16,6 +16,9 @@ namespace core {
 		std::vector<Polygon> _movableElements;
 		std::vector<Polygon> _staticNonReflectivesElements;
 		std::vector<Polygon> _staticReflectivesElements;
+
+		//std::vector<Polygon> _polygon;
+
 		std::vector<Laser> _lasers;
 
 		bool _bottomHudOn = true;

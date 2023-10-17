@@ -29,18 +29,22 @@ public:
 	};
 
 	Polygon(std::vector<Vector2> points, bool isClosed, Color color = WHITE, float alpha = 1, Vector2 localPosition = Vector2(0, 0), Vector2 localScale = Vector2(1, 1), float localRotation=0) :_points(points), 
-		_alpha(alpha), _isClosed(isClosed), _computedPoints(_points)
+		_alpha(alpha), _isClosed(isClosed)
 	{
 		_color = color;
 		_localPosition = localPosition;
 		_localScale = localScale;
 		_localRotation = localRotation;
+
+		ComputePoints();
 	};
 
 	void OnCreationOver() override;
 	void ComputePoints();
-protected:
-    std::vector<Vector2> _computedPoints;
+
+	std::vector<Vector2> _computedPointsWorldPositions;
+
+	std::vector<Vector2> _computedPoints;
 };
 
 }

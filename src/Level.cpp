@@ -25,6 +25,7 @@ namespace core {
 			namePtr->SetLocalPosition({ 0,-6 });
 		}
 
+		size_t movableElementColliderIndex = 0;
 		for (Polygon& pol : _movableElements)
 		{
 			auto movablElementPtr=GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
@@ -34,18 +35,24 @@ namespace core {
 			
 			auto buttonPtr=_bottomHud->AddElement<MovableObjectButton>(MovableObjectButton(Vector2(0,20), Drawable::Color::WHITE, Drawable::LIGHTER_WHITE, Drawable::GRAY, movablElementPtr, Drawable::Color::BLACK, Drawable::Color::CYAN, true, UIRect::BackgroundFill));
 			buttonPtr->SetPreview(pol, Drawable::BLACK);
+
+			movablElementPtr->_colliderIndex = movableElementColliderIndex++;
+			Laser::s_colliders.push_back(Collider(pol, Collider::Wall, true));
 		}
 
 		for (Polygon& pol : _staticNonReflectivesElements) {
 			auto polPtr = GameObject::AddGameObjectToRoot<Polygon>(pol);
+			Laser::s_colliders.push_back(Collider(pol, Collider::Wall, false));
 		}
 
 		for (Polygon& pol : _staticReflectivesElements) {
 			auto polPtr = GameObject::AddGameObjectToRoot<Polygon>(pol);
+			Laser::s_colliders.push_back(Collider(pol, Collider::Wall, true));
 		}
 
 		for (Laser& laser : _lasers) {
 			auto polPtr = GameObject::AddGameObjectToRoot<Laser>(laser);
+			Laser::s_colliders.push_back(Collider(laser._laserBase, Collider::Wall, false));
 		}
 	}
 
@@ -55,6 +62,7 @@ namespace core {
 			rootGameObject->Destroy();
 		}
 		GameObject::_rootGameObjects.clear();
+		Laser::s_colliders.clear();
 	}
 }
 

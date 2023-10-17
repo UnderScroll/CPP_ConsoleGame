@@ -47,10 +47,13 @@ void Polygon::Draw()
 		ComputePoints();
 	}
 
+	if (_computedPoints.size() == 0)
+		return;
+
 	for (size_t i = 0; i < _computedPoints.size() - (_isClosed ? 0 : 1); ++i)
 	{
-		Vector2 currentPoint = GetWorldPosition() + (_computedPoints[i]);
-		Vector2 nextPoint = GetWorldPosition() + (_computedPoints[(i < _computedPoints.size() - 1) ? i + 1 : 0]);
+		Vector2 currentPoint = _computedPointsWorldPositions[i];
+		Vector2 nextPoint = _computedPointsWorldPositions[(i < _computedPoints.size() - 1) ? i + 1 : 0];
 
 		Drawable::DrawLine(currentPoint, nextPoint, _color);
 	}
@@ -84,6 +87,11 @@ void Polygon::ComputePoints()
 	for (size_t i = 0; i < _points.size(); ++i)
 	{
 		_computedPoints[i] = (GetWorldScale() * _points[i]).RotateByRadians(GetWorldRotationInRadians());
+	}
+
+	_computedPointsWorldPositions = _computedPoints;
+	for (size_t i = 0; i < _computedPointsWorldPositions.size(); ++i) {
+		_computedPointsWorldPositions[i] = GetWorldPosition() + _computedPoints[i];
 	}
 }
 

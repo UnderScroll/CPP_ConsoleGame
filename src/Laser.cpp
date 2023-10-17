@@ -6,6 +6,8 @@
 
 namespace core {
 
+	std::vector<Collider> Laser::s_colliders = std::vector<Collider>();
+
 Laser::Laser(Vector2 position, Vector2 direction) 
 	: _position(position), _direction(direction) 
 {
@@ -65,7 +67,7 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		_laserBeam._points.push_back(closestCollisionPointInfo.point);
 	}
 
-	if (closestCollisionPointInfo.collider->isReflective && nb_iter < 20) {
+	if (closestCollisionPointInfo.collider->_isReflective && nb_iter < 20) {
 		Ray reflectedRay = computeReflectedRay(closestCollisionPointInfo.collisionSurface, ray, closestCollisionPointInfo.point);
 
 		computeBeamRec(colliders, reflectedRay, nb_iter + 1);
@@ -73,13 +75,12 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 }
 
 void Laser::Update() {	
-	_laserBase.SetLocalPosition(_position);
+	_laserBase.SetWorldPosition(_position);
 	
 	_laserBase.RotateByDegrees(1);
 	_direction = _direction.RotateByDegrees(1);
 
-	std::vector<Collider> colliders = { Collider(Polygon({Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100)}, true), Collider::Type::Wall, true) };
-	computeBeam(colliders);
+	computeBeam(s_colliders);
 
 	_laserBeam.ComputePoints();
 }
