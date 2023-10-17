@@ -75,7 +75,8 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 void Laser::Update() {	
 	_laserBase.SetLocalPosition(_position);
 	_laserBase.RotateByDegrees(1);
-	this->_direction = Vector2(cos(_localRotation), sin(_localRotation));
+	float _rotation= _laserBase.GetLocalRotationInRadians();
+	this->_direction = Vector2(cos(_rotation), sin(_rotation));
 
 	std::vector<Collider> colliders = { Collider(Polygon({ Vector2(0, 0), Vector2(328, 0), Vector2(328, 124), Vector2(0, 124) }, true), Collider::Type::Wall, true) };
 	computeBeam(colliders);
