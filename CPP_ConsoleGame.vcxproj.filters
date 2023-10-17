@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="src\RotatingObject.cpp" />
     <ClCompile Include="src\Application.cpp" />
-    <ClCompile Include="src\Character.cpp" />
     <ClCompile Include="src\Console.cpp" />
     <ClCompile Include="src\Drawable.cpp" />
     <ClCompile Include="src\GameObject.cpp" />
@@ -32,7 +31,6 @@
   <ItemGroup>
     <ClInclude Include="src\RotatingObject.h" />
     <ClInclude Include="src\Application.h" />
-    <ClInclude Include="src\Character.h" />
     <ClInclude Include="src\Console.h" />
     <ClInclude Include="src\Drawable.h" />
     <ClInclude Include="src\GameObject.h" />
@@ -66,6 +64,18 @@
     <Text Include="res\runtime.log" />
   </ItemGroup>
   <ItemGroup>
-    <Media Include="res\sounds\BlastOfWind.wav" />
+    <Media Include="res\sounds\click.wav" />
+    <Media Include="res\sounds\laserLoop.wav" />
+    <Media Include="res\sounds\laser\laser1.wav" />
+    <Media Include="res\sounds\laser\laser2.wav" />
+    <Media Include="res\sounds\laser\laser3.wav" />
+    <Media Include="res\sounds\laser\laser4.wav" />
+    <Media Include="res\sounds\laser\laser5.wav" />
+    <Media Include="res\sounds\laser\laser6.wav" />
+    <Media Include="res\sounds\laser\laser7.wav" />
+    <Media Include="res\sounds\laser\laser8.wav" />
+    <Media Include="res\sounds\nextLevel.wav" />
+    <Media Include="res\sounds\nextLevel2.wav" />
+    <Media Include="res\sounds\rotatingObjectLoop.wav" />
   </ItemGroup>
 </Project>
