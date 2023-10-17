@@ -13,7 +13,7 @@ void core::levels::Level1::LoadLevel() {
 	};
 
 	_staticReflectivesElements = {
-		Polygon({ Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100) }, true)
+		Polygon({ Vector2(0, 0), Vector2(WIDTH/2, 0), Vector2(WIDTH/2, 100), Vector2(0, 100) }, true, Drawable::WHITE,0)
 	};
 	
 	_movableElements = {
