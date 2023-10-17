@@ -170,9 +170,10 @@ namespace core
 			for (auto& child : _children) {
 				std::shared_ptr<Polygon> pol = std::dynamic_pointer_cast<Polygon>(child);
 
-				if (!pol) break;
+				if (!pol) continue;
 
-				Laser::s_colliders[_colliderIndex] = Collider(*pol, Collider::Wall, true);
+				auto polValue = *pol;
+				Laser::s_colliders[_colliderIndex] = Collider(polValue, Collider::Wall, true);
 				break;
 			}
 		}
