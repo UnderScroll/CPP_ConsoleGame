@@ -9,9 +9,9 @@ namespace core
 	{
 		_text = text;
 		_children.clear();
-		float textWidth = text.size() * (CHAR_WIDTH)+(text.size() - 1) * _spacing;
-		float textIncrement = (CHAR_WIDTH + _spacing);
-		float textStartX = -textWidth / 2;
+		double textWidth = text.size() * (CHAR_WIDTH)+(text.size() - 1) * _spacing;
+		double textIncrement = (CHAR_WIDTH + _spacing);
+		double textStartX = -textWidth / 2;
 
 		for (int i = 0; i < _text.size(); i++)
 		{
@@ -48,7 +48,7 @@ namespace core
 		SetText(_text);
 	}
 
-	void TextObject::SetAlpha(float alpha)
+	void TextObject::SetAlpha(double alpha)
 	{
 		_alpha = alpha;
 		SetText(_text);
@@ -74,9 +74,9 @@ namespace core
 		return pointsVectors[part % currentPointsVector.size()];
 	}
 
-	TextObject::TextObject(Color color, float alpha, float spacing) :_color(color), _alpha(alpha), _spacing(spacing) {}
+	TextObject::TextObject(Color color, double alpha, double spacing) :_color(color), _alpha(alpha), _spacing(spacing) {}
 
-	void TextObject::SetSpacing(float spacing)
+	void TextObject::SetSpacing(double spacing)
 	{
 		_spacing = spacing;
 		SetText(_text);

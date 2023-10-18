@@ -8,7 +8,7 @@ void core::levels::Level5::LoadLevel() {
 	};
 
 	_staticNonReflectivesElements = {
-		Polygon({ Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100) }, true, Drawable::Color::WHITE, 1),
+		Polygon({ Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100) }, true, Drawable::Color::WHITE, 0),
 		Polygon({ Vector2(50, 100), Vector2(60, 75), Vector2(70, 100) }, false),
 		Polygon({ Vector2(116, 100), Vector2(122, 80), Vector2(142, 100) }, false),
 		Polygon({ Vector2(70, 28), Vector2(108, 21), Vector2(150, 61), Vector2(96, 80), Vector2(62, 67), Vector2(39, 49), Vector2(68, 41), Vector2(66, 58), Vector2(100, 61), Vector2(108, 52), Vector2(100, 33), Vector2(74, 34) }, true)

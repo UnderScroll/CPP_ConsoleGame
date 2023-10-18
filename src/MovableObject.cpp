@@ -220,7 +220,7 @@ namespace core
 
 	void MovableObject::ComputeDiameter()
 	{
-		float maxDiameter = 0;
+		double maxDiameter = 0;
 		for (auto child : _children)
 		{
 			if (child == _movePrompt.lock() || child == _rotatePrompt.lock()) continue;

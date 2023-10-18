@@ -4,11 +4,11 @@
 
 namespace core
 {
-	float Lerper::GetValue(int step)
+	double Lerper::GetValue(int step)
 	{
-		float value = 0.0f;
-		float endValue= _endValue;
-		float startValue=_startValue;
+		double value = 0.0f;
+		double endValue= _endValue;
+		double startValue=_startValue;
 
 		if (_lerpLoop==LerpLoop::PingPong)
 		{

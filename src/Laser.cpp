@@ -44,7 +44,7 @@ Ray computeReflectedRay(std::pair<Vector2, Vector2> surface, Ray& ray, Vector2& 
 	return Ray(reflectionPoint+ REFLECTION_SAFETY_DISTANCE * reflectedRayDir, reflectedRayDir);
 }
 
-float Laser::GetDiameter()
+double Laser::GetDiameter()
 {
 	return _laserBase.GetDiameter();
 }

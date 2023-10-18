@@ -50,7 +50,7 @@ public:
 	}
 
 	virtual Vector2 GetBoundingBox();
-	virtual float GetDiameter();
+	virtual double GetDiameter();
 
 	Vector2 GetWorldPosition() const;
 
@@ -79,33 +79,33 @@ public:
 
 	virtual void SetLocalScale(Vector2 targetScale);
 
-	virtual float GetLocalRotationInRadians()
+	virtual double GetLocalRotationInRadians()
 	{
 		return _localRotation;
 	}
 
-	virtual  float GetLocalRotationInDegrees()
+	virtual  double GetLocalRotationInDegrees()
 	{
 		return GetLocalRotationInRadians() * RAD_TO_DEG;
 	}
 
-	float GetWorldRotationInRadians();
+	double GetWorldRotationInRadians();
 
-	float GetWorldRotationInDegrees();
+	double GetWorldRotationInDegrees();
 
-	void RotateByRadians(float deltaAngle)
+	void RotateByRadians(double deltaAngle)
 	{
 		RotateToRadians(_localRotation + deltaAngle);
 	}
 
-	void RotateByDegrees(float deltaAngle)
+	void RotateByDegrees(double deltaAngle)
 	{
 		RotateByRadians(deltaAngle * DEG_TO_RAD);
 	}
 
-	virtual void RotateToRadians(float targetAngle);
+	virtual void RotateToRadians(double targetAngle);
 
-	void RotateToDegrees(float targetAngle)
+	void RotateToDegrees(double targetAngle)
 	{
 		RotateToRadians(DEG_TO_RAD * targetAngle);
 	}
@@ -152,7 +152,7 @@ protected:
 	Vector2 _localPosition = { 0, 0 };
 	Vector2 _localScale = { 1, 1 };
 	//In radians
-	float _localRotation = 0;
+	double _localRotation = 0;
 };
 
 }

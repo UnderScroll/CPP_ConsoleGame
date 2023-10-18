@@ -6,6 +6,7 @@ namespace core {
 
 std::vector<Ray::CollisionInfo> Ray::cast(Collider& collider) {
 
+	collider._collisionShape.ComputePoints();
 	std::vector<Vector2> colliderShapePoints = collider._collisionShape._computedPointsWorldPositions;
 	std::vector<CollisionInfo> collisionInfos = std::vector<CollisionInfo>(colliderShapePoints.size());
 
@@ -65,7 +66,7 @@ Ray::CollisionInfo Ray::cast(Vector2 a, Vector2 b) {
 	const double& u = constants.second;
 
 	//If there is collision
-	if (t > 0 && t < 1 && u > 0) {
+	if (t >= 0 && t <= 1 && u > 0) {
 		info.hasCollided = true;
 		info.collisionSurface = { a, b };
 		info.point = Vector2(a._x + t * (b._x - a._x), a._y + t * (b._y - a._y));

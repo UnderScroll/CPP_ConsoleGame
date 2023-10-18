@@ -2,10 +2,10 @@
 
 namespace core {
 
-Vector2 Vector2::RotateByRadians(float angle, Vector2 center) const
+Vector2 Vector2::RotateByRadians(double angle, Vector2 center) const
 {
-    float newX = cos(angle) * (_x - center._x) - sin(angle) * (_y - center._y) + center._x;
-    float newY = sin(angle) * (_x - center._x) + cos(angle) * (_y - center._y) + center._y;
+    double newX = cos(angle) * (_x - center._x) - sin(angle) * (_y - center._y) + center._x;
+    double newY = sin(angle) * (_x - center._x) + cos(angle) * (_y - center._y) + center._y;
     return Vector2(newX, newY);
 }
 
@@ -29,12 +29,12 @@ Vector2 operator-(Vector2 const& r_v2a, Vector2 const& r_v2b)
 }
 
 
-Vector2 operator*(float const& number, Vector2 const& r_v2b)
+Vector2 operator*(double const& number, Vector2 const& r_v2b)
 {
     return Vector2(number * r_v2b._x, number * r_v2b._y);
 }
 
-Vector2 operator*(Vector2 const& r_v2a, float const& number)
+Vector2 operator*(Vector2 const& r_v2a, double const& number)
 {
     return Vector2(number * r_v2a._x, number * r_v2a._y);
 }

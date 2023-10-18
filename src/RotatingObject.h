@@ -7,14 +7,14 @@ class RotatingObject :
     public GameObject
 {
 public:
-	float _angularVelocity;
+	double _angularVelocity;
 
 	// Inherited via GameObject
 	virtual void Update() override;
 
-	RotatingObject(float angularVelocity): _angularVelocity(angularVelocity){}
+	RotatingObject(double angularVelocity): _angularVelocity(angularVelocity){}
 
-	RotatingObject(float x, float y, float angularVelocity) : RotatingObject(angularVelocity) 
+	RotatingObject(double x, double y, double angularVelocity) : RotatingObject(angularVelocity) 
 	{
 		SetLocalPosition(Vector2(x, y));
 	}

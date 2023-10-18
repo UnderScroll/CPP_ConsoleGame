@@ -28,7 +28,7 @@ namespace core
 			ComputeDiameter();
 		};
 
-		float _rotationSpeed = 3.0f; //In degrees
+		double _rotationSpeed = 3.0f; //In degrees
 
 		size_t _colliderIndex;
 
@@ -39,7 +39,7 @@ namespace core
 	private:
 		States _state = Placed;
 		bool _hover;
-		float _diameter;
+		double _diameter;
 		std::weak_ptr<GameObject> _movePrompt;
 		std::weak_ptr<GameObject> _rotatePrompt;
 		void ComputeDiameter();

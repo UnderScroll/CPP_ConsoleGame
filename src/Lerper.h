@@ -14,12 +14,12 @@ namespace core
 				PingPong,
 			};
 
-		Lerper(float startValue, float endValue, int numberOfSteps,LerpCurve lerpCurve, LerpLoop lerpLoop):_startValue(startValue),_endValue(endValue),_numberOfSteps(numberOfSteps),_lerpCurve(lerpCurve),_lerpLoop(lerpLoop) {};
-		float GetValue(int step);
+		Lerper(double startValue, double endValue, int numberOfSteps,LerpCurve lerpCurve, LerpLoop lerpLoop):_startValue(startValue),_endValue(endValue),_numberOfSteps(numberOfSteps),_lerpCurve(lerpCurve),_lerpLoop(lerpLoop) {};
+		double GetValue(int step);
 	private:
 
-		float _startValue;
-		float _endValue;
+		double _startValue;
+		double _endValue;
 		int _numberOfSteps;
 		LerpCurve _lerpCurve;
 		LerpLoop _lerpLoop;

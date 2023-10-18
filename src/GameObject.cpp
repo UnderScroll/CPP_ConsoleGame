@@ -68,7 +68,7 @@ namespace core {
 		return biggestBoundingBox;
 	}
 
-	float GameObject::GetDiameter()
+	double GameObject::GetDiameter()
 	{
 		return GetBoundingBox().Magnitude();
 	}
@@ -97,19 +97,19 @@ namespace core {
 		}
 	}
 
-	float GameObject::GetWorldRotationInRadians()
+	double GameObject::GetWorldRotationInRadians()
 	{
 		if (_parent.expired()) return GetLocalRotationInRadians();
 		auto parent = _parent.lock();
 		return parent->GetWorldRotationInRadians() + GetLocalRotationInRadians();
 	}
 
-	float GameObject::GetWorldRotationInDegrees()
+	double GameObject::GetWorldRotationInDegrees()
 	{
 		return GetWorldRotationInRadians() * RAD_TO_DEG;
 	}
 
-	void GameObject::RotateToRadians(float targetAngle)
+	void GameObject::RotateToRadians(double targetAngle)
 	{
 		_localRotation = targetAngle;
 		for (auto child : _children) {

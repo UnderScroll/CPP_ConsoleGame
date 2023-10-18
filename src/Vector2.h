@@ -10,10 +10,10 @@ namespace core {
 	class Vector2
 	{
 	private:
-		float _magnitude;
+		double _magnitude;
 
 	public:
-		Vector2(float x, float y) {
+		Vector2(double x, double y) {
 			_x = x;
 			_y = y;
 			_magnitude = -1;
@@ -21,14 +21,14 @@ namespace core {
 
 		Vector2() :Vector2(0, 0) {};
 
-		float _x;
-		float _y;
+		double _x;
+		double _y;
 
-		float SqrMagnitude() {
+		double SqrMagnitude() {
 			return this->_x * this->_x + this->_y * this->_y;
 		}
 
-		float Magnitude() {
+		double Magnitude() {
 			if (_magnitude < 0) {
 				_magnitude = sqrt(SqrMagnitude());
 			}
@@ -36,27 +36,27 @@ namespace core {
 		}
 
 		Vector2 Normalized() {
-			float magnitude = Magnitude();
+			double magnitude = Magnitude();
 			return Vector2(this->_x / magnitude, this->_y / magnitude);
 		}
 
 		//Return a version where x = 1 or -1
 		Vector2 NormalizedX() {
-			float abs_x = abs(_x);
+			double abs_x = abs(_x);
 			return Vector2(_x / abs_x, this->_y / abs_x);
 		}
 
 		//Return a version where y = 1 or -1
 		Vector2 NormalizedY() {
-			float abs_y = abs(_y);
+			double abs_y = abs(_y);
 			return Vector2(_x / abs_y, _y / abs_y);
 		}
 
-		Vector2 RotateByRadians(float angle, Vector2 center = Vector2(0, 0)) const;
+		Vector2 RotateByRadians(double angle, Vector2 center = Vector2(0, 0)) const;
 
 		bool operator==(const Vector2& other) const;
 
-		Vector2 RotateByDegrees(float angle, Vector2 center = Vector2(0, 0)) const
+		Vector2 RotateByDegrees(double angle, Vector2 center = Vector2(0, 0)) const
 		{
 			return RotateByRadians(angle * DEG_TO_RAD);
 		}
@@ -72,9 +72,9 @@ namespace core {
 
 	Vector2 operator-(Vector2 const& r_v2a, Vector2 const& r_v2b);
 
-	Vector2 operator*(float const& number, Vector2 const& r_v2b);
+	Vector2 operator*(double const& number, Vector2 const& r_v2b);
 
-	Vector2 operator*(Vector2 const& r_v2a, float const& number);
+	Vector2 operator*(Vector2 const& r_v2a, double const& number);
 
 	Vector2 operator*(Vector2 const& r_v2a, Vector2 const& r_v2b);
 

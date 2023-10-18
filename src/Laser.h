@@ -28,7 +28,7 @@ public:
 
 	static std::vector<Collider> s_colliders;
 
-	virtual float GetDiameter() override;
+	virtual double GetDiameter() override;
 	
 private:
 	void computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter);

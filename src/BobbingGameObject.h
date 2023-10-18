@@ -6,8 +6,8 @@ namespace core {
 		public GameObject
 	{
 	public:
-		float _rotation1;
-		float _rotation2;
+		double _rotation1;
+		double _rotation2;
 		Vector2 _posModifier1;
 		Vector2 _posModifier2;
 		Vector2 _unmodifierPos;
@@ -19,10 +19,10 @@ namespace core {
 		Lerper _posXLerper;
 		Lerper _posYLerper;
 
-		BobbingGameObject(float rotation1, float rotation2, int numberOfSteps) : BobbingGameObject(rotation1, rotation2, Vector2(0, 0), Vector2(0, 0), numberOfSteps)
+		BobbingGameObject(double rotation1, double rotation2, int numberOfSteps) : BobbingGameObject(rotation1, rotation2, Vector2(0, 0), Vector2(0, 0), numberOfSteps)
 		{}
 
-		BobbingGameObject(float rotation1, float rotation2, Vector2 pos1, Vector2 pos2, int numberOfSteps) : _rotation1(rotation1), _rotation2(rotation2), _posModifier1(pos1), _posModifier2(pos2), _numberOfSteps(numberOfSteps)
+		BobbingGameObject(double rotation1, double rotation2, Vector2 pos1, Vector2 pos2, int numberOfSteps) : _rotation1(rotation1), _rotation2(rotation2), _posModifier1(pos1), _posModifier2(pos2), _numberOfSteps(numberOfSteps)
 			, _rotationLerper(Lerper(rotation1, rotation2, numberOfSteps, Lerper::LerpCurve::Smooth, Lerper::LerpLoop::PingPong)), 
 			_posXLerper(Lerper(pos1._x, pos2._x, numberOfSteps, Lerper::LerpCurve::Smooth, Lerper::LerpLoop::PingPong)),
 				_posYLerper(Lerper(pos1._y, pos2._y, numberOfSteps, Lerper::LerpCurve::Smooth, Lerper::LerpLoop::PingPong))

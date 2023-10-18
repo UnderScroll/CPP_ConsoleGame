@@ -10,10 +10,10 @@ namespace core {
 Vector2 Polygon::GetBoundingBox()
 {
 	ComputePoints();
-	float minX = INFINITY;
-	float minY = INFINITY;
-	float maxX = -INFINITY;
-	float maxY = -INFINITY;
+	double minX = INFINITY;
+	double minY = INFINITY;
+	double maxX = -INFINITY;
+	double maxY = -INFINITY;
 
 	for (auto point : _computedPoints)
 	{
@@ -26,10 +26,10 @@ Vector2 Polygon::GetBoundingBox()
 	return Vector2(maxX - minX, maxY - minY);
 }
 
-float Polygon::GetDiameter()
+double Polygon::GetDiameter()
 {
 	Vector2 boundingBox = GetBoundingBox();
-	float maxDiamater = boundingBox.Magnitude();
+	double maxDiamater = boundingBox.Magnitude();
 	for (auto point : _computedPoints)
 	{
 		maxDiamater = std::max(maxDiamater, (GetLocalPosition() + point).Magnitude());
@@ -64,7 +64,7 @@ void Polygon::Draw()
 	}
 }
 
-void Polygon::RotateToRadians(float targetAngle)
+void Polygon::RotateToRadians(double targetAngle)
 {
 	GameObject::RotateToRadians(targetAngle);
 	ComputePoints();
