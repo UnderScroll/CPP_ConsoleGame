@@ -1,0 +1,221 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="core::Vector2" Collapsed="true">
+    <Position X="10" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAQEIAAQBKAAAAAAIAQAAAAAAAQAAAAAIAAEAIAA=</HashCode>
+      <FileName>src\Vector2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::UIRect" Collapsed="true">
+    <Position X="2.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AARAAAAAAAABBwAEMAwAAAEAAAAAAAAJAAAAAAAAAEA=</HashCode>
+      <FileName>src\UIRect.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::TextObject" Collapsed="true">
+    <Position X="0.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>QFAAACEAAAAIAAAMAIAAAAAAAAAEAAKIAAgIAAAAAAA=</HashCode>
+      <FileName>src\TextObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::SoundManager" Collapsed="true">
+    <Position X="10" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAIAACIAAAFAgIAAAAIMAAEAABAAIAAAAAAAIpME=</HashCode>
+      <FileName>src\SoundManager.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Sensor" Collapsed="true">
+    <Position X="7.75" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Sensor.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::RotatingObject" Collapsed="true">
+    <Position X="2.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAIAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\RotatingObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Rectangle" Collapsed="true">
+    <Position X="4.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Rectangle.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Ray" Collapsed="true">
+    <Position X="10" Y="4.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAABAAAAAABACAAAAAAAAAAAAAAAAAAAAAAIgAAAAAA=</HashCode>
+      <FileName>src\Ray.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Polygon" Collapsed="true">
+    <Position X="6.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQEAAAAAAAAAgAAgAAAACAigAAAAAAAAAAAKhAAACA=</HashCode>
+      <FileName>src\Polygon.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::NextLevelButton" Collapsed="true">
+    <Position X="0.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAAAAQAAAAAA=</HashCode>
+      <FileName>src\NextLevelButton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::MovableObjectButton" Collapsed="true">
+    <Position X="2.5" Y="8.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAAABAABAAAIABAAAAAAAAAABAAAAAgAAAAAAAA=</HashCode>
+      <FileName>src\MovableObjectButton.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::MovableObject" Collapsed="true">
+    <Position X="0.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQACGAAAAAAAgAAAAAECAASAAQgEAAQEAAAAQAAAAI=</HashCode>
+      <FileName>src\MovableObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Level" Collapsed="true">
+    <Position X="15.5" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAAAAABAAAAAAAEAAEgAAABQAAAAAAABQIICA=</HashCode>
+      <FileName>src\Level.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Lerper" Collapsed="true">
+    <Position X="10" Y="6" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAIgAAAQAAAAAgAAAAJAAAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Lerper.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::Debug" Collapsed="true">
+    <Position X="18" Y="2.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAIAAAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\Debug.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::Level1" Collapsed="true">
+    <Position X="11.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\Level1.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::Level2" Collapsed="true">
+    <Position X="13.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\Level2.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::Level3" Collapsed="true">
+    <Position X="15.25" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\Level3.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::Level4" Collapsed="true">
+    <Position X="17" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\Level4.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::Level5" Collapsed="true">
+    <Position X="18.75" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAEAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\Level5.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::LevelEndMenu" Collapsed="true">
+    <Position X="20.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAIAAAAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\LevelEndMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::levels::LevelMainMenu" Collapsed="true">
+    <Position X="10" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAgAAAAEAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>src\Levels\LevelMainMenu.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Laser" Collapsed="true">
+    <Position X="0.5" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgQAAAAAAAAAAgAAAAAAAgAAQEAAIAAEAAAIghCAAAA=</HashCode>
+      <FileName>src\Laser.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::HorizontalLayoutGroup" Collapsed="true">
+    <Position X="4.5" Y="5.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAABAgAAAAAAAAAACAAAAAIAAAAAAAAAAAA=</HashCode>
+      <FileName>src\HorizontalLayoutGroup.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::GameObject" Collapsed="true">
+    <Position X="2.5" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQQAAIAgIAIUgAVAgAIAAAy4EBBEAAQIAAYAhIgpgA=</HashCode>
+      <FileName>src\GameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Drawable" Collapsed="true">
+    <Position X="5.25" Y="2.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAQAAAQAAAAIgAAQCAAAAIAAAAAAAAAAEAAAAAAAAA=</HashCode>
+      <FileName>src\Drawable.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Console" Collapsed="true">
+    <Position X="10" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAUgCAAAAAQAAAAAAQAABAAAwAAAAAAAAAFAEAA=</HashCode>
+      <FileName>src\Console.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Collider" Collapsed="true">
+    <Position X="7.75" Y="3.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQAQAAAAAAAAAEAAAAAAQAABAAAQAAAA=</HashCode>
+      <FileName>src\Collider.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Button" Collapsed="true">
+    <Position X="2.5" Y="6.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAQAAAAAABAIgAAAQAAAAAAAAAAAABAAAAAAACAEA=</HashCode>
+      <FileName>src\Button.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::BobbingGameObject" Collapsed="true">
+    <Position X="4.5" Y="4.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQAAAACAAAAEAAGAAggAQAAYAAAAAwAAAAAAAAAAAg=</HashCode>
+      <FileName>src\BobbingGameObject.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="core::Application" Collapsed="true">
+    <Position X="10" Y="3.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAQMIgACiBBAAiIAAAkIAFAEFAACAAAAQAAAIgAAIAM=</HashCode>
+      <FileName>src\Application.h</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
