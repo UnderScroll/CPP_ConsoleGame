@@ -71,6 +71,7 @@
     <None Include=".gitignore" />
     <None Include="README.md" />
     <None Include="res\doc.md" />
+    <None Include="src\ClassDiagram.cd" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="res\runtime.log" />

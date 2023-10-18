@@ -71,7 +71,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="core::MovableObjectButton" Collapsed="true">
-    <Position X="2.5" Y="8.25" Width="1.5" />
+    <Position X="2.5" Y="8.25" Width="2.5" />
     <TypeIdentifier>
       <HashCode>AAQAAAAABAABAAAIABAAAAAAAAAABAAAAAgAAAAAAAA=</HashCode>
       <FileName>src\MovableObjectButton.h</FileName>
@@ -156,6 +156,14 @@
   </Class>
   <Class Name="core::Laser" Collapsed="true">
     <Position X="0.5" Y="3.75" Width="1.5" />
+    <InheritanceLine Type="core::GameObject" ManuallyRouted="true" FixedFromPoint="true">
+      <Path>
+        <Point X="2.75" Y="3" />
+        <Point X="2.375" Y="3" />
+        <Point X="2.375" Y="4.096" />
+        <Point X="2" Y="4.096" />
+      </Path>
+    </InheritanceLine>
     <TypeIdentifier>
       <HashCode>AgQAAAAAAAAAAgAAAAAAAgAAQEAAIAAEAAAIghCAAAA=</HashCode>
       <FileName>src\Laser.h</FileName>
@@ -169,7 +177,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="core::GameObject" Collapsed="true">
-    <Position X="2.5" Y="2.25" Width="1.5" />
+    <Position X="2.75" Y="2.25" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAQQAAIAgIAIUgAVAgAIAAAy4EBBEAAQIAAYAhIgpgA=</HashCode>
       <FileName>src\GameObject.h</FileName>
@@ -185,7 +193,7 @@
   <Class Name="core::Console" Collapsed="true">
     <Position X="10" Y="5.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAEAAUgCAAAAAQAAAAAAQAABAAAwAAAAAAAAAFAEAA=</HashCode>
+      <HashCode>gAAAAAEgCAAAAQQAAAAAAQAABABQAAAAAAACAABAEAA=</HashCode>
       <FileName>src\Console.h</FileName>
     </TypeIdentifier>
   </Class>
@@ -213,7 +221,7 @@
   <Class Name="core::Application" Collapsed="true">
     <Position X="10" Y="3.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IAQMIgACiBBAAiIAAAkIAFAEFAACAAAAQAAAIgAAIAM=</HashCode>
+      <HashCode>IAUMIgAAiBBAAiIAAAkIAFAEFAACAAAAQAAAIgAAIAM=</HashCode>
       <FileName>src\Application.h</FileName>
     </TypeIdentifier>
   </Class>

@@ -10,7 +10,7 @@
 namespace core {
 
 class Laser 
-	:public MovableObject
+	:public GameObject
 {
 public:
 	Laser(Vector2 position = Vector2(0, 0), Vector2 direction = Vector2(0, 0));
