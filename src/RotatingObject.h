@@ -3,6 +3,9 @@
 
 namespace core {
 
+/*
+* A GameObject that can be rotated
+*/
 class RotatingObject :
     public GameObject
 {

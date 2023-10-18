@@ -7,6 +7,9 @@
 
 namespace core {
 
+	/*
+	Utility Vector2 class
+	*/
 	class Vector2
 	{
 	private:

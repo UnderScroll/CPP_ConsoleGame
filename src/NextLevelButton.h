@@ -2,6 +2,9 @@
 #include "Button.h"
 
 namespace core {
+	/*
+	The button class for the main menu
+	*/
 	class NextLevelButton :
 		public Button
 	{

@@ -5,6 +5,10 @@
 
 namespace core {
 
+/*
+An object that can be displayed on the console
+Contains various utility function for displaying to the console
+*/
 class Drawable {
 public:
 	virtual void Draw()=0;

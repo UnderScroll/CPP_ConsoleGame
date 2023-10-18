@@ -7,6 +7,10 @@
 
 namespace core {
 
+/*
+The main object for anything in the game
+Used to structure objects within the game
+*/
 class GameObject :
 	public Drawable,
 	public std::enable_shared_from_this<GameObject>

@@ -13,6 +13,10 @@ struct Pixel {
 	WORD color;
 	WORD backgroundColor;
 };
+
+/*
+Abstration class for the Windows console
+*/
 class Console {
 public:
 	void Setup();

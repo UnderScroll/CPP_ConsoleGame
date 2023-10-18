@@ -17,6 +17,9 @@
 
 namespace core 
 {
+	/*
+	A GameObject to draw text
+	*/
 	class TextObject :
 		public GameObject
 	{
@@ -32,7 +35,7 @@ namespace core
 		double GetAlpha() const { return _alpha; }
 		double GetSpacing() const { return _spacing; }
 
-		static std::vector<Vector2> GetPointsForLetter(char letter, int part=0);
+		static std::vector<Vector2> GetPointsForLetter(char letter, int part=0); //Returns the geometry of a letter
 
 		TextObject(Color color = WHITE, double alpha = 1, double spacing = 0.1f);;
 	private:

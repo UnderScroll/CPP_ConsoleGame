@@ -6,6 +6,9 @@
 
 namespace core {
 
+/*
+Class for Raycasting computation
+*/
 class Ray {
 public:
 	struct CollisionInfo {

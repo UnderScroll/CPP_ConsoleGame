@@ -3,6 +3,10 @@
 
 namespace core
 {
+	/*
+	A UI button
+	used for the placable reflective surfaces and menu elements
+	*/
 	class Button :
 		public UIRect
 	{

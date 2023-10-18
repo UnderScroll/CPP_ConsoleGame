@@ -6,6 +6,10 @@
 
 namespace core {
 
+/*
+An object that holds the geometry
+It can be rotated and transformed
+*/
 class Polygon :
 	public GameObject
 {
@@ -40,7 +44,7 @@ public:
 	};
 
 	void OnCreationOver() override;
-	void ComputePoints();
+	void ComputePoints(); //Computes the transformed points after rotation
 
 	std::vector<Vector2> _computedPointsWorldPositions;
 

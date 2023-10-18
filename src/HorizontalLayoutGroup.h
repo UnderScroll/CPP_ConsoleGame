@@ -1,6 +1,10 @@
 #pragma once
 #include "UIRect.h"
 namespace core {
+
+	/*
+	The UI for placable reflective surfaces
+	*/
 	class HorizontalLayoutGroup :
 		public UIRect
 	{

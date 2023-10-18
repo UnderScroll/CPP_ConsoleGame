@@ -4,6 +4,10 @@
 
 namespace core
 {
+	/*
+	Utility class for rectangular UI elements
+	Used for buttons
+	*/
 	class UIRect :
 		public GameObject
 	{

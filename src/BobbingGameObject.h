@@ -2,6 +2,11 @@
 #include "GameObject.h"
 #include "Lerper.h"
 namespace core {
+
+	/*
+	A GameObject that have an animation
+	Used for the main menu
+	*/
 	class BobbingGameObject :
 		public GameObject
 	{
