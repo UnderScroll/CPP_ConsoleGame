@@ -60,7 +60,7 @@ void Polygon::Draw()
 		Vector2 currentPoint = position+_computedPoints[i];
 		Vector2 nextPoint = position+_computedPoints[(i < _computedPoints.size() - 1) ? i + 1 : 0];
 
-		Drawable::DrawLine(currentPoint, nextPoint, _color);
+		Drawable::DrawLine(currentPoint, nextPoint, _color,_alpha);
 	}
 }
 

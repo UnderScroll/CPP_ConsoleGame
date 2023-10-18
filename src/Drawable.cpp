@@ -128,8 +128,7 @@ namespace core {
 		}
 #pragma omp parallel for num_threads(4)
 		for (auto pixelBrightness : pixelsBrightnesses) {
-
-			ColorPixel(pixelBrightness.first.first, pixelBrightness.first.second, color, pixelBrightness.second);
+			ColorPixel(pixelBrightness.first.first, pixelBrightness.first.second, color, alpha*pixelBrightness.second);
 		}
 	}
 #pragma endregion

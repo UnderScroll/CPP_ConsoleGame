@@ -15,16 +15,16 @@ void core::levels::Level5::LoadLevel() {
 	};
 
 	_rotatableElements = {
-		Rectangle(Vector2(5, 15), Vector2(35, 19), Drawable::Color::BLUE),
-		Rectangle(Vector2(15, 70), Vector2(45, 74), Drawable::Color::BLUE)
+		Rectangle(Vector2(5, 15), Vector2(35, 19), Drawable::Color::LIGHT_BLUE),
+		Rectangle(Vector2(15, 70), Vector2(45, 74), Drawable::Color::LIGHT_BLUE)
 	};
 
 	_movableElements = {
-		Polygon({ Vector2(-3, 4), Vector2(4, 0) , Vector2(-3, -4) }, true, Drawable::Color::MAGENTA),
-		Rectangle(Vector2(-15, -2), Vector2(15, 2), Drawable::Color::MAGENTA)
+		Polygon({ Vector2(-3, 4), Vector2(4, 0) , Vector2(-3, -4) }, true, Drawable::Color::PURPLE),
+		Rectangle(Vector2(-15, -2), Vector2(15, 2), Drawable::Color::PURPLE)
 	};
 
-	_sensor = Sensor(Rectangle(Vector2(80, 40), Vector2(90, 50), Drawable::Color::GREEN));
+	_sensorPos = Vector2(85, 45);
 
 	Level::LoadLevel();
 }

@@ -63,15 +63,15 @@ void Application::Setup() {
 
 	_currentLevelIndex = 0;
 
-	//AddLevel<levels::LevelMainMenu>();
-	//AddLevel<levels::Level1>();
-	//AddLevel<levels::Level2>();
-	//AddLevel<levels::Level3>();
-	//AddLevel<levels::Level4>();
-	//AddLevel<levels::Level5>();
-	//AddLevel<levels::LevelEndMenu>();
+	AddLevel<levels::LevelMainMenu>();
+	AddLevel<levels::Level1>();
+	AddLevel<levels::Level2>();
+	AddLevel<levels::Level3>();
+	AddLevel<levels::Level4>();
+	AddLevel<levels::Level5>();
+	AddLevel<levels::LevelEndMenu>();
 
-	AddLevel<levels::Debug>();
+	/*AddLevel<levels::Debug>();*/
 
 	LoadLevel(_currentLevelIndex);
 }

@@ -18,6 +18,7 @@ public:
 	std::weak_ptr<GameObject> _parent = std::weak_ptr<GameObject>();
 
 	Color _color;
+	double _alpha=1;
 
 	template <typename T>
 	static std::shared_ptr<T> AddGameObjectToRoot(T gameObject)

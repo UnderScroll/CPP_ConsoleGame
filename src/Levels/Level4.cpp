@@ -13,10 +13,10 @@ void core::levels::Level4::LoadLevel() {
 	};
 
 	_movableElements = {
-		Polygon({ Vector2(-3, 4), Vector2(4, 0) , Vector2(-3, -4) }, true, Drawable::Color::MAGENTA)
+		Polygon({ Vector2(-3, 4), Vector2(4, 0) , Vector2(-3, -4) }, true, Drawable::Color::PURPLE)
 	};
 
-	_sensor = Sensor(Rectangle(Vector2(130, 10), Vector2(140, 20), Drawable::Color::GREEN));
+	_sensorPos = Vector2(135, 15);
 
 	Level::LoadLevel();
 }

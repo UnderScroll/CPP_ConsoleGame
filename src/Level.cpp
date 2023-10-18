@@ -9,6 +9,7 @@
 #include "MovableObject.h"
 #include "MovableObjectButton.h"
 #include "SoundManager.h"
+#include "Rectangle.h"
 
 namespace core {
 	void Level::LoadLevel()
@@ -62,17 +63,32 @@ namespace core {
 			Laser::s_colliders.push_back(Collider(pol, Collider::Wall, true));
 		}
 
+		auto sensor = Sensor(Rectangle(_sensorPos + Vector2(-5, -5), _sensorPos + Vector2(5, 5), Drawable::Color::GREEN));
+
+		GameObject::AddGameObjectToRoot<Polygon>(sensor._collisionShape);
+
+		auto sensorLevelDisplayerPtr = GameObject::AddGameObjectToRoot<Polygon>(Polygon(
+			{
+				Vector2(2.66667, 0),
+				Vector2(1.33333, 2.66667),
+				Vector2(-1.33333, 2.66667),
+				Vector2(-2.66667, 0),
+				Vector2(-1.33333, -2.66667),
+				Vector2(1.33333, -2.66667)
+			}, true, Drawable::RED, 0,_sensorPos));
+
 		for (Laser& laser : _lasers) {
 			auto movablElementPtr = GameObject::AddGameObjectToRoot<MovableObject>(MovableObject());
 			movablElementPtr->_canOnlyRotate = true;
 			movablElementPtr->SetLocalPosition(laser._position);
-			auto polPtr = movablElementPtr->AddChild<Laser>(laser);
-
+			auto laserPtr = movablElementPtr->AddChild<Laser>(laser);
+			
+			laserPtr->_sensorLevelDisplayer= sensorLevelDisplayerPtr;
 			//Laser::s_colliders.push_back(Collider(laser._laserBase, Collider::Wall, false));
 		}
 
-		GameObject::AddGameObjectToRoot<Polygon>(_sensor._collisionShape);
-		Laser::s_colliders.push_back(_sensor);	
+		Laser::s_colliders.push_back(sensor);	
+
 	}
 
 	void Level::ClearCurrentLevel()

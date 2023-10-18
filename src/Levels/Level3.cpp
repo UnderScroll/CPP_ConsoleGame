@@ -16,11 +16,11 @@ void core::levels::Level3::LoadLevel() {
 	};
 
 	_rotatableElements = {
-		Rectangle(Vector2(120, 15), Vector2(150, 19), Drawable::Color::BLUE),
-		Rectangle(Vector2(15, 15), Vector2(35, 19), Drawable::Color::BLUE)
+		Rectangle(Vector2(120, 15), Vector2(150, 19), Drawable::Color::LIGHT_BLUE),
+		Rectangle(Vector2(15, 15), Vector2(35, 19), Drawable::Color::LIGHT_BLUE)
 	};
 
-	_sensor = Sensor(Rectangle(Vector2(127, 77), Vector2(137, 87), Drawable::Color::GREEN));
+	_sensorPos = Vector2(132, 82);
 
 	Level::LoadLevel();
 }

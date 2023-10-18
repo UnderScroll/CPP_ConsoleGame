@@ -30,6 +30,7 @@ public:
 
 	virtual double GetDiameter() override;
 	
+	std::weak_ptr<GameObject> _sensorLevelDisplayer;
 private:
 	void computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned int nb_iter);
 

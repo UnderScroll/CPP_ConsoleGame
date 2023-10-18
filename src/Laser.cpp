@@ -91,6 +91,8 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 				Application::LoadNextLevel();
 				return;
 			}	
+			if (_sensorLevelDisplayer.expired()) return;
+			_sensorLevelDisplayer.lock()->_alpha=(_sensor->chargeLevel / 99.0);
 		}
 		else {
 			if (_sensor != nullptr) _sensor->chargeLevel = 0;

@@ -9,7 +9,7 @@ void core::levels::Level1::LoadLevel() {
 		Polygon({ Vector2(0, 0), Vector2(163, 0), Vector2(163, 100), Vector2(0, 100) }, true, Drawable::Color::WHITE, 0)
 	};
 
-	_sensor = Sensor(Rectangle(Vector2(130, 10), Vector2(140, 20), Drawable::Color::GREEN));
+	_sensorPos = Vector2(135, 15); 
 
 	Level::LoadLevel();
 }

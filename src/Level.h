@@ -18,7 +18,7 @@ namespace core {
 		std::vector<Polygon> _rotatableElements;
 		std::vector<Polygon> _staticNonReflectivesElements;
 		std::vector<Polygon> _staticReflectivesElements;
-		Sensor _sensor = Sensor();
+		Vector2 _sensorPos = Vector2();
 
 		std::vector<Laser> _lasers;
 
