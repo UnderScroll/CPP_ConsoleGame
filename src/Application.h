@@ -12,6 +12,9 @@
 
 namespace core {
 
+	/*
+	* Main class, contains the gameloop 
+	*/
 	class Application {
 	public:
 		static void Run() { GetInstance().InstanceRun(); };

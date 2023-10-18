@@ -1,6 +1,9 @@
 #pragma once
 namespace core
 {
+	/*
+	Utility class for linear interpolation
+	*/
 	class Lerper
 	{
 		public:

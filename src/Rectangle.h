@@ -3,6 +3,9 @@
 
 namespace core {
 
+/*
+Utility class to construct rectangle polygons
+*/
 class Rectangle :
     public Polygon
 {

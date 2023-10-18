@@ -4,6 +4,9 @@
 
 namespace core {
 
+/*
+An object that can collide with a ray
+*/
 class Collider {
 public:
 	virtual ~Collider() {};

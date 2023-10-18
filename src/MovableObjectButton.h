@@ -6,6 +6,9 @@ namespace core
 {
 #define FAR_AWAY Vector2(100000,100000)
 
+	/*
+	The button class for MovableObjects
+	*/
 	class MovableObjectButton :
 		public Button
 	{

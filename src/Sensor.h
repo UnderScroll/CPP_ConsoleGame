@@ -3,6 +3,9 @@
 
 namespace core{
 
+/*
+Sensor that the laser must light to end the level
+*/
 class Sensor
 	: public Collider
 {

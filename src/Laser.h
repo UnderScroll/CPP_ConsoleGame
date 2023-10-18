@@ -9,6 +9,9 @@
 
 namespace core {
 
+/*
+The GameObject for the laser
+*/
 class Laser 
 	:public GameObject
 {

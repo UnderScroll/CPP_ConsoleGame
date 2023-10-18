@@ -5,6 +5,9 @@
 
 namespace core
 {
+	/*
+	A gameObject that can be moved by the player
+	*/
 	class MovableObject:
 		public GameObject
 	{

@@ -8,12 +8,16 @@
 #include "Sensor.h"
 
 namespace core {
+	/*
+	Main class for level loading
+	*/
 	class Level
 	{
 	public:
 		virtual void LoadLevel();
 		static void ClearCurrentLevel();
 
+		//The different kind of objects in a level
 		std::vector<Polygon> _movableElements;
 		std::vector<Polygon> _rotatableElements;
 		std::vector<Polygon> _staticNonReflectivesElements;

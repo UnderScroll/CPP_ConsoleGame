@@ -26,7 +26,9 @@ namespace core {
 	};
 
 
-
+	/*
+	Utility sound manager class
+	*/
 	class SoundManager
 	{
 	public:
