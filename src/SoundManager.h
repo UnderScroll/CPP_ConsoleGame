@@ -31,7 +31,7 @@ namespace core {
 	{
 	public:
 		static void StartLoop(SoundEffect &soundEffect, bool needToCreateAPointer = false);
-		static void StopLoop(SoundEffect &soundEffect);
+		static void StopLoop(SoundEffect &soundEffect, bool removeFromVector=true);
 		static void StopAllLoops();
 
 		static void PlaySoundEffect(SoundEffect& soundEffect, bool stopPrevious = true, bool looping = false, bool needToCreateAPointer=false);
@@ -55,7 +55,7 @@ namespace core {
 		static const float _laserPitchIncrement;
 		static const int _maxNbrOfLaserPitchShift;
 
-		static std::vector<SoundEffect> _currentlyLooping;
+		static std::vector<SoundEffect*> _currentlyLooping;
 		static irrklang::ISoundEngine* _engine;
 
 		static bool _isSetup;

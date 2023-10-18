@@ -5,7 +5,6 @@
 #include "Application.h"
 #include "SoundManager.h"
 #undef max
-#define MAX_REFLECTIONS 3
 #define MAX_REFLECTIONS 20
 //When we reflect the laser, we should start the reflected ray a bit further from the reflection point, to avoid colliding with the same surface again, this is this distance.
 #define REFLECTION_SAFETY_DISTANCE 0.01
@@ -87,8 +86,10 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
 			//TO DO : Add audio and/or visual feedbacks
 			_sensor = closestCollisionPointInfo.collider;
-			if (++_sensor->chargeLevel > 100)
+			if (++_sensor->chargeLevel > 100) {
 				Application::LoadNextLevel();
+				return;
+			}	
 		}
 		else {
 			if (_sensor != nullptr) _sensor->chargeLevel = 0;
@@ -102,11 +103,12 @@ void Laser::Update() {
 	
 	_direction = Vector2(cos(GetLocalRotationInRadians()), sin(GetLocalRotationInRadians()));
 
+	//Each collision creates a point, we remove the start and end point and badabim badaboom, we get the number of collisions	
+	SoundManager::PlayLaserSound(_laserBeam._points.size() - 2);
+
 	computeBeam(s_colliders);
 
 	_laserBeam.ComputePoints();
-	//Each collision creates a point, we remove the start and end point and badabim badaboom, we get the number of collisions
-	SoundManager::PlayLaserSound(_laserBeam._points.size() - 2);
 }
 
 void Laser::Draw() {

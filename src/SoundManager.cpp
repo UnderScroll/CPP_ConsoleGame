@@ -22,10 +22,10 @@ namespace core {
 
 		SoundManager::PlaySoundEffect(soundEffect,false,true, needToCreateAPointer);
 		soundEffect.isLooping = true;
-		_currentlyLooping.push_back(soundEffect);
+		_currentlyLooping.push_back(&soundEffect);
 	}
 
-	void SoundManager::StopLoop(SoundEffect &soundEffect)
+	void SoundManager::StopLoop(SoundEffect &soundEffect, bool removeFromVector)
 	{
 		if (!_isSetup)
 			Setup();
@@ -35,25 +35,34 @@ namespace core {
 		}
 
 		_engine->stopAllSoundsOfSoundSource(soundEffect.soundSource);
-		soundEffect.sound->drop();
+
+		soundEffect.isLooping = false;
+
+		if(!removeFromVector)
+			return;
 
 		//Remove the sound source from the _currentlyLooping ones
 		for (int i = 0; i < _currentlyLooping.size(); i++)
 		{
-			if (_currentlyLooping[i].soundSource == soundEffect.soundSource)
+			if (_currentlyLooping[i]->soundSource == soundEffect.soundSource)
 			{
 				_currentlyLooping.erase(_currentlyLooping.begin() + i);
 				break;
 			}
 		}
 
-		soundEffect.isLooping = false;
 	}
 
 	void SoundManager::StopAllLoops()
 	{
 		if (!_isSetup)
 			Setup();
+
+		for (int i = 0; i < _currentlyLooping.size(); i++)
+		{
+			StopLoop(*_currentlyLooping[i], false);
+		}
+		_currentlyLooping.clear();
 	}
 
 	/// <summary>
@@ -78,6 +87,12 @@ namespace core {
 		if (stopPrevious)
 		{
 			_engine->stopAllSoundsOfSoundSource(soundEffect.soundSource);
+		}
+
+		if (soundEffect.sound != nullptr) {
+			soundEffect.sound->drop(); //Avoid memory leaks
+			//We drop it now because dropping it at another time (when you unload a level) could mess up the code, because not every update is over when a new level is loaded, 
+			//So an object could still ask to change the pitch of a dropped sound
 		}
 
 		soundEffect.sound=_engine->play2D(soundEffect.soundSource,looping,false,false, needToCreateAPointer);
@@ -105,7 +120,7 @@ namespace core {
 	const float SoundManager::_laserPitchIncrement = 0.1f;
 	const int SoundManager::_maxNbrOfLaserPitchShift = 10;
 	
-	std::vector<SoundEffect> SoundManager::_currentlyLooping= std::vector<SoundEffect>();
+	std::vector<SoundEffect*> SoundManager::_currentlyLooping= std::vector<SoundEffect*>();
 
 	void SoundManager::PlayClickSound()
 	{

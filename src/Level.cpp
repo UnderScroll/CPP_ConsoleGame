@@ -8,6 +8,7 @@
 #include "TextObject.h"
 #include "MovableObject.h"
 #include "MovableObjectButton.h"
+#include "SoundManager.h"
 
 namespace core {
 	void Level::LoadLevel()
@@ -80,6 +81,7 @@ namespace core {
 			rootGameObject->Destroy();
 		}
 		GameObject::_rootGameObjects.clear();
+		SoundManager::StopAllLoops();
 		Laser::s_colliders.clear();
 	}
 }

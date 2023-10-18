@@ -28,6 +28,7 @@ namespace core {
 			auto r_game_object=r_game_objects[i];
 
 			if(!(r_game_object)->_enabled) continue;
+			if((r_game_object)->_destroyed) continue;
 
 			(r_game_object)->Update();
 		}
