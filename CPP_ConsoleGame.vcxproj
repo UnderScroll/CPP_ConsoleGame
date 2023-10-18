@@ -87,6 +87,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\intermidiates\</IntDir>
+    <IncludePath>res\libraries\irrKlang\include;$(IncludePath)</IncludePath>
+    <LibraryPath>res\libraries\irrKlang\lib\WinX64-visualStudio;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -131,7 +133,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>copy /Y "$(SolutionDir)res\libraries\irrKlang\bin\irrklang.dll" "$(TargetDir)"</Command>
+      <Command>copy /Y "$(SolutionDir)res\libraries\irrKlang\bin\irrklang.dll" "$(TargetDir)"
+xcopy /E /I /Y "$(SolutionDir)res\sounds\" "$(TargetDir)\res\sounds\"</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -150,6 +153,10 @@
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
+    <PostBuildEvent>
+      <Command>copy /Y "$(SolutionDir)res\libraries\irrKlang\bin\irrklang.dll" "$(TargetDir)"
+xcopy /E /I /Y "$(SolutionDir)res\sounds\" "$(TargetDir)\res\sounds\"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Levels\Debug.cpp" />
