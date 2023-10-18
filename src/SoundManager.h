@@ -42,6 +42,8 @@ namespace core {
 
 		static void PlayNextLevelSound();
 
+		static void PlayPoweringUpSound(float stage);
+
 		static void PlayLaserSound(int numberOfCollisions);
 
 		static void Setup();
@@ -52,7 +54,7 @@ namespace core {
 		static SoundEffect _nextLevelSound;
 		static SoundEffect _laserSound;
 		static const float _laserPitchStart;
-		static const float _laserPitchIncrement;
+		static const float _laserPitchEnd;
 		static const int _maxNbrOfLaserPitchShift;
 
 		static std::vector<SoundEffect*> _currentlyLooping;

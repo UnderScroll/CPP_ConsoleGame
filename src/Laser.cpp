@@ -86,6 +86,7 @@ void Laser::computeBeamRec(std::vector<Collider>& colliders, Ray& ray, unsigned 
 		if (closestCollisionPointInfo.collider->_type == Collider::Type::Sensor) {
 			//TO DO : Add audio and/or visual feedbacks
 			_sensor = closestCollisionPointInfo.collider;
+			SoundManager::PlayPoweringUpSound(_sensor->chargeLevel / 99.0);
 			if (++_sensor->chargeLevel > 100) {
 				Application::LoadNextLevel();
 				return;
@@ -104,7 +105,8 @@ void Laser::Update() {
 	_direction = Vector2(cos(GetLocalRotationInRadians()), sin(GetLocalRotationInRadians()));
 
 	//Each collision creates a point, we remove the start and end point and badabim badaboom, we get the number of collisions	
-	SoundManager::PlayLaserSound(_laserBeam._points.size() - 2);
+	// I removed the sound effect because it was annoying
+	//SoundManager::PlayLaserSound(_laserBeam._points.size() - 2);
 
 	computeBeam(s_colliders);
 

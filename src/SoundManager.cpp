@@ -115,9 +115,9 @@ namespace core {
 	SoundEffect SoundManager::_clickSound = SoundEffect("res/sounds/click.wav");
 	SoundEffect SoundManager::_rotateSound = SoundEffect("res/sounds/rotatingObjectLoop.wav");
 	SoundEffect SoundManager::_nextLevelSound = SoundEffect("res/sounds/nextLevel2.wav");
-	SoundEffect SoundManager::_laserSound = SoundEffect("res/sounds/laserLoop.wav",0.02f);
-	const float SoundManager::_laserPitchStart = 0.8f;
-	const float SoundManager::_laserPitchIncrement = 0.1f;
+	SoundEffect SoundManager::_laserSound = SoundEffect("res/sounds/laserLoop.wav",0.6f);
+	const float SoundManager::_laserPitchStart = 0.5f;
+	const float SoundManager::_laserPitchEnd = 3;
 	const int SoundManager::_maxNbrOfLaserPitchShift = 10;
 	
 	std::vector<SoundEffect*> SoundManager::_currentlyLooping= std::vector<SoundEffect*>();
@@ -137,6 +137,14 @@ namespace core {
 		PlaySoundEffect(_nextLevelSound);
 	}
 
+	void SoundManager::PlayPoweringUpSound(float stage) {
+		PlaySoundEffect(_laserSound, false, false, true);
+		
+		PlaySoundEffect(_laserSound,false,true);
+		_laserSound.sound->setPlaybackSpeed(_laserPitchStart + stage * (_laserPitchEnd-_laserPitchStart));
+	}
+
+	//Never called because it was too annoying
 	void SoundManager::PlayLaserSound(int numberOfCollisions)
 	{
 		if(numberOfCollisions < 0)
@@ -146,6 +154,6 @@ namespace core {
 			numberOfCollisions = _maxNbrOfLaserPitchShift;
 
 		StartLoop(_laserSound,true);
-		_laserSound.sound->setPlaybackSpeed(_laserPitchStart + numberOfCollisions * _laserPitchIncrement);
+		_laserSound.sound->setPlaybackSpeed(_laserPitchStart + float(numberOfCollisions/ _maxNbrOfLaserPitchShift) * (_laserPitchEnd- _laserPitchStart));
 	}
 }
